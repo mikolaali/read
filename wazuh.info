@@ -1,0 +1,573 @@
+1514	Wazuh UDP
+1515	Wazuh TCP
+514	Wazuh UDP
+55000	Wazuh API
+5000	Logstash TCP input
+9200	Elasticsearch HTTP
+9300	Elasticsearch TCP transport
+5601	Kibana
+
+Integration 
+Slack  -mini chat --good  - $
+Pagerduty  -- msg routing to different sd team
+VirusTotal -- check , if syscheck alerts comes
+
+
+----- configuring syslog output
+<server>IP</server>
+
+/var/ossec/bin/ossec-control enable client-syslog
+service wazuh-manager restart
+
+
+------- Generating automatic reports
+every day configure
+<ossec_config>
+  <reports>
+      <category>syscheck</category>
+      <title>Daily report: File changes</title>
+      <email_to>example@test.com</email_to>
+  </reports>
+</ossec_config>
+
+<ossec_config>
+  <reports>
+      <level>10</level>
+      <title>Daily report: Alerts with level higher than 10</title>
+      <email_to>example@test.com</email_to>
+  </reports>
+</ossec_config>
+
+------ email notification
+<ossec_config>
+    <global>
+        <email_notification>yes</email_notification>
+        <email_to>me@test.com</email_to>
+        <smtp_server>mail.test.com..</smtp_server>
+        <email_from>wazuh@test.com</email_from>
+    </global>
+    ...
+</ossec_config>
+
+# apt-get install postfix mailutils libsasl2-2 ca-certificates libsasl2-modules
+/etc/postfix/main.cf
+relayhost = [smtp.gmail.com]:587
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_CAfile = /etc/ssl/certs/thawte_Primary_Root_CA.pem
+smtp_use_tls = yes
+
+# echo [smtp.gmail.com]:587 USERNAME@gmail.com:PASSWORD > /etc/postfix/sasl_passwd
+# postmap /etc/postfix/sasl_passwd
+# chmod 400 /etc/postfix/sasl_passwd
+
+# chown root:root /etc/postfix/sasl_passwd /etc/postfix/sasl_passwd.db
+# chmod 0600 /etc/postfix/sasl_passwd /etc/postfix/sasl_passwd.db
+
+ systemctl reload postfix
+
+ echo "Test mail from postfix" | mail -s "Test Postfix" -r "you@example.com" you@example.com
+
+Configure Wazuh in the /var/ossec/etc/ossec.conf as follows:
+
+<global>
+  <email_notification>yes</email_notification>
+  <smtp_server>localhost</smtp_server>
+  <email_from>USERNAME@gmail.com</email_from>
+  <email_to>you@example.com</email_to>
+</global>
+
+
+---------- agent installation and configure  - ------------
+# /var/ossec/bin/agent-auth -m 192.168.1.2
+vim /Library/Ossec/etc/ossec.conf
+<server>10.245.0.46</server>
+
+Otherwise, you can create a self-signed certificate:
+openssl req -x509 -batch -nodes -days 365 -newkey rsa:2048 -keyout /var/ossec/etc/sslmanager.key -out /var/ossec/etc/sslmanager.cert
+
+/var/ossec/bin/ossec-authd
+
+agent:
+/var/ossec/bin/agent-auth -m server_IP
+
+If you want to add agents with a dynamic IP address (like using any on manage_agents) you must change etc/ossec.conf on the server-side:
+
+(Manager)
+
+<auth>
+    <use_source_ip>no</use_source_ip>
+</auth>
+
+Launching the authd daemon with default options would allow any agent to register itself, and then connect to a manager. The following options provide some mechanisms to authorize connections:
+
+Use a password to authorize agents  -----------
+# echo "TopSecret" > /var/ossec/etc/authd.pass
+  # /var/ossec/bin/ossec-authd -P
+
+If you don’t specify a password, then authd will create a password itself and tell you what it is:
+
+(Manager)
+
+  # /var/ossec/bin/ossec-authd -P
+
+(Agent)
+
+# /var/ossec/bin/agent-auth -m 192.168.1.2 -P "abcd1234"
+
+Use SSL to verify hosts
+First we are going to create a certificate of authority (CA) that we will use to sign the certificates for the manager and agents. Hosts will receive a copy of this certificate in order to verify the remote certificate:
+
+# openssl req -x509 -new -nodes -newkey rsa:2048 -keyout rootCA.key -out rootCA.pem -batch -subj "/C=US/ST=CA/O=Manager"
+
+Verify manager via SSL
+Issue and sign a certificate for the authd server, entering the hostname or the IP address that agents will use to connect to the server. For example, if the server’s IP is 192.168.1.2:
+
+# openssl req -new -nodes -newkey rsa:2048 -keyout sslmanager.key -out sslmanager.csr -subj '/C=US/CN=192.168.1.2'
+# openssl x509 -req -days 365 -in sslmanager.csr -CA rootCA.pem -CAkey rootCA.key -out sslmanager.cert -CAcreateserial
+
+Copy the newly created certificate and the key to the manager’s etc folder and start ossec-authd:
+
+(Manager)
+
+# cp sslmanager.cert sslmanager.key /var/ossec/etc
+# /var/ossec/bin/ossec-authd
+Copy the CA (but not the key) to the agent’s etc folder and run agent-auth:
+
+(Agent)
+
+# cp rootCA.pem /var/ossec/etc
+# /var/ossec/bin/agent-auth -m 192.168.1.2 -v /var/ossec/etc/rootCA.pem
+
+Verify agents via SSL (no host validation)
+
+In this example, we are going to create a certificate for agents without specifying their hostname, so that the same certificate can be used by many agents. This verifies that agents have a certificate signed by our CA, no matter where they are connecting from.
+
+Issue and sign a certificate for the agent. Note that we will not enter the common name field:
+# openssl req -new -nodes -newkey rsa:2048 -keyout sslagent.key -out sslagent.csr -batch
+# openssl x509 -req -days 365 -in sslagent.csr -CA rootCA.pem -CAkey rootCA.key -out sslagent.cert -CAcreateserial
+
+Copy the CA (but not the key) to the manager’s etc folder (if not already there) and start ossec-authd:
+(Manager)
+
+# cp rootCA.pem /var/ossec/etc
+# /var/ossec/bin/ossec-authd -v /var/ossec/etc/rootCA.pem
+Copy the newly created certificate and key to the agent’s etc folder and run agent-auth. For example, if the server’s IP is 192.168.1.2:
+(Agent)
+
+# cp sslagent.cert sslagent.key /var/ossec/etc
+# /var/ossec/bin/agent-auth -m 192.168.1.2 -x /var/ossec/etc/sslagent.cert -k /var/ossec/etc/sslagent.key
+
+Verify agents via SSL (host validation)
+
+This is an alternative method to the last section. In this case, we will bind the agent’s certificate to the agent IP address as seen by the manager.
+
+Issue and sign a certificate for the agent. Then enter its hostname or IP address into the common name field. For example, if the agent’s IP is 192.168.1.3:
+# openssl req -new -nodes -newkey rsa:2048 -keyout sslagent.key -out sslagent.csr -subj '/C=US/CN=192.168.1.3'
+# openssl x509 -req -days 365 -in sslagent.csr -CA rootCA.pem -CAkey rootCA.key -out sslagent.cert -CAcreateserial
+
+(Manager)
+
+# cp rootCA.pem /var/ossec/etc
+# /var/ossec/bin/ossec-authd -v /var/ossec/etc/rootCA.pem -s
+Copy the newly created certificate and key to the agent’s etc folder and run agent-auth. For example, if the server’s IP is 192.168.1.2:
+(Agent)
+
+# cp sslagent.cert sslagent.key /var/ossec/etc
+# /var/ossec/bin/agent-auth -m 192.168.1.2 -x /var/ossec/etc/sslagent.cert -k /var/ossec/etc/sslagent.key
+
+---------------  Register Agent useng command line ----------------
+On the manager, run manage_agents:
+# /var/ossec/bin/manage_agents
+Now on the agent run manage_agents:
+# /var/ossec/bin/manage_agents
+Select I to import a key and paste in the key that you extracted on the manager:
+
+Choose your action: I or Q: I
+service wazuh-agent restart
+
+in case of reinstalling Manager Server
+/var/ossec/bin/manage_agents -n Server1 -a 10.10.10.10 -F 0
+
+----------  Listing Agents ----------
+
+The binary /var/ossec/bin/agent_control allows for the retrieval of a list of the available agents:
+
+# /var/ossec/bin/agent_control -l
+
+----------  Remove agent -----------
+/var/ossec/bin/manage_agents
+R
+001
+
+or 
+with no confirmation
+/var/ossec/bin/mamage_agents -r 001
+
+--------  RestFull API 
+# curl -u foo:bar -X POST -d 'name=NewAgent&ip=10.0.0.8' "http://localhost:55000/agents"
+{"error":0,"data":"001"}
+Step 2: Get the agent key.
+
+# curl -u foo:bar -X GET "http://localhost:55000/agents/001/key"
+{"error":0,"data":"MDAxIE5ld0FnZW50IDEwLjAuMC44IDM0MGQ1NjNkODQyNjcxMWIyYzUzZTE1MGIzYjEyYWVlMTU1ODgxMzVhNDE3MWQ1Y2IzZDY4M2Y0YjA0ZWVjYzM="}
+
+Step 3: Copy the key to the agent.
+
+# /var/ossec/bin/manage_agents -i MDAxIE5ld0FnZW50IDEwLjAuMC44IDM0MGQ1NjNkODQyNjcxMWIyYzUzZTE1MGIzYjEyYWVlMTU1ODgxMzVhNDE3MWQ1Y2IzZDY4M2Y0YjA0ZWVjYzM=
+
+service wazuh-agent restart 
+
+-------- Listing agents
+# curl -u foo:bar "http://localhost:55000/agents?pretty"
+/var/ossec/bin/agent_control -l
+
+-------- Remove agent
+# curl -u foo:bar -X DELETE "http://localhost:55000/agents/002"
+/manage_agents
+R
+
+-----		grouping agents		--------------
+serving agent's configs
+/var/ossec/etc/shared/default/
+
+once an agent has benn added to the manager ,assign it to a group using 
+/var/ossec/bin/agent_groups -a -i 002 -g dbms  # for example
+
+Using the API:
+curl -u foo:bar -X PUT "http://localhost:55000/agents/002/group/dbms?pretty"
+The group must be created before.
+
+To check use
+/var/ossec/bin/agent_groups -l -g dbms
+or
+curl -u foo:bar -X GET "http://localhost:55000/agents/groups/dbms?pretty"
+
+After creating group, its agent.conf file can be edited to include the specific configuration you want assign to this group.
+/var/ossec/etc/shared/dbms/agent.conf each agent which belong to this group will receive this file
+
+Multiple groups
+
+New in version 3.7.0.
+
+Since Wazuh v3.7.0, agents have the ability to belong to multiple groups. The agents will receive all the configuration files from each group. Configuration received from the last assigned group has more priority than the other ones.
+
+With the agent_groups CLI, agents can be registered to groups on the same way:
+
+$ /var/ossec/bin/agent_groups -a -i 001 -g webserver
+$ /var/ossec/bin/agent_groups -a -i 001 -g apache
+Do you want to add the group 'apache' to the agent '001'? [y/N]: y
+
+# /var/ossec/bin/agent-auth -m MANAGER_IP -G webserver,apache  
+
+------	Listing groups and configuration	------------
+/var/ossec/bin/agent_groups -l -g webserver
+
+which groups assigned to agent
+/varossec/bin/agent_groups -s -i 001
+
+-----  Making changes ---------
+/var/ossec/bin/agent_groups -r -i 001 -g apache -q
+/var/ossec/bin/agent_groups -s -i 001   # list groups
+
+--------  synchronization status of the group configuration for a single agent:
+/bin/agent_groups -S -i 001
+curl -u foo:bar -X GET "http://localhost:55000/agents/001/group/is_sync?pretty"
+
+======  Agent updating  ========
+agent_upgrade -l
+agent_upgrade -a 002
+
+agent_control -i 002
+
+Using the RESTful API
+curl -u foo:bar -X GET "http://localhost:55000/agents/outdated?pretty"
+
+curl -u foo:bar -X PUT "http://localhost:55000/agents/002/upgrade?pretty"
+
+Check the upgrade result:
+curl -u foo:bar -X GET "http://localhost:55000/agents/002/upgrade_result?pretty"
+
+curl -u foo:bar -X GET "http://localhost:55000/agents/002?pretty"
+
+=========  Adding a custom repository  ==========
+
+=========	LOG COLLECTION		=========
+---- Log files
+<localfile>
+	<location>/var/log/example.log</location>
+	<log_format>syslog</log_format>
+</localfile>
+
+Windows:
+<localfile>
+	<location>C:\mysqpp\example.log</location>
+	<log_format>syslog</log_format>
+</localfile>
+Windows event logs
+Event log:
+<localfile>
+	<location>Security</location>
+	<log_format>eventlog</log_format>
+</localfile>
+Event channel:
+<localfile>
+	<location>Microsoft-Windows-PrintService/Operational</location>
+	<log_format>eventchannel</log_format>
+</localfile>
+
+Remote syslog
+<ossec_config>
+	<remote>
+		<connection>syslog</connection>
+		<allowed-ips>192.168.2.0/24</allowed-ips>
+	</remote>
+<ossec_config>
+
+==========	ANALYSIS	==============
+1) Pre-decoding
+Phase of analysis ,static info from well-known fields
+
+2) Decoding
+Here log message is evaluated to identify what type of log it is and known fields for that specific log type are then extrated.
+
+prg name
+dstuser
+srcip
+
+3) Rule matching
+extrcted log information is compared to the ruleset to look for matches
+ex:
+
+<rule id="5715" level="3">
+	<if_sid>5700</if_sid>
+	<match>^Accepted|authenticated.$</match>
+	<description>sshd: authentication success.</description>
+	<group>authentication_success.pci_dss_10.2.5.</group>
+</rule>
+
+=======		ALERT		==========
+Once a rule is matched, the manager will create an alert as below:
+
+To store all events even if they do not match a rule, enable the <log_all> option.
+Alerts will be stored at /var/ossec/logs/alerts/alerts.(json|log) and events at /var/ossec/logs/archives/archives.(json|log). Logs are rotated and an individual directory is created for each month and year.
+
+Archived logs are not automatically deleted by default. You can choose when to manually or automatically (e.g., cron job) delete logs according to your own legal and regulatory requirements.
+
+=======		CONFIGURATION		==========
+Basic usage
+Log data collection is configured in the ossec.conf file primarily in the localfile, remote and gloval sections.
+Configuration of log data collecion can also be completed in the agent.conf file to centralize the distribution of these configuration settings to relevant agents.
+
+ex:
+
+<localfile>
+	<location>/var/log/messages</location>
+	<log_format>syslog</log_format>
+</localfile>
+
+---------	Monitoring logs using regular expressions for file names
+
+posix regular expressions.
+
+<localfile>
+	<location>/var/log/*.log</location>
+	<log_format>syslog</log_format>
+</localfile>
+
+---------	Monitoring date-based logs
+For log files that change according to the date , you can also specify a strftime format to replace the day,month, year,etc.
+For example, to monitor the log files like log-08-12-15.log, 
+<localfile>
+	<location>c:\log-%y-%m-%d.log</location>
+	log_format>syslog</log_format>
+</localfile>
+
+-----------	Reading events from Windows Event Channel
+The location is the name of the event channel.
+This is the only way to monitor the Applications and Services logs. If the file name contains a%, replace it with "/":
+<localfile>
+	<location>Microsoft-PrintService/Operational</location>
+	<log_format>eventchannel<\log_format>
+</localfile>
+
+
+-----------	Filtering events from Windows Event Channel with queries
+<localfile>
+	<location>System</location>
+	<log_formaat>eventchannel</log_format>
+	<query>Event/System[EventID=7040]</query>
+</localfile>
+
+---------	Using environment variables
+Ex reading logs from an IIS server:
+<localfile>
+	<location>%Windir%\System32\LogFiles\W3SVC3\ex%y$m$d.log</location>
+	log_format>iis</log_format>
+</localfile>
+
+--------	Using multiple outputs
+Log data is sent to the agent socket by default, but it is also possible to specify other sockets as output.ossec-logcollector uses UNIX type sockets to communicate allowing TCP or UDP protocols. To add a new output socket we need to specify it using the tag <socket> as shown in the following example configuration:
+
+<socket>
+	<name>custom_socket</name>
+	<location>/var/run/custom.sock</location>
+	<mode>tcp</mode>
+	<prefix>custom_syslog: </prefix>
+</socket>
+
+<socket>
+	<name>test_socket</name>
+	<location>/var/run/test.sock</location>
+</socket>
+
+Once the socket is defined, it’s possible to add the destination socket for each localfile:
+
+<localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/messages</location>
+    <target>agent,test_socket</target>
+</localfile>
+
+<localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/messages</location>
+    <target>custom_socket,test_socket</target>
+</localfile>
+
+
+============  FIM	========
+10 optins are configuranle:
+Frequency: def 12 haurs
+Real-time monitoring:  support Windows or Linux. Only for dirs not for individual files.
+Whodata:  in addition provides information about who triggered the event.
+
+An alert is generated any time that modifications ae detected in the monitored files and/or registry keys.
+False positives can be addressed using the ignore configuration option or by creating rules that list files to be excluded from FIM alerts.
+
+------------	Configuration		----------
+Syscheck is configured in the ossec.conf file.
+frequency
+directories
+ignore
+alert_new_files
+
+The check_all option checks file size, permissions, owner, last modification date, inode and all the hash sums (MD5, SHA1 and SHA256).
+
+<The directories pushed from cetralized configuration are overwritten in the ossec.conf file if the directory path is the same.
+
+<syscheck>
+	<directories check_all="yes">/etc./usr/bin./usr/sbin</directories>
+	<directories check_all="yes">/root/users.txt./bsd,/root/db.html</directories>
+</syscheck>
+
+---------	Configuring scheduled  scans
+<syscheck>
+	<frequency>36000</frequency>
+	<directories>/etc,/usr/bin,/usr/sbin</directories>
+	<directories>/bin,/sbin</directories>
+</syscheck>
+
+
+---------	Configuring realtime monitoring
+Works with directories only rather then with individual files.Real-time change detection is paused during periodic syscheck scans and ractivates as soon as these scans are complete
+
+<syscheck>
+	<ditectories check_all="yes" realtim=="yes">c:/tmp</directories>
+
+---------	Configuring who-data monitoring
+whodata option
+This option replaces the realtime option , which means that whodata implies real-time monitoring but adding the who-data information. This functionality uses Linux Audit subsystem and the Microsoft Windows SACL,so additional configurations might be necessary. Check the Auditing who-data entry to get further information
+
+<syscheck>
+	<directories check_all="yes" whodata="yes">/etc</directories>
+</syscheck>
+
+
+
+----------	Configure to report changes
+Using the report_changes option , we can see what specifically changed in text files. Be carefull about which folders you set up to report_changes to , because in order to do this, Wazuh copies every single file you want to monitor to a private location.
+
+---------	Configure to ignore files 
+<syscheck>
+	<ignore>/etc/random-seed</ignore>
+	<ignore>/root/dir</ignore>
+	<ignore type="sregex">.log$|.tmp</ignore>
+</syscheck>
+
+--------	Configure maximum recursioon level allowed
+recursion_level option.
+<syscheck>
+	<directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories>
+	<directories check_all="yes">/root/users.txt,/bsd,/root/db.html</directories>
+	<directories check_all="yes" recursion_level="3">folder_test</directories>
+
+
+We will receive alerts for all files up to folder_test/l1/l2/l3 but we won't receive alerts from any directory deeper then l3
+
+if recursion_level is not specified, it will be set to the default value defined by syscheck.default_max_depth in the internal options configuration file.
+
+----------	Ignoring files via reles
+<rule id="100345" level="0">
+	<if_group>syscheck</if_group>
+	<match>/var/www/htdocs</match>
+	<description>Ignore changes too /var/www/htdocs</description>
+</rule>
+
+------	Changing severity
+With a custom rule, the level of a syscheck alert can be altered when changes to a specific file or file pattern are detected.
+<rule id="100345" level="12">
+	<if_group>syscheck</if_group>
+	<match>/var/www/htdocs</match>
+	<description>Changes to /var/www/htdocs - Critical file!</description>
+</rule>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
