@@ -523,6 +523,783 @@ With a custom rule, the level of a syscheck alert can be altered when changes to
 	<description>Changes to /var/www/htdocs - Critical file!</description>
 </rule>
 
+-------  FIM ignoring files , to avoid false positives.
+<ignore> 	option
+
+Report changes in the content of a text file
+It is possible whrn monitoring directories . Using the 
+<report_changes> option gives the exact content that has been changed in text files within the directory being monitored. syscheck copy every single file you want to monitor with <report_changes>
+
+-------		force an immediate syscheck scan
+/var/ossec/bin/agent_control -r -a
+/var/ossec/bin/agent_control -r -u <agent_id>
+
+By default, syscheck scans when Wazuh starts, however, this behavior can be changed with the scan_on_start option
+
+-------
+alert_new_files option
+
+==========	Auditing who-data	==============
+This information contains the user who made the changes on the monitored files and also the program name or process used to carry them out.
+
+----------		Linux systems
+uses the Linux Audit subsystem to get the information about who made the changes in a monitored directory. These changes produce audit events that are processed by syscheck and reported to the manager.
+
+apt install auditd
+ossec.conf
+<syscheck>
+	<directories check_all="yes" whodata="yes">/etc</directories>
+</syscheck>
+
+service wazuh restart
+
+check if the Audit rule for monitoring the selected folder is applied.
+auditctl -l | grep wazuh_fim
+-w /etc -p wa -k wazuh_fim  	#checks if the rule was added
+
+when the agent is stopped , we can use the same command to check that the added rule was successfully removed.
+
+=========	Anomaly and malware detection		===========
+rootcheck
+uses syscheck to detect anomalies.
+Checks:
+- Check running processes
+- Check hidden ports
+Rootcheck checks every port in the system using bind(). If it can not bind to a port and that port is not in the netstat output, malware may be present.
+- Check unusual files and permissions
+	scans entire FS looking for unusual files and permissions.owned by root with write permissions, or suid bit on.
+- Check hidden files using system calls
+comparing the differences between te stat size and the file size when using the fopen + read calls. The number of nodes in each directory is also compared with the output of opendir + readdir. If any results do not match, malware may be present.
+
+- Scan the /dev directory
+should only contain device-specific files. Any other should be inspected because malware uses thes partition to hide files.
+
+- Scan network interfaces
+if promiscuous mode enabled.
+
+- Rootkit checks.
+own database of rootkit signaturees: rootkit_files.txt,rootkit_trojans.txt and win_malware_rcl.txt.Unfortunately,these signatures are out of date.
+
+-------------		Configuration
+ossec.conf
+<rootcheck>
+	<rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
+	<rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+</rootcheck>
+
+Ignoring false positives
+<rule id+"100100" level="0">
+	<if_group>rootcheck</if_group>
+	<match>/dev/.blkid.tab</match>
+	<description>Ignore false positive for /dev/.blkid.tab</description>
+</rule>
+
+
+------------		By default rootcheck runs every 2 hours.
+-------rootcheck inspects all running processes looking for discrepanies with different system calls.
+
+=============		Monitoring security policies
+Policy monitoring is the process of verifying that all systems conform to a set of predefined rules regarding configuration settings and approved application usage.
+
+Wazuh uses three components to perform this task: Rootcheck , OpenSCAP and CIS-CAT.
+
+1 Rootcheck
+conf files - compliant with your sec policies, standards or hardening guides.
+Agents perform periodic scans to detect applications that are known to be vulnerable, unpatched, misconfigured.
+
+The rootcheck engine  can perform the following checks:
+- check if a process is running
+- check if a file is present
+- check if the content of a file contains a pattern , or if a Windows registry key contains a string or is simply present.
+
+following policies have been developed:
+system_audit_rcl.txt - Web vulnerabilities and exploits
+system_audit_ssh.txt	SSH Hardening
+cis_debian_linux_rcl.txt	Based on CIS Benchmark for Debian Linux v1.0
+
+Alerts related to policy monitoring:
+512: win audit
+514: win app
+516: unix app
+
+The policy and compliance monitoring databases are normally maintained on the manager , which distributes them to all the agents.
+
+ex:
+$sshd_file=/etc/ssh/sshd_config;
+
+[SSH Configuration - 1:Root can log in] [any] [1]
+f:$sshd_file -> !r:^# && r:PermitRootLogin\.+yes;
+f:$sshd_file -> r:^#\s*PermitRootLogin;
+
+-------		Basic usage
+go to Rootcheck section
+<rootcheck>
+	<system_audit>./db/system_audit_rcl.txt</system_audit>
+	<system_audit>./db/cis_debian_linux_rcl.txt</system_audit>
+	<system_audit>./db/cis_rhel_linux_rcl.txt</system_audit>
+</rootcheck>
+
+-------		Configure periodic scans
+<rootcheck>
+	<frequency>36000</frequency>
+	<system_audit>/var/ossec/etc/share/system_audit_rcl.txt</system_audit>
+	<system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+	<system_audit>/var/ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
+	<system_audit>/var/ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
+</rootcheck>
+
+
+-------		Root access to SSH
+create your custom audit file (audit_test.txt):
+# PermitRootLogin not allowed
+# PermitRootLogin indicates if the root user can log in by ssh.
+$sshd_file=/etc/ssh/sshd_config;
+
+[SSH Configuration - 1: Root can log in] [any] [1]
+f:$sshd_file -> !r:^# && r:PermitRootLogin\.+yes;
+f:$sshd_file -> r:^#\s*PermitRootLogin;
+
+ossec.conf
+<rootcheck>
+	<system_audit>/var/ossec/etc/shared/audit_test.txt</system_audit>
+</rootcheck>
+
+=================		OpenSCAP		===================
+is an integration of OpenSCAP with Wazuh HIDS that provides the ability to perform configuration and vulnerability scans of an agent. It is primarily used for:
+- Verifying security compliance: OpenSCAP policies define the requirements that all systems in an organization must meet in order to be in line with applicable security policies and/or security benchmarks.
+- Performing vulnerability assessments: identifies and classifies vulnerabilities in a system
+- Performing specialized assessments: OpenSCAP can perform specific custom system checks 
+
+Security Content Automation Protocol (SCAP)
+- specification for expressing and manipulating security data in standardized ways. Uses seceral specifications in order to automate continuous monitoring, vulnerability management , and reporting the results of security compliance scans.
+
+Componnents of the security compliance evaluation process:
+- SCAP scanner: This is an application that reads a SCAP policy and checks whether or not the system is compliant with it. There are many tools to scan your systems against SCAP policies. This wodle is an integration with the NIST-certified scanner called OpenSCAP.
+- Security policies (SCAP content): This determine how a system must be set up and what to check for. These policies contain machine-readable descriptions of the rules which your system will be required to follow.
+- Profiles: Each security policy can contain multiple profiles, which provide sets of rules and values in line with a specific security baseline. You can think of a profile as a particular subset of rules within the policy; the profile determines which rules defined in the policy will be actually used and what values will be used during the evaluation.
+- Evaluation (scan): This is the process performed by the OpenSCAP scanner on an agent according ro a speccific security policy and profile . It usually takes only a few minutes, depending on the number of rules selected in the profile.
+
+-----------		Requirements
+rpm-based:
+yum install openscap-scanner
+debian:
+apt-get install libopenscap8 xsltproc
+
+default policies
+CentOS
+RedHat
+Debian
+Ubuntu (xenial;trusty;precise)
+Fedora (24)
+
+Manager and it will generate an alert if the status of the result is fail. It is possible to tuning the rules to send the pass result too.
+
+-----------		Configuration
+-----------		Basic usage
+<wodle name="open-acap">
+	<disabled>no</disabled>
+	<timeout>1800</timeout>
+	<interval>1d</interval>
+	<scan-on-start>yes</scan-on-start>
+	<content type="xccdf" path="ssg-centos-7-ds.xml">
+		<profile>xccdf_org.ssgproject.content_profile_pci-dss</profile>
+		<profile>xccdf_org.ssgproject.content_profile_common</profile>
+	</content>
+</wodle>
+
+Evaluate PCI-DSS compliance on RHEL7
+Payment Card Industry Data Security Standard (PCI-DSS) compliance on Red Hat Enterprise Linux 7 agents.
+---------	Configuring agent ossec.conf:
+<client>
+	<server>
+		<address>10.0.1.4</address>
+		<port>1514</port>
+		<protocol>tcp</protocol>
+	</server>
+	<config-profile>redhat7</config-profile>
+</client>
+
+--------	Configure manager
+We want to execute the PCI-DSS profile of the SSGRH7 policy only on Red Hat 7 servers.
+Manager /var/ossec/etc/shared/default/agent.conf  ( assuming that the agent is on the default group):
+<agent_config profile="redhat7">
+	<wodle name="open-scap">
+		<content type="xccdf"" path="ssg-rhel7-ds.xml">
+			<profile>xccdf_org.ssgproject.content_profile_pci-dss</profile>
+		</content>
+	</wodle>
+</agent_config>
+
+
+----------		Restart manager and agents
+service wazuh-manager restart
+/var/ossec/bin/agent_control -R -a
+
+-u <id> - specific agent.
+
+---------	See alerts
+/var/ossec/logs/alerts/alerts.log
+
+----------	Dashboards
+Finally, you can explore all results using the OpenSCAP dashboards for Kibana.
+
+----------	Auditing Security Vulnerabilities of Red Hat Products
+RH Security Response Team probbifes OVAL definitions for all vulnerabilities (identified by CVE name) that affect RHEL 4-7. This enables users to perform a vulnerability scan and diagnose whether a system is vulnerable or not.
+
+---------	Step 1. Configure agents.
+ossec.conf:
+<client>
+	<server-ip>10.0.1.4</server-ip>
+	<conffig-profile>redhat7</config-profile>
+</client>
+
+Step 2: Configure manager
+shared/agent.conf:
+<agent_config profile="redhat7">
+	<wodle name="open-scap">
+		<content type="xccdf" path="com.redhat.rhsa-RHEL7.ds.xml"/>
+	</wodle>
+</agent_config>
+
+-------		Step 3: Restart manager and agents
+service wazuh-manager restart
+/var/ossec/bin/agent_control -R -a  (-u <id>)
+
+-------		Step 4: See alerts
+/var/ossec/logs/alerts/alerts.log
+
+-- Kibana
+See dashboard
+
+------	Overwriting the timeout
+<wodle name="open-scap">
+	<timeout>1800</timeout>
+	<content type="xccdf" path="ssg-centos7-ds.xml">
+		<timeout>120</timeout>
+	</content>
+	<content type="xccdf" path="ssg-centos-6-ds.xml"/>
+</wodle>
+
+-------		Using profiles
+
+<wodle name="open-scap">
+	<content type="xccdf" path="ssg-centos-7-ds.xml">
+		<profile>xccdf_org.ssgproject.content_profile_standard</profile>
+		<profile>xccdf_org.ssgproject.content_profile_pci-dss</profile>
+	</content>
+	<content type="xccdf" path="ssg-centos-6-ds.xml/>
+</wodle>
+
+
+-----		Using CPE dictionary
+<wodle name="open-scap">
+	<content type="xccdf" path=policy="ssg-centos-7-ds.xml">
+		<cpe>file.xml</cpe>
+	</content>
+	<content type="xccdf" path="ssg-centos-6-ds.xml" />
+</wodle>
+
+-----		Using IDs
+You can select a specific ID of the datastream fiile:
+
+<wodle name="open-scap">
+	<content typ="xccdf" path="ssg-centos-7-ds.xml">
+		<datastream-id>id</datastream-id>
+	</content>
+	<content typ="xccdf" path="ssg-centos-6-ds.xml" />
+</wodle>
+
+------
+by default, policies are evaluated when the wodle starts.
+
+-----
+Each agent must have its policies in /var/ossec/wodles/oscap/content
+
+
+=============	CIS-CAT integration
+-----	Center for internet security - is an entity dedicated to safeguard private and public organizations against cyber threats.
+This entity provides CIS benchmarks gurdelines, which are a recognized global standard and best practices for securing IT systems and data against cyberattacks.
+
+In addition , CIS-CAT Pro is a "cross-platform Java app" tool developed for scanning target systems and generating a report compring the system settings to the CIS benchmarks. There are more than 80 CIS benchmarks that cover nearly all ASs , providing different profiles depending on the specific need.
+
+This integration requires CIS-CAT Pro , which is proprietary software You can learn more about this tool and how to download it at the official cis WEBSITE.
+
+-------		How it works.
+The CIS-CAT Wazuh module integrates CIS benchmark assessments into Wazuh agents and reports the results of each scan in the form of an alert.
+
+written in Java, so it requires a Java Runtime Environment in order to execute it. Currently, the JRE versions supported in CIS-CAT are JRE 6,7,8. Follow these steps to install the OpenJDK platform:
+apt update && apt install openjdk-8-jre
+
+-------		CIS-CAT must be reside on the local agent that runs the scans.JRE can be located on a removable disk or network drive for the purpose of sharing between multiple agents.
+
+unix:
+chmod +x CIS-CAT.sh
+
+Once you have the requirements for running CIS evaluations, you can configure the wodle to check for specific benchmarks at a your chosen interval. The scan results from these checks are sent to the manager and can be included in the visualizations.
+
+-------		Use case: Running a CIS evaluation
+ossec.conf 
+<wodle name="cis-cat">
+ <disabled>no</disabled>
+  <timeout>1800</timeout>
+  <interval>1d</interval>
+  <scan-on-start>yes</scan-on-start>
+
+  <java_path>/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/bin</java_path>
+  <ciscat_path>wodles/ciscat</ciscat_path>
+
+  <content type="xccdf" path="benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml">
+    <profile>xccdf_org.cisecurity.benchmarks_profile_Level_2_-_Server</profile>
+  </content>
+
+</wodle>
+
+============		Monitoring system calls
+------ Linux Audit system provides a way to track security-relevant information on your machine.Based on preconfigured rules, Audit proves detailed real-time logging about the events that are happening on your system. This information is crucial for mission-critical environments to determine the violator of the security policy and the actions they performed.
+
+------		How it works
+Audit uses a set of rules to define what is to be captured in the log files. There are three types of Audit rules that can be specified:
+- Control rules allow the Audit system's  behavior and some of its configuration to be modified
+- File system rules, also known as file watches, allow the auditing of access to a particular file or a directory.
+- System call rules allow logging of system calls that specified programs makes.
+
+Audit rules can be specified interactively with the auditctl command-line utility, but to make changes persistent, edit /etc/audit/audit.rules
+------		Control rules
+auditctl -b Set the maximum amount of existing Audit buffers in the kernel.
+auditctl -e Enable/disable the Audit system or lock its configuration.
+auditctl -s Report the status of the Audit system.
+auditctl -l List all currently loaded Audit reles.
+auditctl -D Delete all currently loaded Audit rules.
+
+-----		File System Rules
+To define a file system rule, use the following systax:
+-w <path> -p <permissions> -k <key_name>
+-w <path> Specify what file or dir to audit with <path>
+-p <perm> are the perm that are to auditing, including the following:
+	r - read access to a file or dir
+	w - write access to afile or a dir
+	x - execute access --||---
+	a - change in the file's or dir's attr
+-k <key_name> is an optional string to identify which rule/set of rules generates a particular log line.
+This argument is required by Wazuh in order to analyze the logs more accurately.
+
+ex:
+defining a rule that logs all write access to , and every attr change of , the /etc/passwd file, exec:
+auditctl -w etc/passwd -p wa -k passwd_changes
+
+---------		System Call Rules
+-a action, filter -S system_call -F field=value -k key_name
+where:
+Tells the kernel's rule matching engine to append a rule at the end of the rule list.
+We must specify which rule list to append it to and what action to take when it triggers.
+-a <action>,<filter>
+	<action>	always 		- read access to a file or a dir.
+			never		- write access to a file or a dir.
+	The <filter> value specifies which kernel rule-matching filter is  applied to the enevt
+			task 		- Only audit events fork or clone syscalls.
+					- This is rarely used in practice.
+			exit		- All syscall and file system audit requests are evaluated.
+			user		- This is used to remove some events that originate in user space.
+			exclude		- This is used to exclude certain events from being logged.
+					- msgtype is used to tell the kernell which message to filter out.
+					- For more granular control over which events to audit:
+					  use the user and exit filters instead.
+-S <system_call>		This specifies which system_call to audit . Multiple system calls can be specified in a single rule.
+				A list of all system calls can be found with the connand :
+				ausyscall --dump
+
+-F <field=value>	Use field=value to specify additional criteria to narrow down which events to audit, based on:
+			architecture, group ID, process ID, etc...,
+			Multiple -F options can be used in a single rule.
+
+-k <key_name> 		<key_name> is an optional string to identify which rule/set of rules generates a particular log line.
+			This argument is required by Wazuh in order to analyze the logs more accurately.
+
+Ex:
+For example, to define a rule that creates a log entry every time a file is deleted or renamed by a system user whose ID is 500 or larger, use the following. Note thatt the -F auid!=4294967295 option is used to exclude users whose login UID is not set.
+
+auditctl -a always,exit -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
+
+It is also possible to define a file system rule using the system call rule systax.
+analg to the 	-w /etc/shadow -p wa 
+
+auditctl -a always,exit -F path=/etc/shadow -F perm=wa
+
+-----------		Confifuration
+-----		Basic
+
+Manager 
+We will use a CDB list to determine the types of audit rule that has fire. This list will have the follwing syntax:
+	key_name:value
+	key_name is the string you used in the argument -k
+	Value is one of the following values:
+		write;read; execute;attribute;command
+By default, OSSEC includes a CDB list with the following keys:
+
+# cat /var/ossec/etc/lists/audit-keys
+
+audit-wazuh-w:write
+audit-wazuh-r:read
+audit-wazuh-a:attribute
+audit-wazuh-x:execute
+audit-wazuh-c:command
+You can add your own key with its value to the list like this:
+
+# echo "my_key_write_type:write" >> /var/ossec/etc/lists/audit-keys
+Each time you modify a CDB list, you must compile it:
+
+# /var/ossec/bin/ossec-makelists
+
+-----		Agent
+Installing Audit
+apt install auditd
+
+ossec.conf
+<localfile>
+	<log_format>audit</log_format>
+	<location>/var/log/audit/audit.log</location>
+</localfile>
+
+service wazuh-agent restart
+
+--------
+Now everything is ready to process audit events. You only need to create the proper audit rules (via auditctl or /etc/audit/audit.rules). In the next section we will describe some good use cases.
+
+Monitoring accesses to a directory
+
+In this example, we are going to monitor every kind of access under the /home directory:
+
+auditctl -w /home -p w -k audit-wazuh-w
+auditctl -w /home -p a -k audit-wazuh-a
+auditctl -w /home -p r -k audit-wazuh-r
+auditctl -w /home -p x -k audit-wazuh-x
+Now we start getting alerts on account of the new audit rules:
+
+--------	Monitoring user actions
+# auditctl -a exit,always -F euid=0 -F arch=b64 -S execve -k audit-wazuh-c
+# auditctl -a exit,always -F euid=0 -F arch=b32 -S execve -k audit-wazuh-c
+
+-------- Privilege escalation
+
+By default, Wazuh is able to detect privilege escalation by analyzing the corresponding log in /var/log/auth.log. The below example shows the homer user executing a root action:
+
+
+In order to keep the track of the user after sudo, it is necessary to configure PAM.
+
+Warning
+
+Be very careful with PAM configuration, as a bad configuration could make your system inaccessible.
+
+Add the following line to every PAM service that needs it:
+
+session required        pam_loginuid.so
+
+A common configuration should include: login, common-session, cron and sshd:
+
+# grep -R "pam_loginuid.so" /etc/pam.d/
+
+/etc/pam.d/login:session    required     pam_loginuid.so
+/etc/pam.d/common-session:session required        pam_loginuid.so
+/etc/pam.d/cron:session    required     pam_loginuid.so
+/etc/pam.d/sshd:session    required     pam_loginuid.so
+
+After configuring PAM, if we execute the previous command with the user homer we will see that the field auid is 1004, the id of the user homer.
+
+# homer@springfield:/# sudo ls /var/ossec/etc
+
+=============			Command monitoring
+
+There are times when you may want to monitor things that are not in the logs. To address this, Wazuh incorporates the ability to monitor the output of specific commands and treat the output as though it were log file content.
+
+Configure Wazuh agents to accept remote commands from the manager
+
+Agents have the ability to run commands pushed from the manager (via the files in the shared directory). Before this feature can be used, however, the agents must be explicitly configured to accept remote commands. This can be done by setting the logcollector.remote_commands in the local_internal_options.conf file on each agent as shown below:
+
+# Logcollector - Whether or not to accept remote commands from the manager
+logcollector.remote_commands=1
+
+Configure a command to monitor
+
+The commands to run and monitor can be configured in the local the ossec.conf file of individual agents, however, the ideal location for this configuration is in the appropriate configuration section of the agent.conf file on the manager.
+
+Example:
+
+<localfile>
+     <log_format>full_command</log_format>
+     <command>.....</command>
+     <frequency>120</frequency>
+</localfile>
+
+Process the output
+
+After configuring the system to monitor the command’s output as if it were log data, custom rules can be created, like for Log analysis for instance, in order to process the output and trigger an alert when alert criteria are met.
+
+============		Configuration 
+------------		Basic
+Command monitoring is configured in the localfile section of ossec.conf. It can be also be centrally configured in agent.conf.
+
+Monitor running Windows processes
+
+Let’s say you want to monitor running processes and alert if an important process is not running.
+
+Example with notepad.exe as the important process to monitor:
+
+1. Configure the agent in the agent’s local_internal_options.conf file to accept remote commands from the manager.
+
+# Logcollector - Whether or not to accept remote commands from the manager
+logcollector.remote_commands=1
+2. Define the command in the manager’s agent.conf file to list running processes.
+
+<localfile>
+     <log_format>full_command</log_format>
+     <command>tasklist</command>
+     <frequency>120</frequency>
+ </localfile>
+The <frequency> tag defines how often the command will be run in seconds.
+
+3. Define the rules.
+
+<rule id="100010" level="6">
+  <if_sid>530</if_sid>
+  <match>^ossec: output: 'tasklist'</match>
+  <description>Important process not running.</description>
+  <group>process_monitor,</group>
+</rule>
+<rule id="100011" level="0">
+  <if_sid>100010</if_sid>
+  <match>notepad.exe</match>
+  <description>Processes running as expected</description>
+  <group>process_monitor,</group>
+</rule>
+
+The first rule (100010) will generate an alert (“Important process not running”), unless it is overridden by its child rule (100011) that matches notepad.exe in the command output. You may add as many child rules as needed to enumerate all of the important processes you want to monitor. You can also adapt this example to monitor Linux processes by changing the <command> from tasklist to a Linux command that lists processes, like ps -auxw.
+
+Disk space utilization
+
+The df command can be configured in the manager’s agent.conf file or in the agent’s ossec.conf file:
+
+<localfile>
+    <log_format>command</log_format>
+    <command>df -P</command>
+</localfile>
+Wazuh already has a rule to monitor this:
+
+<rule id="531" level="7" ignore="7200">
+  <if_sid>530</if_sid>
+  <match>ossec: output: 'df -P': /dev/</match>
+  <regex>100%</regex>
+  <description>Partition usage reached 100% (disk space monitor).</description>
+  <group>low_diskspace,pci_dss_10.6.1,</group>
+</rule>
+
+Check if the output changed
+
+In this case, the Linux “netstat” command is used along with the check_diff option to monitor for changes in listening tcp sockets.
+
+This can be configured in either the agent.conf file or the ossec.conf file:
+
+<localfile>
+  <log_format>full_command</log_format>
+  <command>netstat -tan |grep LISTEN|grep -v 127.0.0.1</command>
+</localfile>
+Wazuh already has a rule to monitor this:
+
+<rule id="533" level="7">
+  <if_sid>530</if_sid>
+  <match>ossec: output: 'netstat -tan</match>
+  <check_diff />
+  <description>Listened ports status (netstat) changed (new port opened or closed).</description>
+  <group>pci_dss_10.2.7,pci_dss_10.6.1,</group>
+</rule>
+
+If the output changes, the system will generate an alert indicating a network listener has disappeared or a new one has appeared. This may indicate something is broken or a network backdoor has been installed.
+
+Load average
+
+Wazuh can be configured to monitor the Linux uptime command and alert when it is higher than a given threshold, like 2 in this example.
+
+This can be configured in agent.conf or ossec.conf:
+
+<localfile>
+    <log_format>command</log_format>
+    <command>uptime</command>
+</localfile>
+And the custom rule to alert when “uptime” is higher than 2:
+
+<rule id="100101" level="7" ignore="7200">
+  <if_sid>530</if_sid>
+  <match>ossec: output: 'uptime': </match>
+  <regex>load averages: 2.</regex>
+  <description>Load average reached 2..</description>
+</rule>
+Detect USB Storage
+
+Wazuh can be configured to alert when a USB storage device is connected. This example is for a Windows agent.
+
+Configure your agent to monitor the USBSTOR registry entry by adding the following to the manager’s agent.conf
+
+<agent_config os="Windows">
+  <localfile>
+      <log_format>full_command</log_format>
+      <command>reg QUERY HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</command>
+  </localfile>
+</agent_config>
+Next create a custom rule:
+
+<rule id="140125" level="7">
+    <if_sid>530</if_sid>
+    <match>ossec: output: 'reg QUERY</match>
+    <check_diff />
+    <description>New USB device connected</description>
+</rule>
+
+============		Active response
+ Active responses are either stateful or stateless responses. Stateful responses are configured to undo the action after a specified period of time while stateless responses are configured as one-time actions.
+
+Where are active response actions executed?
+
+Each active response specifies where its associated command will be executed: on the agent that triggered the alert, on the manager, on another specified agent or on all agents, which also includes the manager(s).
+
+Active response configuration
+
+Active responses are configured in the manager by modifying the ossec.conf file as follows:
+
+Create a command
+
+In order to configure an active response, a command must be defined that will initiate a certain script in response to a trigger.
+
+Custom scripts that have the ability to receive parameters from the command line may also be used for an active response.
+
+Example:
+
+<command>
+  <name>host-deny</name>
+  <executable>host-deny.sh</executable>
+  <expect>srcip</expect>
+  <timeout_allowed>yes</timeout_allowed>
+</command>
+In this example, the command is called host-deny and initiates the host-deny.sh script. The data element is defined as srcip. This command is configured to allow a timeout after a specified period of time, making it a stateful response.
+
+----------	Define the active response
+
+The active response configuration defines when and where a command is going to be executed. A command will be triggered when a specific rule with a specific id, severity level or source matches the active response criteria. This configuration will further define where the action of the command will be initiated, meaning in which environment (agent, manager, local, or everywhere).
+
+Example:
+
+<active-response>
+  <command>host-deny</command>
+  <location>local</location>
+  <level>7</level>
+  <timeout>600</timeout>
+</active-response>
+
+<active-response>
+  <command>host-deny</command>
+  <location>local</location>
+  <level>7</level>
+  <timeout>600</timeout>
+</active-response>
+In this example, the active response is configured to execute the command that was defined in the previous step. The where of the action is defined as the local host and the when is defined as any time the rule has a level higher than 6. The timeout that was allowed in the command configuration is also defined in the above example.
+
+---------	The active response log can be viewed at /var/ossec/logs/active-response.log.
+---------	Default Active response scripts
+
+Wazuh is pre-configured with the following scripts for Linux:
+
+Script name	Description
+disable-account.sh	Disables an account by setting passwd-l
+firewall-drop.sh	Adds an IP to the iptables deny list
+firewalld-drop.sh	Adds an IP to the firewalld drop list
+host-deny.sh	Adds an IP to the /etc/hosts.deny file
+ip-customblock.sh	Custom OSSEC block, easily modifiable for custom response
+ipfw_mac.sh	Firewall-drop response script created for the Mac OS
+ipfw.sh	Firewall-drop response script created for ipfw
+npf.sh	Firewall-drop response script created for npf
+ossec-slack.sh	Posts modifications on Slack
+ossec-tweeter.sh	Posts modifications on Twitter
+pf.sh	Firewall-drop response script created for pf
+restart-ossec.sh	Automatically restarts Wazuh when ossec.conf has been changed
+route-null.sh	Adds an IP to null route
+
+
+----------	Configuration
+Basic usage
+
+An active response is configured in the ossec.conf file in the Active Response and Command sections.
+This is a Stateless response as no timeout parameter is defined.
+
+Command:
+
+<command>
+  <name>restart-ossec</name>
+  <executable>restart-ossec.sh</executable>
+  <expect></expect>
+</command>
+Active response:
+
+<active-response>
+  <command>restart-ossec</command>
+  <location>local</location>
+  <rules_id>10005</rules_id>
+</active-response>
+
+---------	Windows automatic remediation
+In this example, the win_rout-null command is configured to use the route-null.cmd script using the data element srcip. The active response is configured to initiate the win_rout-null command on the local host when the rule has a higher alert level than 7. This is a Stateful response with a timeout set at 900 seconds.
+
+Command:
+
+<command>
+  <name>win_route-null</name>
+  <executable>route-null.cmd</executable>
+  <expect>srcip</expect>
+  <timeout_allowed>yes</timeout_allowed>
+</command>
+Active response:
+
+<active-response>
+  <command>win_route-null</command>
+  <location>local</location>
+  <level>8</level>
+  <timeout>900</timeout>
+</active-response>
+
+--------	Block an IP with PF
+Command:
+
+<command>
+  <name>pf-block</name>
+  <executable>pf.sh</executable>
+  <expect>srcip</expect>
+</command>
+Active response:
+
+<active-response>
+  <command>pf-block</command>
+  <location>defined-agent</location>
+  <agent_id>001</agent_id>
+  <rules_group>authentication_failed,authentication_failures</rules_group>
+</active-response>
+
+
+Add an IP to the iptables deny list
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
