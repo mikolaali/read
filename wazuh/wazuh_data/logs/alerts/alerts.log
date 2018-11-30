@@ -1,0 +1,5258 @@
+** Alert 1543560710.0: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 06:51:50 wazuh-manager->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+tcp6       0      0 :::25                   :::*                    LISTEN      -               
+tcp6       0      0 :::55000                :::*                    LISTEN      -               
+tcp        0      0 0.0.0.0:1515            0.0.0.0:*               LISTEN      -               
+tcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      -               
+udp        0      0 0.0.0.0:1514            0.0.0.0:*                           -               
+tcp        0      0 127.0.0.11:46243        0.0.0.0:*               LISTEN      -               
+udp        0      0 127.0.0.11:57342        0.0.0.0:*                           -               
+Previous output:
+ossec: output: 'netstat listening ports':
+tcp6       0      0 :::25                   :::*                    LISTEN      -               
+tcp6       0      0 :::55000                :::*                    LISTEN      -               
+tcp        0      0 0.0.0.0:1515            0.0.0.0:*               LISTEN      -               
+tcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      -               
+udp        0      0 0.0.0.0:1514            0.0.0.0:*                           -               
+tcp        0      0 127.0.0.11:44203        0.0.0.0:*               LISTEN      -               
+udp        0      0 127.0.0.11:50336        0.0.0.0:*                           -               
+
+** Alert 1543560715.1702: mail  - ossec,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 06:51:55 wazuh-manager->ossec-monitord
+Rule: 502 (level 3) -> 'Ossec server started.'
+ossec: Ossec started.
+
+** Alert 1543560725.1905: mail  - ossec,pci_dss_10.6.1,pci_dss_10.2.6,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 06:52:05 (iPad-KF.local) 172.25.0.1->ossec
+Rule: 503 (level 3) -> 'Ossec agent started.'
+ossec: Agent started: 'iPad-KF.local->172.25.0.1'.
+
+** Alert 1543560727.2155: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 06:52:07 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+udp4 *.52784 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49472 192.30.253.125.443
+tcp4 10.1.9.74.49563 192.30.253.125.443
+tcp4 10.1.9.74.49849 198.252.206.25.443
+udp4 *.50149 *.*
+udp4 *.50858 *.*
+udp6 *.50858 *.*
+udp4 *.51051 *.*
+udp6 *.51051 *.*
+udp4 10.245.0.46.51472 10.245.0.46.1514
+udp4 127.0.0.1.54662 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55790 *.*
+udp4 *.61283 *.*
+udp4 *.61858 *.*
+udp6 *.61858 *.*
+udp4 *.62280 *.*
+udp6 *.62280 *.*
+udp4 *.64355 *.*
+udp6 *.64355 *.*
+
+** Alert 1543560730.3672: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 3: Root can log in. File: /etc/ssh/sshd_config. Reference: 3 .
+title: SSH Hardening - 3: Root can log in.
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.3987: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 4: No Public Key authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 4 .
+title: SSH Hardening - 4: No Public Key authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.4344: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 5: Password Authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 5 .
+title: SSH Hardening - 5: Password Authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.4691: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 6: Empty passwords allowed {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 6 .
+title: SSH Hardening - 6: Empty passwords allowed
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.5038: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 7: Rhost or shost used for authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 7 .
+title: SSH Hardening - 7: Rhost or shost used for authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.5415: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 8: Wrong Grace Time {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 8 .
+title: SSH Hardening - 8: Wrong Grace Time
+file: /etc/ssh/sshd_config
+
+** Alert 1543560730.5748: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:10 wazuh-manager->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 9: Wrong Maximum number of authentication attempts {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 9 .
+title: SSH Hardening - 9: Wrong Maximum number of authentication attempts
+file: /etc/ssh/sshd_config
+
+** Alert 1543560735.6143: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:15 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/profile.d/container_environment.sh' checksum changed.
+Old md5sum was: 'e890dffda4073c3b8c0c527f065c12f2'
+New md5sum is : 'c640bddd3b7fac4638a8bc9e4567e7cb'
+Old sha1sum was: '91b301d2fd6adb1ec7a9f70b40676f0fad262e18'
+New sha1sum is : 'f68aac680db5a6bef9b54278c576bbed067bc34b'
+Old sha256sum was: 'f1fe6ed637ffac575a7e25dab447ee66767c369ce425061611a563dc33eb7b48'
+New sha256sum is : 'db8721d3475889cb028d757557a68a28db9f025f5da26152360f59dad16f568f'
+
+Attributes:
+ - Size: 29
+ - Permissions: 120777
+ - Date: Fri Jan 26 09:30:36 2018
+ - Inode: 3018232
+ - User: root (0)
+ - Group: root (0)
+ - MD5: c640bddd3b7fac4638a8bc9e4567e7cb
+ - SHA1: f68aac680db5a6bef9b54278c576bbed067bc34b
+ - SHA256: db8721d3475889cb028d757557a68a28db9f025f5da26152360f59dad16f568f
+
+** Alert 1543560735.7087: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:15 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/hosts' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:17 2018', now it is 'Fri Nov 30 06:51:36 2018'
+
+Attributes:
+ - Size: 175
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:36 2018
+ - Inode: 1971307
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 4433a609dc9110d123b546ba094dd340
+ - SHA1: a6e5d30c14f9ccac87c58562acc332169cbdaf96
+ - SHA256: e67284e42f7f6bf2c4ec009cee36ff0353ab1f48c2367b813933149edd5dcaea
+
+** Alert 1543560736.7701: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:16 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/hostname' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:17 2018', now it is 'Fri Nov 30 06:51:37 2018'
+
+Attributes:
+ - Size: 14
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:37 2018
+ - Inode: 1971400
+ - User: root (0)
+ - Group: root (0)
+ - MD5: f35ebaec766cd100371bc57cb8ac9847
+ - SHA1: 7fbed90cc44690d49fba2eec221d97e85a716490
+ - SHA256: 516bd078ccdcb81a39d65143b7f87097db0768ce47c1be979a33abdcdcb47dcb
+
+** Alert 1543560737.8317: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:17 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/resolv.conf' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:18 2018', now it is 'Fri Nov 30 06:51:38 2018'
+
+Attributes:
+ - Size: 38
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:38 2018
+ - Inode: 1971401
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 799c61169f2081f5c1467f2487bc110d
+ - SHA1: 74db3f54f8996a8e189dd1a1fc8a3a09b445f6e5
+ - SHA256: 486c423f110722ca4217f91dda8a187e07d4ac8ac08d8d7ed4f59f51abc1ac3d
+
+** Alert 1543560737.8936: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:17 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/sshd/supervise/status' checksum changed.
+Old md5sum was: 'a2b270d4d27c101628c9574f2f3bf6cd'
+New md5sum is : '5a99f03b5f16821294dd6dafd0191255'
+Old sha1sum was: 'fa04a6ce18ee81aaaada921a27abc3d8e0dc858e'
+New sha1sum is : 'f2d18f687c9a2573b64555194d67a5fc4142a047'
+Old sha256sum was: '75bbb4990f08db65d22c496d9a4a901f22d8617a04ccc795f8c6d108f6a5c49d'
+New sha256sum is : 'e7e27e53a723eb05aa4bb6fd671ff275fcb535cb30342ccfcb91edee9d9ab3e2'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971801', now it is '1971598'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971598
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 5a99f03b5f16821294dd6dafd0191255
+ - SHA1: f2d18f687c9a2573b64555194d67a5fc4142a047
+ - SHA256: e7e27e53a723eb05aa4bb6fd671ff275fcb535cb30342ccfcb91edee9d9ab3e2
+
+** Alert 1543560737.10013: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:17 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/sshd/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971644', now it is '1972809'
+
+Attributes:
+ - Size: 5
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1972809
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 6792695b30bc77ce16eb245c9ecea930
+ - SHA1: 7aefe32858d84487299706cb5768e359cbbbd7e6
+ - SHA256: f7332c41f0b3aecf3dbd6c196184a56b8c14ed465993f29b36de911aa2275455
+
+** Alert 1543560737.10694: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:17 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/sshd/supervise/pid' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1972809', now it is '1971947'
+
+Attributes:
+ - Size: 0
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971947
+ - User: root (0)
+ - Group: root (0)
+ - MD5: d41d8cd98f00b204e9800998ecf8427e
+ - SHA1: da39a3ee5e6b4b0d3255bfef95601890afd80709
+ - SHA256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+** Alert 1543560738.11374: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/cron/supervise/status' checksum changed.
+Old md5sum was: '5889988a28b712d0baf70a4e1b5fff9c'
+New md5sum is : '2188b879cbf9c68e3179fce4df1eee90'
+Old sha1sum was: 'eb5f44ac25af1cfb8dc527401ce75bfb9a3ab269'
+New sha1sum is : '52efe72f62892821fa02ca71c1692412f9023c59'
+Old sha256sum was: '2b0d683e52b7b65e9c5e022cd7d1281c0126c60892290447dbc55cd68fd9d9ac'
+New sha256sum is : '2decbcd88a5f550524224cd6e2c19ba4bb72172a91a4d5ad09c7b90a30e6cf4c'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971846', now it is '1971860'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971860
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 2188b879cbf9c68e3179fce4df1eee90
+ - SHA1: 52efe72f62892821fa02ca71c1692412f9023c59
+ - SHA256: 2decbcd88a5f550524224cd6e2c19ba4bb72172a91a4d5ad09c7b90a30e6cf4c
+
+** Alert 1543560738.12452: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/cron/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971598', now it is '1971834'
+
+Attributes:
+ - Size: 4
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971834
+ - User: root (0)
+ - Group: root (0)
+ - MD5: b0f24e3d11bfe3d31529d1b9f2745cfd
+ - SHA1: 1151e71905f3d94b49b08c98164eb773dba80def
+ - SHA256: b5004f26a852b0d60ec1237432c1a33c2307ff2458c374d9d99749d045c7feb9
+
+** Alert 1543560738.13133: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/cron/supervise/pid' checksum changed.
+Old md5sum was: '50a2fabfdd276f573ff97ace8b11c5f4'
+New md5sum is : '08c61f3fd48f12fa7c88a7f5fd01df3d'
+Old sha1sum was: '34973274ccef6ab4dfaaf86599792fa9c3fe4689'
+New sha1sum is : 'f75209253756ecaec44aca2eaabfb7bf70d9a6bb'
+Old sha256sum was: '084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0'
+New sha256sum is : '654ee9da442fa353f59f11beb688fc7f76c8de62a6c18b2a181fdde2a27cc3ef'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971675', now it is '1971846'
+
+Attributes:
+ - Size: 3
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971846
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 08c61f3fd48f12fa7c88a7f5fd01df3d
+ - SHA1: f75209253756ecaec44aca2eaabfb7bf70d9a6bb
+ - SHA256: 654ee9da442fa353f59f11beb688fc7f76c8de62a6c18b2a181fdde2a27cc3ef
+
+** Alert 1543560738.14207: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/postfix/supervise/status' checksum changed.
+Old md5sum was: 'f35040842464cb848b09fc27fb6d05a6'
+New md5sum is : 'a7614d02149a2f3b03861f442a29db18'
+Old sha1sum was: '0e6dbd36d7701a9dac0c0e199fa69542e978aff8'
+New sha1sum is : 'c572acb13dc05cf391102bac2ad96497489c7f55'
+Old sha256sum was: '5085f244b262d97cb7656d44184d5d03efe6e952eab73b2b930e0d135236387a'
+New sha256sum is : 'def331beeca7c052669cb022396aa684a48c75578a2be38eda924fde873278ef'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971845', now it is '1971820'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971820
+ - User: root (0)
+ - Group: root (0)
+ - MD5: a7614d02149a2f3b03861f442a29db18
+ - SHA1: c572acb13dc05cf391102bac2ad96497489c7f55
+ - SHA256: def331beeca7c052669cb022396aa684a48c75578a2be38eda924fde873278ef
+
+** Alert 1543560738.15288: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/postfix/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971659', now it is '1971644'
+
+Attributes:
+ - Size: 4
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971644
+ - User: root (0)
+ - Group: root (0)
+ - MD5: b0f24e3d11bfe3d31529d1b9f2745cfd
+ - SHA1: 1151e71905f3d94b49b08c98164eb773dba80def
+ - SHA256: b5004f26a852b0d60ec1237432c1a33c2307ff2458c374d9d99749d045c7feb9
+
+** Alert 1543560738.15972: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/postfix/supervise/pid' checksum changed.
+Old md5sum was: '21fa2e849284bf7681c37a8b565bd934'
+New md5sum is : 'd3a57c7e953913944c76009357469568'
+Old sha1sum was: '05df01e327042694f79bbbaafea1d617bee8f968'
+New sha1sum is : '8031facf4b264d623877ca25a6b1327349226cf6'
+Old sha256sum was: '040316eca5e77dbb2212c1efe8b81cb23bc67ce0ac8cb5c9d902d98bd45ddfa1'
+New sha256sum is : 'a5331f18877e9e1543361e44b4cb0a1f5f0ed5f8297d850bf1fcc68bd7a3ab5f'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971661', now it is '1971684'
+
+Attributes:
+ - Size: 3
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971684
+ - User: root (0)
+ - Group: root (0)
+ - MD5: d3a57c7e953913944c76009357469568
+ - SHA1: 8031facf4b264d623877ca25a6b1327349226cf6
+ - SHA256: a5331f18877e9e1543361e44b4cb0a1f5f0ed5f8297d850bf1fcc68bd7a3ab5f
+
+** Alert 1543560738.17049: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh-api/supervise/status' checksum changed.
+Old md5sum was: '4ebdc3f72e70ebf59d97b077a34365b0'
+New md5sum is : '0bae55b2368f8715e2612eecbe624866'
+Old sha1sum was: '26e290d385108059a08bca4e6a7690e496bf5083'
+New sha1sum is : '516ae6d8d9b52102e640b1029d98ef77fd684a48'
+Old sha256sum was: 'ee396888977561d748c9613fbbd6465a13c35a449be36c5cfc7481b137f9f797'
+New sha256sum is : '7244c634e8dcc50e74747253e4ffaafb7d9e6d940f3b69fbca2c6e8410682ccd'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971706', now it is '1972790'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1972790
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 0bae55b2368f8715e2612eecbe624866
+ - SHA1: 516ae6d8d9b52102e640b1029d98ef77fd684a48
+ - SHA256: 7244c634e8dcc50e74747253e4ffaafb7d9e6d940f3b69fbca2c6e8410682ccd
+
+** Alert 1543560738.18132: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh-api/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971749', now it is '1971845'
+
+Attributes:
+ - Size: 4
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971845
+ - User: root (0)
+ - Group: root (0)
+ - MD5: b0f24e3d11bfe3d31529d1b9f2745cfd
+ - SHA1: 1151e71905f3d94b49b08c98164eb773dba80def
+ - SHA256: b5004f26a852b0d60ec1237432c1a33c2307ff2458c374d9d99749d045c7feb9
+
+** Alert 1543560738.18818: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh-api/supervise/pid' checksum changed.
+Old md5sum was: '90e2a51705594d033a3abe9d77b2b7ad'
+New md5sum is : '93e50d72ab294091a81d828459019eba'
+Old sha1sum was: 'b0ee9cc6bd7c6035daae75ef9bcfb27a4cdb58a3'
+New sha1sum is : 'a06b1ef93d78fd34b9162d3ed6546328db0f9cd8'
+Old sha256sum was: '673650f936cb3b0a2f93ce09d81be10748b1b203c19e8176b4eefc1964a0cf3a'
+New sha256sum is : '420002158111bff8adb3347d84029e480f45e60e1869b454b6adac3345f9f7d4'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971684', now it is '1971833'
+
+Attributes:
+ - Size: 3
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971833
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 93e50d72ab294091a81d828459019eba
+ - SHA1: a06b1ef93d78fd34b9162d3ed6546328db0f9cd8
+ - SHA256: 420002158111bff8adb3347d84029e480f45e60e1869b454b6adac3345f9f7d4
+
+** Alert 1543560738.19897: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/filebeat/supervise/status' checksum changed.
+Old md5sum was: '9c5ea7c202180e4cd703f308ccba8f2e'
+New md5sum is : 'bd23be450e36ce8807b52da7682768c9'
+Old sha1sum was: '59618ad195c7c3dc187e10a725bd2c26dd66f9a9'
+New sha1sum is : '15e3573b6293dcc66f32aad2d137600eb080d97d'
+Old sha256sum was: 'ff22c400a4650474434c7833458554f3aa6e34d66863454a69f92c6341ebfd64'
+New sha256sum is : '22f752248631115c9bb29ee1c35f9883735b4500763a9669e3e4db01772bff0d'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971844', now it is '1971660'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971660
+ - User: root (0)
+ - Group: root (0)
+ - MD5: bd23be450e36ce8807b52da7682768c9
+ - SHA1: 15e3573b6293dcc66f32aad2d137600eb080d97d
+ - SHA256: 22f752248631115c9bb29ee1c35f9883735b4500763a9669e3e4db01772bff0d
+
+** Alert 1543560738.20979: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/filebeat/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971660', now it is '1972823'
+
+Attributes:
+ - Size: 4
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1972823
+ - User: root (0)
+ - Group: root (0)
+ - MD5: b0f24e3d11bfe3d31529d1b9f2745cfd
+ - SHA1: 1151e71905f3d94b49b08c98164eb773dba80def
+ - SHA256: b5004f26a852b0d60ec1237432c1a33c2307ff2458c374d9d99749d045c7feb9
+
+** Alert 1543560738.21664: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/filebeat/supervise/pid' checksum changed.
+Old md5sum was: '59885ebc737617addaaf0cb8090203fc'
+New md5sum is : 'e760668b6273d38c832c153fde5725da'
+Old sha1sum was: 'e6fdd81a2e7aee78124defac836ec5357a310352'
+New sha1sum is : 'f54ee8e79bad1e592b319eb890a47c7c27fd3cae'
+Old sha256sum was: 'eedb85ab90d324a555a45560d75c88cecf23721990c3b6353697d707e6465c74'
+New sha256sum is : 'b1ce0aa6fdf3cf349d773243dab9fbbe09d30619f38b0c1e8977e28c4f0bc495'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971833', now it is '1971844'
+
+Attributes:
+ - Size: 3
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971844
+ - User: root (0)
+ - Group: root (0)
+ - MD5: e760668b6273d38c832c153fde5725da
+ - SHA1: f54ee8e79bad1e592b319eb890a47c7c27fd3cae
+ - SHA256: b1ce0aa6fdf3cf349d773243dab9fbbe09d30619f38b0c1e8977e28c4f0bc495
+
+** Alert 1543560738.22742: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh/supervise/status' checksum changed.
+Old md5sum was: 'f75aebb53d8e02caa69caf8b2eb7b9ff'
+New md5sum is : 'f49068616cfe83cf006b034708d73ef8'
+Old sha1sum was: '6c920bf1937ffd4cd24f7dbdd5ef559fd541005d'
+New sha1sum is : '6f38b7388602a007ec56b9f62f3523643b3abeee'
+Old sha256sum was: '42fc69ab231282262f67e6b3847bfebe517520f260aea829efeac981d9a724d4'
+New sha256sum is : 'f97f7251677b16572c6d475a2a4fd2bf885a2f3244c6eb0a6d74cae667320466'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971834', now it is '1971672'
+
+Attributes:
+ - Size: 20
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971672
+ - User: root (0)
+ - Group: root (0)
+ - MD5: f49068616cfe83cf006b034708d73ef8
+ - SHA1: 6f38b7388602a007ec56b9f62f3523643b3abeee
+ - SHA256: f97f7251677b16572c6d475a2a4fd2bf885a2f3244c6eb0a6d74cae667320466
+
+** Alert 1543560738.23821: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh/supervise/stat' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1972808', now it is '1971661'
+
+Attributes:
+ - Size: 4
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971661
+ - User: root (0)
+ - Group: root (0)
+ - MD5: b0f24e3d11bfe3d31529d1b9f2745cfd
+ - SHA1: 1151e71905f3d94b49b08c98164eb773dba80def
+ - SHA256: b5004f26a852b0d60ec1237432c1a33c2307ff2458c374d9d99749d045c7feb9
+
+** Alert 1543560738.24503: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/service/wazuh/supervise/pid' checksum changed.
+Old md5sum was: 'bda81ba88c634b46394ead43aff31ad5'
+New md5sum is : '4a5c26d88c514a23bf15654abd83adb1'
+Old sha1sum was: '6643b1a6b884eb62c692cd817decfe29ed42ab58'
+New sha1sum is : '5de163e1f7435780d48af5b2b75b97ab3de51b4d'
+Old sha256sum was: 'a2c6c14110a317833ac8f2fbae7080ee844af7469b2aa702876548dcf4c58077'
+New sha256sum is : 'e3667f7d8c030260bf49046f955ec9bebdb9a4cb8a66b812fd498ded5431a821'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+Old inode was: '1971672', now it is '1971659'
+
+Attributes:
+ - Size: 3
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971659
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 4a5c26d88c514a23bf15654abd83adb1
+ - SHA1: 5de163e1f7435780d48af5b2b75b97ab3de51b4d
+ - SHA256: e3667f7d8c030260bf49046f955ec9bebdb9a4cb8a66b812fd498ded5431a821
+
+** Alert 1543560738.25578: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/INITRD' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 2
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971631
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 7fa3b767c460b54a2be4d49030b349c7
+ - SHA1: fd1286353570c5703799ba76999323b7c7447b06
+ - SHA256: 9390298f3fb0c5b160498935d79cb139aef28e1c47358b4bbba61862b9c26e59
+
+** Alert 1543560738.26214: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/LC_CTYPE' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 11
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971635
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 95a7bb7a8d0ee402edde95bb78ef95c7
+ - SHA1: 2f7b4e2832e68e1b002423d9459c63734eef3941
+ - SHA256: 65ce8c93514741c928d27fcdbe7b0a754dfcaebcb2292111cd60305dc983f51f
+
+** Alert 1543560738.26853: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/LANG' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 11
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971629
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 95a7bb7a8d0ee402edde95bb78ef95c7
+ - SHA1: 2f7b4e2832e68e1b002423d9459c63734eef3941
+ - SHA256: 65ce8c93514741c928d27fcdbe7b0a754dfcaebcb2292111cd60305dc983f51f
+
+** Alert 1543560738.27488: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/LC_ALL' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 11
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971632
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 95a7bb7a8d0ee402edde95bb78ef95c7
+ - SHA1: 2f7b4e2832e68e1b002423d9459c63734eef3941
+ - SHA256: 65ce8c93514741c928d27fcdbe7b0a754dfcaebcb2292111cd60305dc983f51f
+
+** Alert 1543560738.28125: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/PATH' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 60
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971637
+ - User: root (0)
+ - Group: root (0)
+ - MD5: f8592783fe7cba3c33d090d62f3fbd0f
+ - SHA1: db62edd78e021cbade5726a4e7d55509a43d84b5
+ - SHA256: ce908b8efad4aed2432c6201f968c8a5033499e2d0276764ec023b8249a90429
+
+** Alert 1543560738.28760: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/SHLVL' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 1
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971639
+ - User: root (0)
+ - Group: root (0)
+ - MD5: c4ca4238a0b923820dcc509a6f75849b
+ - SHA1: 356a192b7913b04c54574d18c28d46e6395428ab
+ - SHA256: 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b
+
+** Alert 1543560738.29395: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/PWD' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 1
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971636
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 6666cd76f96956469e7be39d750cc7d9
+ - SHA1: 42099b4af021e53fd8fd4e056c2568d7c2e3ffa8
+ - SHA256: 8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1
+
+** Alert 1543560738.30028: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/DEBIAN_FRONTEND' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 8
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971634
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 51ef4301bb695b36625937a6e62763f2
+ - SHA1: 0916565e007877ff0d63b0f8ef5d2575c4ed3256
+ - SHA256: 8c9d17193ff991f62cace75d630505485c95e388098493cd78861f08adf57f3a
+
+** Alert 1543560738.30673: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/HOSTNAME' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 13
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971630
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 4219cbcf46f7df27589cd61f96eb1db4
+ - SHA1: 93a5b0c93c3800081a0054d96e6af7a9ca9e6808
+ - SHA256: fafc3aac01f4d52f3bbf363168012f3cdda0cd89ca48e8315561b7a7a23ca0a8
+
+** Alert 1543560738.31312: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/_' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 13
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971633
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 44894449fd5ec21798f350aaadb39a63
+ - SHA1: eedb172ec85c007a38f192ab9bf86853002f4a3d
+ - SHA256: 49c86091496f7c89defa5dd5bcc4572ddb2004690ad8a448ecc552706a7c44b2
+
+** Alert 1543560738.31944: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:18 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment/LANGUAGE' checksum changed.
+Old modification time was: 'Wed Nov 28 07:39:20 2018', now it is 'Fri Nov 30 06:51:40 2018'
+
+Attributes:
+ - Size: 8
+ - Permissions: 100644
+ - Date: Fri Nov 30 06:51:40 2018
+ - Inode: 1971638
+ - User: root (0)
+ - Group: root (0)
+ - MD5: 5127822ab47ab28af606840c30d92c07
+ - SHA1: 3c08a431b5c4f35ad0b81357b1643667697ae537
+ - SHA256: fb4f8ed5e18c083b8f51e7e4fc663e8d1044afa23f1d57018906f3278cc7bb10
+
+** Alert 1543560739.32582: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:19 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment.json' checksum changed.
+Old md5sum was: 'a5fd2010af9c2d7825cf2cd42f4d7b60'
+New md5sum is : '3109bd28104f6493e4f312e8ee664bac'
+Old sha1sum was: '81e176f116064b8a8859329216625dce482eb42a'
+New sha1sum is : '94e4cdf124ed728e7450d80012343c9156a08f25'
+Old sha256sum was: 'c2624b45216e5b821921644086d0e6d3dbbfae551d6f57128fcb9ed7776f9569'
+New sha256sum is : '5c2579254c919ba2028e60a85bf26a37451624537e9eb064885e0334aa973605'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+
+Attributes:
+ - Size: 295
+ - Permissions: 100640
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971641
+ - User: root (0)
+ - Group: docker_env (8377)
+ - MD5: 3109bd28104f6493e4f312e8ee664bac
+ - SHA1: 94e4cdf124ed728e7450d80012343c9156a08f25
+ - SHA256: 5c2579254c919ba2028e60a85bf26a37451624537e9eb064885e0334aa973605
+
+** Alert 1543560739.33621: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 3: Root can log in. File: /etc/ssh/sshd_config. Reference: 3 .
+title: SSH Hardening - 3: Root can log in.
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.33950: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 4: No Public Key authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 4 .
+title: SSH Hardening - 4: No Public Key authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.34321: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 5: Password Authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 5 .
+title: SSH Hardening - 5: Password Authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.34682: - ossec,syscheck,pci_dss_11.5,gpg13_4.11,gdpr_II_5.1.f,
+2018 Nov 30 06:52:19 wazuh-manager->syscheck
+Rule: 550 (level 7) -> 'Integrity checksum changed.'
+File '/etc/container_environment.sh' checksum changed.
+Old md5sum was: 'e890dffda4073c3b8c0c527f065c12f2'
+New md5sum is : 'c640bddd3b7fac4638a8bc9e4567e7cb'
+Old sha1sum was: '91b301d2fd6adb1ec7a9f70b40676f0fad262e18'
+New sha1sum is : 'f68aac680db5a6bef9b54278c576bbed067bc34b'
+Old sha256sum was: 'f1fe6ed637ffac575a7e25dab447ee66767c369ce425061611a563dc33eb7b48'
+New sha256sum is : 'db8721d3475889cb028d757557a68a28db9f025f5da26152360f59dad16f568f'
+Old modification time was: 'Wed Nov 28 07:39:21 2018', now it is 'Fri Nov 30 06:51:41 2018'
+
+Attributes:
+ - Size: 306
+ - Permissions: 100640
+ - Date: Fri Nov 30 06:51:41 2018
+ - Inode: 1971640
+ - User: root (0)
+ - Group: docker_env (8377)
+ - MD5: c640bddd3b7fac4638a8bc9e4567e7cb
+ - SHA1: f68aac680db5a6bef9b54278c576bbed067bc34b
+ - SHA256: db8721d3475889cb028d757557a68a28db9f025f5da26152360f59dad16f568f
+
+** Alert 1543560739.35719: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 6: Empty passwords allowed {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 6 .
+title: SSH Hardening - 6: Empty passwords allowed
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.36080: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 7: Rhost or shost used for authentication {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 7 .
+title: SSH Hardening - 7: Rhost or shost used for authentication
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.36471: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 8: Wrong Grace Time {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 8 .
+title: SSH Hardening - 8: Wrong Grace Time
+file: /etc/ssh/sshd_config
+
+** Alert 1543560739.36818: - ossec,rootcheck,gdpr_IV_30.1.g,
+2018 Nov 30 06:52:19 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 516 (level 3) -> 'System Audit event.'
+System Audit: SSH Hardening - 9: Wrong Maximum number of authentication attempts {PCI_DSS: 2.2.4}. File: /etc/ssh/sshd_config. Reference: 9 .
+title: SSH Hardening - 9: Wrong Maximum number of authentication attempts
+file: /etc/ssh/sshd_config
+
+** Alert 1543560747.37227: - ossec,rootcheck,gdpr_IV_35.7.d,
+2018 Nov 30 06:52:27 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 510 (level 7) -> 'Host-based anomaly detection event (rootcheck).'
+Files hidden inside directory '/var/tmp'. Link count does not match number of files (2,3).
+title: Files hidden inside directory '/var/tmp'.
+
+** Alert 1543560779.37561: - ossec,rootcheck,gdpr_IV_35.7.d,
+2018 Nov 30 06:52:59 (iPad-KF.local) 172.25.0.1->rootcheck
+Rule: 510 (level 7) -> 'Host-based anomaly detection event (rootcheck).'
+Interface 'awdl0' in promiscuous mode.
+title: Interface 'awdl0' in promiscuous mode.
+
+** Alert 1543560986.37840: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 06:56:26 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49305
+tcp4 10.245.0.46.443 10.245.0.46.49307
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49280 209.85.233.95.443
+tcp4 10.1.9.74.49301 17.167.193.41.443
+tcp4 10.245.0.46.49305 10.245.0.46.443
+tcp4 10.245.0.46.49306 10.245.0.46.443
+tcp4 10.245.0.46.49307 10.245.0.46.443
+tcp4 10.1.9.74.49308 169.254.169.254.80
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50226 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57094 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.63471 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+udp4 *.52784 *.*
+
+** Alert 1543561346.39556: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:02:26 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49330 209.85.233.139.443
+tcp4 10.1.9.74.49332 54.192.230.46.443
+tcp4 10.1.9.74.49340 10.1.9.71.139
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50285 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.62183 *.*
+udp4 *.64291 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49305
+tcp4 10.245.0.46.443 10.245.0.46.49307
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49280 209.85.233.95.443
+tcp4 10.1.9.74.49301 17.167.193.41.443
+tcp4 10.245.0.46.49305 10.245.0.46.443
+tcp4 10.245.0.46.49306 10.245.0.46.443
+tcp4 10.245.0.46.49307 10.245.0.46.443
+tcp4 10.1.9.74.49308 169.254.169.254.80
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50226 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57094 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.63471 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543561707.41892: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:08:27 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49350 17.167.192.225.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50572 *.*
+udp4 *.52486 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55373 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49330 209.85.233.139.443
+tcp4 10.1.9.74.49332 54.192.230.46.443
+tcp4 10.1.9.74.49340 10.1.9.71.139
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50285 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.62183 *.*
+udp4 *.64291 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543562068.43955: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:14:28 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.61347 *.*
+udp4 *.64386 *.*
+udp4 *.64699 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+tcp4 10.1.9.74.49350 17.167.192.225.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50572 *.*
+udp4 *.52486 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55373 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543562897.45904: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:28:17 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49232 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50526 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56023 *.*
+udp4 *.56950 *.*
+udp6 *.56950 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49216 17.252.76.17.5223
+udp4 *.49232 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54106 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.61347 *.*
+udp4 *.64386 *.*
+udp4 *.64699 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543563229.47774: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:33:49 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52671 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59899 *.*
+udp4 *.64247 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49232 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50526 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56023 *.*
+udp4 *.56950 *.*
+udp6 *.56950 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 10.245.0.46.58965 10.245.0.46.1514
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543563590.49627: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:39:50 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49411 209.85.233.102.443
+tcp4 10.1.9.74.49412 192.30.253.124.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52776 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57434 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65263 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52671 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59899 *.*
+udp4 *.64247 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543563950.51582: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:45:50 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49437
+tcp4 10.245.0.46.443 10.245.0.46.49438
+tcp4 10.245.0.46.443 10.245.0.46.49439
+tcp4 10.245.0.46.443 10.245.0.46.49440
+tcp4 10.245.0.46.443 10.245.0.46.49441
+tcp4 10.245.0.46.443 10.245.0.46.49442
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49435 54.192.230.46.443
+tcp4 10.1.9.74.49436 209.85.233.100.443
+tcp4 10.245.0.46.49437 10.245.0.46.443
+tcp4 10.245.0.46.49438 10.245.0.46.443
+tcp4 10.245.0.46.49439 10.245.0.46.443
+tcp4 10.245.0.46.49440 10.245.0.46.443
+tcp4 10.245.0.46.49441 10.245.0.46.443
+tcp4 10.245.0.46.49442 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54382 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.56962 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.64556 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49411 209.85.233.102.443
+tcp4 10.1.9.74.49412 192.30.253.124.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52776 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57434 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65263 *.*
+
+** Alert 1543564310.54084: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:51:50 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49458
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49238 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49458 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53971 *.*
+udp4 *.54790 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49437
+tcp4 10.245.0.46.443 10.245.0.46.49438
+tcp4 10.245.0.46.443 10.245.0.46.49439
+tcp4 10.245.0.46.443 10.245.0.46.49440
+tcp4 10.245.0.46.443 10.245.0.46.49441
+tcp4 10.245.0.46.443 10.245.0.46.49442
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49435 54.192.230.46.443
+tcp4 10.1.9.74.49436 209.85.233.100.443
+tcp4 10.245.0.46.49437 10.245.0.46.443
+tcp4 10.245.0.46.49438 10.245.0.46.443
+tcp4 10.245.0.46.49439 10.245.0.46.443
+tcp4 10.245.0.46.49440 10.245.0.46.443
+tcp4 10.245.0.46.49441 10.245.0.46.443
+tcp4 10.245.0.46.49442 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54382 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.56962 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.64556 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543564670.56584: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 07:57:50 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49481
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49481 10.245.0.46.443
+tcp4 10.1.9.74.49487 209.85.233.95.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58047 *.*
+udp4 *.58303 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65299 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49458
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49238 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49458 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53971 *.*
+udp4 *.54790 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543565031.58654: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:03:51 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49494
+tcp4 10.245.0.46.443 10.245.0.46.49496
+tcp4 10.245.0.46.443 10.245.0.46.49497
+tcp4 10.245.0.46.443 10.245.0.46.49499
+tcp4 10.245.0.46.443 10.245.0.46.49502
+tcp4 10.245.0.46.443 10.245.0.46.49503
+tcp4 10.245.0.46.443 10.245.0.46.49504
+tcp4 10.245.0.46.443 10.245.0.46.49505
+tcp4 10.245.0.46.443 10.245.0.46.49506
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49494 10.245.0.46.443
+tcp4 10.245.0.46.49496 10.245.0.46.443
+tcp4 10.245.0.46.49497 10.245.0.46.443
+tcp4 10.245.0.46.49498 10.245.0.46.443
+tcp4 10.245.0.46.49499 10.245.0.46.443
+tcp4 10.245.0.46.49500 10.245.0.46.443
+tcp4 10.245.0.46.49501 10.245.0.46.443
+tcp4 10.245.0.46.49502 10.245.0.46.443
+tcp4 10.245.0.46.49503 10.245.0.46.443
+tcp4 10.245.0.46.49504 10.245.0.46.443
+tcp4 10.245.0.46.49505 10.245.0.46.443
+tcp4 10.245.0.46.49506 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55934 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57570 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60909 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49481
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49481 10.245.0.46.443
+tcp4 10.1.9.74.49487 209.85.233.95.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58047 *.*
+udp4 *.58303 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65299 *.*
+
+** Alert 1543565391.61465: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:09:51 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49496 10.245.0.46.443
+tcp4 10.245.0.46.49517 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57076 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58214 *.*
+udp4 *.58806 *.*
+udp4 *.65020 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49494
+tcp4 10.245.0.46.443 10.245.0.46.49496
+tcp4 10.245.0.46.443 10.245.0.46.49497
+tcp4 10.245.0.46.443 10.245.0.46.49499
+tcp4 10.245.0.46.443 10.245.0.46.49502
+tcp4 10.245.0.46.443 10.245.0.46.49503
+tcp4 10.245.0.46.443 10.245.0.46.49504
+tcp4 10.245.0.46.443 10.245.0.46.49505
+tcp4 10.245.0.46.443 10.245.0.46.49506
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49494 10.245.0.46.443
+tcp4 10.245.0.46.49496 10.245.0.46.443
+tcp4 10.245.0.46.49497 10.245.0.46.443
+tcp4 10.245.0.46.49498 10.245.0.46.443
+tcp4 10.245.0.46.49499 10.245.0.46.443
+tcp4 10.245.0.46.49500 10.245.0.46.443
+tcp4 10.245.0.46.49501 10.245.0.46.443
+tcp4 10.245.0.46.49502 10.245.0.46.443
+tcp4 10.245.0.46.49503 10.245.0.46.443
+tcp4 10.245.0.46.49504 10.245.0.46.443
+tcp4 10.245.0.46.49505 10.245.0.46.443
+tcp4 10.245.0.46.49506 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55934 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57570 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60909 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543565751.64237: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:15:51 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49554
+tcp4 10.245.0.46.443 10.245.0.46.49555
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49554 10.245.0.46.443
+tcp4 10.245.0.46.49555 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58168 *.*
+udp4 *.58478 *.*
+udp4 *.58806 *.*
+udp4 *.61795 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49496 10.245.0.46.443
+tcp4 10.245.0.46.49517 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57076 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58214 *.*
+udp4 *.58806 *.*
+udp4 *.65020 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543566112.66346: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:21:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49561
+tcp4 10.245.0.46.443 10.245.0.46.49562
+tcp4 10.245.0.46.443 10.245.0.46.49563
+tcp4 10.245.0.46.443 10.245.0.46.49564
+tcp4 10.245.0.46.443 10.245.0.46.49565
+tcp4 10.245.0.46.443 10.245.0.46.49566
+tcp4 10.245.0.46.443 10.245.0.46.49567
+tcp4 10.245.0.46.443 10.245.0.46.49568
+tcp4 10.245.0.46.443 10.245.0.46.49569
+tcp4 10.245.0.46.443 10.245.0.46.49570
+tcp4 10.245.0.46.443 10.245.0.46.49571
+tcp4 10.245.0.46.443 10.245.0.46.49572
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49559 54.192.230.46.443
+tcp4 10.1.9.74.49560 209.85.233.102.443
+tcp4 10.245.0.46.49561 10.245.0.46.443
+tcp4 10.245.0.46.49562 10.245.0.46.443
+tcp4 10.245.0.46.49563 10.245.0.46.443
+tcp4 10.245.0.46.49564 10.245.0.46.443
+tcp4 10.245.0.46.49565 10.245.0.46.443
+tcp4 10.245.0.46.49566 10.245.0.46.443
+tcp4 10.245.0.46.49567 10.245.0.46.443
+tcp4 10.245.0.46.49568 10.245.0.46.443
+tcp4 10.245.0.46.49569 10.245.0.46.443
+tcp4 10.245.0.46.49570 10.245.0.46.443
+tcp4 10.245.0.46.49571 10.245.0.46.443
+tcp4 10.245.0.46.49572 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52954 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53635 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65439 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49554
+tcp4 10.245.0.46.443 10.245.0.46.49555
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49554 10.245.0.46.443
+tcp4 10.245.0.46.49555 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58168 *.*
+udp4 *.58478 *.*
+udp4 *.58806 *.*
+udp4 *.61795 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543566472.69392: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:27:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49602
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49602 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51585 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53308 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60411 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49561
+tcp4 10.245.0.46.443 10.245.0.46.49562
+tcp4 10.245.0.46.443 10.245.0.46.49563
+tcp4 10.245.0.46.443 10.245.0.46.49564
+tcp4 10.245.0.46.443 10.245.0.46.49565
+tcp4 10.245.0.46.443 10.245.0.46.49566
+tcp4 10.245.0.46.443 10.245.0.46.49567
+tcp4 10.245.0.46.443 10.245.0.46.49568
+tcp4 10.245.0.46.443 10.245.0.46.49569
+tcp4 10.245.0.46.443 10.245.0.46.49570
+tcp4 10.245.0.46.443 10.245.0.46.49571
+tcp4 10.245.0.46.443 10.245.0.46.49572
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49559 54.192.230.46.443
+tcp4 10.1.9.74.49560 209.85.233.102.443
+tcp4 10.245.0.46.49561 10.245.0.46.443
+tcp4 10.245.0.46.49562 10.245.0.46.443
+tcp4 10.245.0.46.49563 10.245.0.46.443
+tcp4 10.245.0.46.49564 10.245.0.46.443
+tcp4 10.245.0.46.49565 10.245.0.46.443
+tcp4 10.245.0.46.49566 10.245.0.46.443
+tcp4 10.245.0.46.49567 10.245.0.46.443
+tcp4 10.245.0.46.49568 10.245.0.46.443
+tcp4 10.245.0.46.49569 10.245.0.46.443
+tcp4 10.245.0.46.49570 10.245.0.46.443
+tcp4 10.245.0.46.49571 10.245.0.46.443
+tcp4 10.245.0.46.49572 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52954 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53635 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65439 *.*
+
+** Alert 1543566832.72360: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:33:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49618 172.217.20.174.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51934 *.*
+udp4 *.52595 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.64246 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49602
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49602 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51585 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53308 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60411 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543567192.74353: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:39:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49632
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49289 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49632 10.245.0.46.443
+tcp4 10.245.0.46.49633 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52285 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58764 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49618 172.217.20.174.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51934 *.*
+udp4 *.52595 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.64246 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543567552.76385: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:45:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49640
+tcp4 10.245.0.46.443 10.245.0.46.49641
+tcp4 10.245.0.46.443 10.245.0.46.49642
+tcp4 10.245.0.46.443 10.245.0.46.49643
+tcp4 10.245.0.46.443 10.245.0.46.49644
+tcp4 10.245.0.46.443 10.245.0.46.49645
+tcp4 10.245.0.46.443 10.245.0.46.49651
+tcp4 10.245.0.46.443 10.245.0.46.49652
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49640 10.245.0.46.443
+tcp4 10.245.0.46.49641 10.245.0.46.443
+tcp4 10.245.0.46.49642 10.245.0.46.443
+tcp4 10.245.0.46.49643 10.245.0.46.443
+tcp4 10.245.0.46.49644 10.245.0.46.443
+tcp4 10.245.0.46.49645 10.245.0.46.443
+tcp4 10.245.0.46.49649 10.245.0.46.443
+tcp4 10.245.0.46.49651 10.245.0.46.443
+tcp4 10.245.0.46.49652 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50435 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58089 *.*
+udp4 *.58806 *.*
+udp4 *.62526 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49632
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49289 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49632 10.245.0.46.443
+tcp4 10.245.0.46.49633 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.52285 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58764 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543567912.79040: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:51:52 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49653 130.211.20.45.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51872 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.61548 *.*
+udp4 *.63792 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49640
+tcp4 10.245.0.46.443 10.245.0.46.49641
+tcp4 10.245.0.46.443 10.245.0.46.49642
+tcp4 10.245.0.46.443 10.245.0.46.49643
+tcp4 10.245.0.46.443 10.245.0.46.49644
+tcp4 10.245.0.46.443 10.245.0.46.49645
+tcp4 10.245.0.46.443 10.245.0.46.49651
+tcp4 10.245.0.46.443 10.245.0.46.49652
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.245.0.46.49640 10.245.0.46.443
+tcp4 10.245.0.46.49641 10.245.0.46.443
+tcp4 10.245.0.46.49642 10.245.0.46.443
+tcp4 10.245.0.46.49643 10.245.0.46.443
+tcp4 10.245.0.46.49644 10.245.0.46.443
+tcp4 10.245.0.46.49645 10.245.0.46.443
+tcp4 10.245.0.46.49649 10.245.0.46.443
+tcp4 10.245.0.46.49651 10.245.0.46.443
+tcp4 10.245.0.46.49652 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.50435 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58089 *.*
+udp4 *.58806 *.*
+udp4 *.62526 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543568273.81617: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 08:57:53 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49436 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53598 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55739 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+tcp4 10.1.9.74.49653 130.211.20.45.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51872 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.61548 *.*
+udp4 *.63792 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543568634.83531: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:03:54 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49631 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54023 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60292 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49436 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.53598 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55739 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543568995.85406: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:09:55 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51974 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59571 *.*
+udp4 *.61969 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49631 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54023 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.60292 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543569911.87281: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:25:11 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49223 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59571 *.*
+udp4 *.61784 *.*
+udp6 *.61784 *.*
+udp4 *.62791 *.*
+udp6 *.62791 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49369 17.252.44.28.5223
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51974 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59571 *.*
+udp4 *.61969 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543570244.89168: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:30:44 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49687 17.252.44.21.5223
+tcp4 10.1.9.74.49698 209.85.233.95.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56466 *.*
+udp4 *.57641 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58434 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49223 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 10.245.0.46.56101 10.245.0.46.1514
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58806 *.*
+udp4 *.59571 *.*
+udp4 *.61784 *.*
+udp6 *.61784 *.*
+udp4 *.62791 *.*
+udp6 *.62791 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543571461.91077: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:51:01 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51108 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 *.52909 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.61272 *.*
+udp6 *.61272 *.*
+udp4 *.61891 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49687 17.252.44.21.5223
+tcp4 10.1.9.74.49698 209.85.233.95.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56466 *.*
+udp4 *.57641 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58434 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543571804.92952: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 09:56:44 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49753
+tcp4 10.245.0.46.443 10.245.0.46.49758
+tcp4 10.245.0.46.443 10.245.0.46.49759
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.245.0.46.49753 10.245.0.46.443
+tcp4 10.245.0.46.49758 10.245.0.46.443
+tcp4 10.245.0.46.49759 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55500 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.59799 *.*
+udp4 *.60766 *.*
+udp4 *.63053 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51108 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 *.52909 *.*
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.61272 *.*
+udp6 *.61272 *.*
+udp4 *.61891 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543572164.95073: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 10:02:44 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49843
+tcp4 10.245.0.46.443 10.245.0.46.49844
+tcp4 10.245.0.46.443 10.245.0.46.49845
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49773 209.85.233.95.443
+tcp4 10.1.9.74.49780 209.85.233.113.443
+tcp4 10.1.9.74.49781 54.192.230.67.443
+tcp4 10.1.9.74.49785 172.217.20.164.443
+tcp4 10.1.9.74.49786 64.233.162.132.443
+tcp4 10.1.9.74.49787 173.194.222.94.443
+tcp4 10.1.9.74.49788 74.125.131.155.443
+tcp4 10.1.9.74.49789 74.125.131.155.443
+tcp4 10.1.9.74.49790 74.125.131.155.443
+tcp4 10.1.9.74.49791 64.233.162.154.443
+tcp4 10.1.9.74.49792 209.85.233.100.443
+tcp4 10.1.9.74.49793 209.85.233.101.443
+tcp4 10.1.9.74.49794 54.192.230.42.443
+tcp4 10.1.9.74.49795 54.192.230.42.443
+tcp4 10.1.9.74.49796 23.185.0.2.443
+tcp4 10.1.9.74.49797 209.85.233.95.443
+tcp4 10.1.9.74.49798 64.233.165.95.443
+tcp4 10.1.9.74.49799 192.0.73.2.443
+tcp4 10.1.9.74.49802 209.85.233.97.443
+tcp4 10.1.9.74.49803 5.10.88.212.443
+tcp4 10.1.9.74.49807 209.85.233.94.443
+tcp4 10.1.9.74.49809 104.244.46.16.443
+tcp4 10.1.9.74.49811 13.107.21.200.443
+tcp4 10.1.9.74.49814 151.101.37.2.443
+tcp4 10.1.9.74.49816 209.85.233.155.443
+tcp4 10.1.9.74.49817 172.217.20.163.443
+tcp4 10.1.9.74.49823 23.185.0.2.443
+tcp4 10.1.9.74.49824 151.101.38.110.443
+tcp4 10.1.9.74.49828 54.192.230.107.443
+tcp4 10.1.9.74.49829 54.192.230.82.443
+tcp4 10.1.9.74.49830 54.192.230.54.443
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49834 54.192.230.109.443
+tcp4 10.1.9.74.49840 199.16.156.232.443
+tcp4 10.1.9.74.49841 199.16.156.11.443
+tcp4 10.1.9.74.49842 185.63.144.5.443
+tcp4 10.245.0.46.49843 10.245.0.46.443
+tcp4 10.245.0.46.49844 10.245.0.46.443
+tcp4 10.245.0.46.49845 10.245.0.46.443
+tcp4 10.1.9.74.49846 149.126.72.66.443
+tcp4 10.1.9.74.49847 149.126.72.66.443
+tcp4 10.1.9.74.49848 149.126.72.66.443
+tcp4 10.1.9.74.49849 149.126.72.66.443
+tcp4 10.1.9.74.49850 149.126.72.66.443
+tcp4 10.1.9.74.49851 149.126.72.66.443
+tcp4 10.1.9.74.49852 68.232.35.182.443
+tcp4 10.1.9.74.49853 104.17.186.73.443
+tcp4 10.1.9.74.49854 104.16.252.5.443
+tcp4 10.1.9.74.49855 149.126.72.66.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55096 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.61092 *.*
+udp4 *.63424 *.*
+udp4 *.64848 *.*
+udp4 *.65142 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49753
+tcp4 10.245.0.46.443 10.245.0.46.49758
+tcp4 10.245.0.46.443 10.245.0.46.49759
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.245.0.46.49753 10.245.0.46.443
+tcp4 10.245.0.46.49758 10.245.0.46.443
+tcp4 10.245.0.46.49759 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55500 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.59799 *.*
+udp4 *.60766 *.*
+udp4 *.63053 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543572524.99319: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 10:08:44 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49878
+tcp4 10.245.0.46.443 10.245.0.46.49879
+tcp4 10.245.0.46.443 10.245.0.46.49880
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49785 172.217.20.164.443
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49860 209.85.233.102.443
+tcp4 10.1.9.74.49861 209.85.233.138.443
+tcp4 10.1.9.74.49862 209.85.233.94.443
+tcp4 10.1.9.74.49863 209.85.233.94.443
+tcp4 10.1.9.74.49864 64.233.184.94.443
+tcp4 10.1.9.74.49865 209.85.233.102.443
+tcp4 10.1.9.74.49866 64.233.161.97.443
+tcp4 10.1.9.74.49867 209.85.233.138.443
+tcp4 10.1.9.74.49868 209.85.233.100.443
+tcp4 10.1.9.74.49869 209.85.233.100.443
+tcp4 10.1.9.74.49870 64.233.162.132.443
+tcp4 10.1.9.74.49874 209.85.233.101.443
+tcp4 10.1.9.74.49875 209.85.233.154.443
+tcp4 10.1.9.74.49876 172.217.20.163.443
+tcp4 10.245.0.46.49878 10.245.0.46.443
+tcp4 10.245.0.46.49879 10.245.0.46.443
+tcp4 10.245.0.46.49880 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51223 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56929 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.62748 *.*
+udp4 *.64785 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49843
+tcp4 10.245.0.46.443 10.245.0.46.49844
+tcp4 10.245.0.46.443 10.245.0.46.49845
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49773 209.85.233.95.443
+tcp4 10.1.9.74.49780 209.85.233.113.443
+tcp4 10.1.9.74.49781 54.192.230.67.443
+tcp4 10.1.9.74.49785 172.217.20.164.443
+tcp4 10.1.9.74.49786 64.233.162.132.443
+tcp4 10.1.9.74.49787 173.194.222.94.443
+tcp4 10.1.9.74.49788 74.125.131.155.443
+tcp4 10.1.9.74.49789 74.125.131.155.443
+tcp4 10.1.9.74.49790 74.125.131.155.443
+tcp4 10.1.9.74.49791 64.233.162.154.443
+tcp4 10.1.9.74.49792 209.85.233.100.443
+tcp4 10.1.9.74.49793 209.85.233.101.443
+tcp4 10.1.9.74.49794 54.192.230.42.443
+tcp4 10.1.9.74.49795 54.192.230.42.443
+tcp4 10.1.9.74.49796 23.185.0.2.443
+tcp4 10.1.9.74.49797 209.85.233.95.443
+tcp4 10.1.9.74.49798 64.233.165.95.443
+tcp4 10.1.9.74.49799 192.0.73.2.443
+tcp4 10.1.9.74.49802 209.85.233.97.443
+tcp4 10.1.9.74.49803 5.10.88.212.443
+tcp4 10.1.9.74.49807 209.85.233.94.443
+tcp4 10.1.9.74.49809 104.244.46.16.443
+tcp4 10.1.9.74.49811 13.107.21.200.443
+tcp4 10.1.9.74.49814 151.101.37.2.443
+tcp4 10.1.9.74.49816 209.85.233.155.443
+tcp4 10.1.9.74.49817 172.217.20.163.443
+tcp4 10.1.9.74.49823 23.185.0.2.443
+tcp4 10.1.9.74.49824 151.101.38.110.443
+tcp4 10.1.9.74.49828 54.192.230.107.443
+tcp4 10.1.9.74.49829 54.192.230.82.443
+tcp4 10.1.9.74.49830 54.192.230.54.443
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49834 54.192.230.109.443
+tcp4 10.1.9.74.49840 199.16.156.232.443
+tcp4 10.1.9.74.49841 199.16.156.11.443
+tcp4 10.1.9.74.49842 185.63.144.5.443
+tcp4 10.245.0.46.49843 10.245.0.46.443
+tcp4 10.245.0.46.49844 10.245.0.46.443
+tcp4 10.245.0.46.49845 10.245.0.46.443
+tcp4 10.1.9.74.49846 149.126.72.66.443
+tcp4 10.1.9.74.49847 149.126.72.66.443
+tcp4 10.1.9.74.49848 149.126.72.66.443
+tcp4 10.1.9.74.49849 149.126.72.66.443
+tcp4 10.1.9.74.49850 149.126.72.66.443
+tcp4 10.1.9.74.49851 149.126.72.66.443
+tcp4 10.1.9.74.49852 68.232.35.182.443
+tcp4 10.1.9.74.49853 104.17.186.73.443
+tcp4 10.1.9.74.49854 104.16.252.5.443
+tcp4 10.1.9.74.49855 149.126.72.66.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55096 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.61092 *.*
+udp4 *.63424 *.*
+udp4 *.64848 *.*
+udp4 *.65142 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543572734.104239: - syslog,dpkg,pci_dss_10.6.1,gpg13_4.10,gdpr_IV_35.7.d,
+2018 Nov 30 10:12:14 wazuh-manager->/var/log/dpkg.log
+Rule: 2901 (level 3) -> 'New dpkg (Debian Package) requested to install.'
+2018-11-30 10:12:13 install lsof:amd64 <none> 4.89+dfsg-0.1
+dpkg_status: install
+package: lsof
+arch: amd64
+version: <none>
+
+** Alert 1543572734.104575: - syslog,dpkg,config_changed,pci_dss_10.6.1,pci_dss_10.2.7,gpg13_4.10,gdpr_IV_35.7.d,
+2018 Nov 30 10:12:14 wazuh-manager->/var/log/dpkg.log
+Rule: 2904 (level 7) -> 'Dpkg (Debian Package) half configured.'
+2018-11-30 10:12:14 status half-configured lsof:amd64 4.89+dfsg-0.1
+dpkg_status: status half-configured
+package: lsof
+arch: amd64
+version: 4.89+dfsg-0.1
+
+** Alert 1543572734.104962: - syslog,dpkg,config_changed,pci_dss_10.6.1,pci_dss_10.2.7,gpg13_4.10,gdpr_IV_35.7.d,
+2018 Nov 30 10:12:14 wazuh-manager->/var/log/dpkg.log
+Rule: 2902 (level 7) -> 'New dpkg (Debian Package) installed.'
+2018-11-30 10:12:14 status installed lsof:amd64 4.89+dfsg-0.1
+dpkg_status: status installed
+package: lsof
+arch: amd64
+version: 4.89+dfsg-0.1
+
+** Alert 1543572885.105335: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 10:14:45 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49882 209.85.233.138.443
+tcp4 10.1.9.74.49883 64.233.184.120.443
+tcp4 10.1.9.74.49884 209.85.233.101.443
+tcp4 10.1.9.74.49885 209.85.233.101.443
+tcp4 10.1.9.74.49886 209.85.233.113.443
+tcp4 10.1.9.74.49894 209.85.233.100.443
+tcp4 10.1.9.74.49895 209.85.233.156.443
+tcp4 10.1.9.74.49896 209.85.233.103.443
+tcp4 10.1.9.74.49897 172.217.20.163.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 *.52695 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54934 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.61834 *.*
+udp4 *.63368 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.49878
+tcp4 10.245.0.46.443 10.245.0.46.49879
+tcp4 10.245.0.46.443 10.245.0.46.49880
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49785 172.217.20.164.443
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49860 209.85.233.102.443
+tcp4 10.1.9.74.49861 209.85.233.138.443
+tcp4 10.1.9.74.49862 209.85.233.94.443
+tcp4 10.1.9.74.49863 209.85.233.94.443
+tcp4 10.1.9.74.49864 64.233.184.94.443
+tcp4 10.1.9.74.49865 209.85.233.102.443
+tcp4 10.1.9.74.49866 64.233.161.97.443
+tcp4 10.1.9.74.49867 209.85.233.138.443
+tcp4 10.1.9.74.49868 209.85.233.100.443
+tcp4 10.1.9.74.49869 209.85.233.100.443
+tcp4 10.1.9.74.49870 64.233.162.132.443
+tcp4 10.1.9.74.49874 209.85.233.101.443
+tcp4 10.1.9.74.49875 209.85.233.154.443
+tcp4 10.1.9.74.49876 172.217.20.163.443
+tcp4 10.245.0.46.49878 10.245.0.46.443
+tcp4 10.245.0.46.49879 10.245.0.46.443
+tcp4 10.245.0.46.49880 10.245.0.46.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 *.51223 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56929 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.62748 *.*
+udp4 *.64785 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543573246.108625: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 10:20:46 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49911 209.85.233.101.443
+tcp4 10.1.9.74.49912 209.85.233.157.443
+tcp4 10.1.9.74.49913 209.85.233.105.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49914 209.85.233.94.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.58752 *.*
+udp4 *.63178 *.*
+udp4 *.64359 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65504 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49882 209.85.233.138.443
+tcp4 10.1.9.74.49883 64.233.184.120.443
+tcp4 10.1.9.74.49884 209.85.233.101.443
+tcp4 10.1.9.74.49885 209.85.233.101.443
+tcp4 10.1.9.74.49886 209.85.233.113.443
+tcp4 10.1.9.74.49894 209.85.233.100.443
+tcp4 10.1.9.74.49895 209.85.233.156.443
+tcp4 10.1.9.74.49896 209.85.233.103.443
+tcp4 10.1.9.74.49897 172.217.20.163.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 *.52695 *.*
+udp4 127.0.0.1.53078 *.*
+udp4 *.54934 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.61834 *.*
+udp4 *.63368 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543573608.111244: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 10:26:48 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49911 209.85.233.101.443
+tcp4 10.1.9.74.49912 209.85.233.157.443
+tcp4 10.1.9.74.49913 209.85.233.105.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49914 209.85.233.94.443
+tcp4 10.1.9.74.49925 209.85.233.139.443
+tcp4 10.1.9.74.49929 209.85.233.138.443
+tcp4 10.1.9.74.49930 74.125.126.120.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56999 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.60301 *.*
+udp4 *.60352 *.*
+udp4 *.64848 *.*
+udp4 *.64912 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49911 209.85.233.101.443
+tcp4 10.1.9.74.49912 209.85.233.157.443
+tcp4 10.1.9.74.49913 209.85.233.105.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49914 209.85.233.94.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.58752 *.*
+udp4 *.63178 *.*
+udp4 *.64359 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+udp4 *.65504 *.*
+
+** Alert 1543576005.113782: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:06:45 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49941 209.85.233.95.443
+tcp4 10.1.9.74.49944 209.85.233.102.443
+tcp4 10.1.9.74.49945 209.85.233.138.443
+tcp4 10.1.9.74.49946 209.85.233.156.443
+tcp4 10.1.9.74.49947 172.217.20.163.443
+tcp4 10.1.9.74.49948 209.85.233.106.443
+tcp4 10.1.9.74.49949 108.177.12.94.443
+tcp4 10.1.9.74.49951 209.85.233.113.443
+tcp4 10.1.9.74.49952 209.85.233.113.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55288 *.*
+udp6 *.55288 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.59182 *.*
+udp4 *.61766 *.*
+udp4 *.64010 *.*
+udp6 *.64010 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49708 17.252.44.88.5223
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+tcp4 10.1.9.74.49911 209.85.233.101.443
+tcp4 10.1.9.74.49912 209.85.233.157.443
+tcp4 10.1.9.74.49913 209.85.233.105.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49914 209.85.233.94.443
+tcp4 10.1.9.74.49925 209.85.233.139.443
+tcp4 10.1.9.74.49929 209.85.233.138.443
+tcp4 10.1.9.74.49930 74.125.126.120.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56999 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.60301 *.*
+udp4 *.60352 *.*
+udp4 *.64848 *.*
+udp4 *.64912 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543576348.116514: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:12:28 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49703 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.49994 209.85.233.155.443
+tcp4 10.1.9.74.49995 172.217.20.164.443
+tcp4 10.1.9.74.49996 172.217.20.163.443
+tcp4 10.1.9.74.50000 209.85.233.100.443
+tcp4 10.1.9.74.50001 209.85.233.102.443
+tcp4 10.1.9.74.50003 209.85.233.113.443
+tcp4 10.1.9.74.50004 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.65026 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+tcp4 10.1.9.74.49831 54.88.142.229.443
+tcp4 10.1.9.74.49832 107.22.47.106.443
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49941 209.85.233.95.443
+tcp4 10.1.9.74.49944 209.85.233.102.443
+tcp4 10.1.9.74.49945 209.85.233.138.443
+tcp4 10.1.9.74.49946 209.85.233.156.443
+tcp4 10.1.9.74.49947 172.217.20.163.443
+tcp4 10.1.9.74.49948 209.85.233.106.443
+tcp4 10.1.9.74.49949 108.177.12.94.443
+tcp4 10.1.9.74.49951 209.85.233.113.443
+tcp4 10.1.9.74.49952 209.85.233.113.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55288 *.*
+udp6 *.55288 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58127 *.*
+udp4 *.59182 *.*
+udp4 *.61766 *.*
+udp4 *.64010 *.*
+udp6 *.64010 *.*
+udp4 *.64848 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543576708.119196: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:18:28 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50010 209.85.233.102.443
+tcp4 10.1.9.74.50012 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58123 *.*
+udp4 *.58180 *.*
+udp4 *.61356 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49703 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.49994 209.85.233.155.443
+tcp4 10.1.9.74.49995 172.217.20.164.443
+tcp4 10.1.9.74.49996 172.217.20.163.443
+tcp4 10.1.9.74.50000 209.85.233.100.443
+tcp4 10.1.9.74.50001 209.85.233.102.443
+tcp4 10.1.9.74.50003 209.85.233.113.443
+tcp4 10.1.9.74.50004 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.65026 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543577068.121554: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:24:28 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50024 209.85.233.102.443
+tcp4 10.1.9.74.50025 209.85.233.113.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.57758 *.*
+udp4 *.58180 *.*
+udp4 *.59124 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50010 209.85.233.102.443
+tcp4 10.1.9.74.50012 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58123 *.*
+udp4 *.58180 *.*
+udp4 *.61356 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543577428.123712: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:30:28 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.245.0.46.50042 10.245.0.46.443
+tcp4 10.245.0.46.50043 10.245.0.46.443
+tcp4 10.245.0.46.50044 10.245.0.46.443
+udp4 *.51692 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.61570 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50024 209.85.233.102.443
+tcp4 10.1.9.74.50025 209.85.233.113.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.57758 *.*
+udp4 *.58180 *.*
+udp4 *.59124 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543577789.125907: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:36:29 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.50058
+tcp4 10.245.0.46.443 10.245.0.46.50059
+tcp4 10.245.0.46.443 10.245.0.46.50060
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50056 209.85.233.138.443
+tcp4 10.1.9.74.50057 74.125.126.94.443
+tcp4 10.245.0.46.50058 10.245.0.46.443
+tcp4 10.245.0.46.50059 10.245.0.46.443
+tcp4 10.245.0.46.50060 10.245.0.46.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55610 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.62944 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.245.0.46.50042 10.245.0.46.443
+tcp4 10.245.0.46.50043 10.245.0.46.443
+tcp4 10.245.0.46.50044 10.245.0.46.443
+udp4 *.51692 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.61570 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543578149.128335: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:42:29 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50065 209.85.233.100.443
+tcp4 10.1.9.74.50069 209.85.233.102.443
+tcp4 10.1.9.74.50070 209.85.233.138.443
+tcp4 10.1.9.74.50071 74.125.126.120.443
+tcp4 10.1.9.74.50073 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.60792 *.*
+udp4 *.63733 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 10.245.0.46.443 10.245.0.46.50058
+tcp4 10.245.0.46.443 10.245.0.46.50059
+tcp4 10.245.0.46.443 10.245.0.46.50060
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50056 209.85.233.138.443
+tcp4 10.1.9.74.50057 74.125.126.94.443
+tcp4 10.245.0.46.50058 10.245.0.46.443
+tcp4 10.245.0.46.50059 10.245.0.46.443
+tcp4 10.245.0.46.50060 10.245.0.46.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55610 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.62944 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543578509.130846: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:48:29 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50079 209.85.233.101.443
+tcp4 10.1.9.74.50080 108.177.12.94.443
+tcp4 10.1.9.74.50081 209.85.233.138.443
+tcp4 10.1.9.74.50086 209.85.233.138.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.58697 *.*
+udp4 *.63823 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50065 209.85.233.100.443
+tcp4 10.1.9.74.50069 209.85.233.102.443
+tcp4 10.1.9.74.50070 209.85.233.138.443
+tcp4 10.1.9.74.50071 74.125.126.120.443
+tcp4 10.1.9.74.50073 209.85.233.102.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.60792 *.*
+udp4 *.63733 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543578869.133203: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 11:54:29 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50093 209.85.233.139.443
+tcp4 10.1.9.74.50095 209.85.233.101.443
+tcp4 10.1.9.74.50096 172.217.161.3.443
+tcp4 10.1.9.74.50097 172.217.20.174.443
+udp4 *.51411 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.62225 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50079 209.85.233.101.443
+tcp4 10.1.9.74.50080 108.177.12.94.443
+tcp4 10.1.9.74.50081 209.85.233.138.443
+tcp4 10.1.9.74.50086 209.85.233.138.443
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.58697 *.*
+udp4 *.63823 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543579229.135519: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 12:00:29 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50108 209.85.233.113.443
+tcp4 10.245.0.46.50112 10.245.0.46.443
+tcp4 10.245.0.46.50113 10.245.0.46.443
+tcp4 10.245.0.46.50114 10.245.0.46.443
+udp4 *.51351 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56376 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50093 209.85.233.139.443
+tcp4 10.1.9.74.50095 209.85.233.101.443
+tcp4 10.1.9.74.50096 172.217.161.3.443
+tcp4 10.1.9.74.50097 172.217.20.174.443
+udp4 *.51411 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.62225 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543580334.137833: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 12:18:54 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50108 209.85.233.113.443
+tcp4 10.1.9.74.50115 172.217.18.3.443
+udp4 *.50638 *.*
+udp6 *.50638 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+udp4 *.54140 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55343 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.64688 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49962 17.252.44.83.5223
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50108 209.85.233.113.443
+tcp4 10.245.0.46.50112 10.245.0.46.443
+tcp4 10.245.0.46.50113 10.245.0.46.443
+tcp4 10.245.0.46.50114 10.245.0.46.443
+udp4 *.51351 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.56376 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
+** Alert 1543580676.140078: - ossec,pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,
+2018 Nov 30 12:24:36 (iPad-KF.local) 172.25.0.1->netstat listening ports
+Rule: 533 (level 7) -> 'Listened ports status (netstat) changed (new port opened or closed).'
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50131 54.86.177.36.443
+tcp4 10.1.9.74.50157 17.252.76.72.5223
+tcp4 10.1.9.74.50159 52.20.252.158.443
+tcp4 10.1.9.74.50160 52.20.252.158.443
+tcp4 10.1.9.74.50173 52.89.6.109.443
+tcp4 10.1.9.74.50181 10.1.9.83.139
+tcp4 10.1.9.74.50184 10.1.9.71.139
+udp4 10.245.0.46.51338 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55644 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.60032 *.*
+udp4 *.63489 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+Previous output:
+ossec: output: 'netstat listening ports':
+udp4 *.* *.*
+udp46 *.* *.*
+tcp4 *.80 *.*
+tcp4 *.88 *.*
+tcp6 *.88 *.*
+udp4 *.88 *.*
+udp6 *.88 *.*
+udp4 *.137 *.*
+udp4 *.138 *.*
+tcp4 *.443 *.*
+tcp4 *.445 *.*
+tcp6 *.445 *.*
+udp4 *.514 *.*
+udp4 *.1514 *.*
+tcp4 *.1515 *.*
+tcp6 ::1.1515 *.*
+tcp4 *.5000 *.*
+tcp6 ::1.5000 *.*
+udp4 *.5353 *.*
+udp6 *.5353 *.*
+tcp4 *.5601 *.*
+tcp6 ::1.5601 *.*
+       b        5        0     8192     2048 com.apple.network.tcp_ccdebug 
+tcp4 *.9200 *.*
+tcp6 ::1.9200 *.*
+udp4 *.49913 *.*
+udp6 *.49913 *.*
+tcp4 10.1.9.74.49959 34.233.137.217.443
+tcp4 10.1.9.74.49979 23.20.68.232.443
+tcp4 10.1.9.74.50108 209.85.233.113.443
+tcp4 10.1.9.74.50115 172.217.18.3.443
+udp4 *.50638 *.*
+udp6 *.50638 *.*
+udp4 10.245.0.46.51822 10.245.0.46.1514
+udp4 127.0.0.1.53078 *.*
+udp4 *.54140 *.*
+tcp4 *.55000 *.*
+tcp6 ::1.55000 *.*
+udp4 *.55343 *.*
+udp4 *.57735 *.*
+udp6 *.57735 *.*
+udp4 *.58180 *.*
+udp4 *.64688 *.*
+udp4 *.65229 *.*
+udp6 *.65229 *.*
+
