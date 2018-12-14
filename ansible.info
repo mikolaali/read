@@ -1,0 +1,731 @@
+Ansible deps , to complete course:
+-Look at ans_course/Dockerfile
+
+docker run -it ans_course
+virtalenc nikienv
+. .nikienv/bin/activate
+pip install ansible==2.2.0.0
+pip install 
+vim requests.txt:
+cffi==1.7.0
+ansible==2.2.0.0
+appdirs==1.4.3
+asn1crypto==0.22.0
+boto==2.42.0
+boto3==1.3.1
+botocore==1.4.39
+cryptography==1.8.1
+docutils==0.12
+ecdsa==0.13
+enum34==1.1.6
+futures==3.0.5
+httplib2==0.9.2
+idna==2.5
+ipaddress==1.0.18
+Jinja2==2.9.5
+jmespath==0.9.0
+MarkupSafe==1.0
+packaging==16.8
+paramiko==2.1.2
+pyasn1==0.2.3
+pycparser==2.17
+pycrypto==2.6.1
+pyparsing==2.2.0
+python-dateutil==2.5.3
+PyYAML==3.12
+requests==2.10.0
+six==1.10.0
+
+apt-get install build-essential autoconf libtool pkg-config python-opengl python-imaging python-pyrex python-pyside.qtopengl idle-python2.7 qt4-dev-tools qt4-designer libqtgui4 libqtcore4 libqt4-xml libqt4-test libqt4-script libqt4-network libqt4-dbus python-qt4 python-qt4-gl libgle3 python-dev libssl-dev
+
+pip install -r requests.txt
+
+===========
+boto boto3 botocore - python interfaces for AWS and are needed to run different ansible modules for AWS.
+cffi to keep all python-related logics in Pyton
+	It is basically used to call C code from Python
+
+====
+
+The default ans conf file : /etc/ansible/ansible.cfg
+pwd -> / ( in virtualenv )
+cp /etc/ansible/ansible.cfg ansible.cfg
+
+====	Getting started with ans playbooks ===	NGINX
+1.Using ans playbook, install Nginx and other packages 
+2. Configure the Nginx serv by means of the same playbook
+3. Test the Nginx web serv setup
+4. Ansible modules such as service yum will be used
+5. Single master playbook to complete entire setup of Nginx serv.
+
+=====		Intoroduction to YAML
+1. Ansible playbooks are saved in YAML format (.yml)
+2. YAML Ain't Markup Language!
+3. A human-friendly data seralization standard for all programming languages
+4. A very simple , text/human-readable annotation format that can be used to store data
+
+----	Basic Principles to Remember When Working with YAML
+1. Always save using the UTF-8 encoding to minimize the possibility of errors
+2. Never, EVER use the TAB character anywhere in it 
+3. Editing with a WYSIWYG text processor, such as Microsoft Word, is not recommended
+4. Whenever you see the '#' character in the file , it marks the beginning of a comment
+ 
+---		How Ansible Works 
+1. Connecting to your nodes and pushing out small programs, called Ansible modules to them and executes these modules and removes them then finished
+2. Passwords are supported, but SSH keys with ssh-agent are one of the best ways to use Ansible
+3. Represents what machines it managesusing a very simple INI file that puts all of your managed machines in groups and saves all hosts in a simple text file.
+4. Create a directory 'group_vars'in the code directory and keep all our variables in simple text files inside this directory and use them in our playbooks easily.
+
+ 
+--- Our Final Directory Structure
+1. This will be our directory structure
+2. We will learn about roles , handlers, and other topics in the coming sections
+ansible/
+	play.yml
+	roles
+		nginx
+			files
+				index.html
+				index.php
+			handllers
+				main.yml
+			meta
+			tasks
+				main.yml
+			templates
+			vars
+
+---	There are always multiple ways to use any tool, so is for Ansible
+1. Recommended to keep things the way we design in this course
+2. Recommended to follow one method and not mix different methods together so as to avoid complications and errors
+
+
+====			INstalling Packages on Multiple Hosts Simultaneously.
+1. Ans works against multiple systems in your infrastructure at the same time 
+2. Ans uses a combination of a hosts file and a group_vars directory to pull variables per host group and run Ansible plays/tasks against hosts
+3. /etc/ansible/hosts is the default hosts file 
+4. we will not touch this file and make a hosts file inside our code directory 
+5. Hosts file is a simple text file to club our hosts in groups , or give any name to any host and use it in our playbook.
+ 	
+---	Summary
+1. Used our first playbook to set up Bginx web-server
+2. Learned very important points about YAML, Ansible, and directory structure for our code
+3. Used Ansible playbook with the hosts file to execute modules simultaneously on multiple hosts.
+
+=============	Anisble advanced Modules	
+---	Ansible Modules
+1. Ans , by default , ships with more than 700 different modules
+2. Ans , modules let uou execute any task on any host in a structured way
+3 . Some basic modules : service, apt, yum , file , command , shell , copy, and so on
+4. Some basic AWS cloud modules: ec2, ex2_vpc_route_table, rds, route53, and so on
+5. Instead of command or shell module, it's recommended to use specific modules for every purpose.
+
+====		Developing Ansible Modules
+1. Ansible modules are reusable, sttandalone scripts that can be used by the Ansible API, or by the Ansible or ansible-playbooks
+2. Modules can be written in any language and are found in the path specified by ANSIBLE_LIBRARY or the module-path command-line option.
+
+====		Infrastructure Automation Using Ansible
+--- Introduction to amazon AWS services
+1. Fastest-growing clud services platform 
+2. Wide variety of services
+3. Optimized solutions
+4. Agility and elasticity
+
++
+	1. Low cost
+	2. Open and flexible
+	3. Security
+
+---	AWS Elastic Compute Cloud 
+1. Amazon EC2
+2. Scale up or down
+3. Instances
+4. Amazon machine images
+
+- Instance types 
+- Security groups 
+- EC2 tags
+
+---	AWS Virtual Private Cloud 
+1. VPC is logically isolated from other virtual networks in the AWS cloud 
+2. VPC configurations
+3. VPC IP address range 
+4. Route tables
+5. Network gateways
+
+	 
+---	AWS Virtual Private Cloud 
+1. VPC security groups
+2. VPC subnets
+3. Network access control list
+4. VPC peering
+--- aws ELASTIC LOAD BALANCING
+1. AWS elastic load balancers
+2. Availability zones
+3. Faoult tolerance
+4. Single point of contact for clients
+5. ELB listeners
+
+--- AWS Elastic Load Balancing 
+1. Add and remove instances
+2. Network traffic scaling
+3. Health checks 
+4. ELB logs 
+5. ELB monitoring
+
+---	AWS Route53
+1. Register domain names
+2. Rransfer the existing domains
+3. Hosted zone
+4. Domain control 
+5. Healthcheck 
+
+---	AWS Relational Database Service
+1. Set up, operate, and scale a relational database in the cloud
+2. Cost-efficient
+3. Resizable capacity
+4. Automatic bbackups 
+5. Major/minor upgrades
+6. Maintennance window
+
+---	AWS Relational Database Service (Continued)
+1. Fast performance
+2. High availability 
+3. Security
+4. Database instance types
+
+---	AWS Simple Storage Service(S3)
+1. Store and retrieve any amount of data, at any time, from anywhere on the web 
+2. Highly scalable
+3. Reliable
+4. Fast
+
+5. INexpensive data storage 
+6. S3 buckets
+7. Unique S3 bucket name
+8. Security
+
+====		Ansible Playbooks for Infrastructure Automation
+-More advanced Ansible playbooks 
+-Using AWS cloud modules
+
+
+=======		Modular configuration with ROLES
+---	Ansible Roles
+1. Automatically loading certain vars_files, tasks, and handlers based on a known file structure
+2. Easy sharing of roles with other users 
+3. Reusing same block or code or particular function any number of times 
+4. Role name 
+5. main.yml file inside roles
+6. Include YAML files from other directories inside the same role 
+7. Good practice to include all other YAML files from tasks/main.yml when needed
+
+---	Converting our playbooks into roles with tasks and handlers.
+1. Ansible Role task files 
+2. Calling a role in the playbook
+3. Role names and role directory
+4. The 'tasks' directory inside role
+5. A 'main.yml' yaml file inside tasks
+6. Roles must include at least one of these directories - tasks, handlers, default, vars, templates, and 
+meta
+
+---  Handlers
+1. The handlers' directory 
+2. A 'main.yml' YAML file inside handlers
+3. Calling a handler
+4. Notify handler
+
+----	Files
+1. The 'files' directory 
+2. No main.yml is needed inside files directory
+3. Configuration files, scripts, or text files are to be placed inside this files directory
+4. Using files 
+5. Modules to use files
+
+---	Templates
+1. The 'templates' directory
+2. No main.yml is needed inside files directory
+3. Template resources
+4. Template is not same as files
+5. The templates end in '.j2'
+6. Templates are processed by the Jinja2 templating language
+7. Using Template files 
+
+--- 
+1. Include external or different roles in our playbooks  , or another role , and use extensively
+2. Using 'include' in the main list of tasks (tasks/main.yml) to include more YAML files in the same role 
+3. Using 'include_role' in the main list of tasks of one role to include another role as a step
+4. 'Include' - To include a file with a list of plays or tasks to be executed in the current playbook
+
+====		Dive into More Features of ANSIBLE 
+1. One of the most important aspects of IT idustry , that is , security 
+2. Learning to automate this using Ansible playbooks
+
+
+===	IT Security
+1. Network security 
+2. Server/system security
+3. Service security
+
+---	Ansible playbooks for security audits.
+
+
+==============
+==============
+==============
+==============		ANSIBLE COURSE - YOGISH
+
+First of all , you need to prepair enventory for ansible
+
+dpkg -L  ansible # will show you all files which belong to app
+
+/etc/ansible/hosts - to define remote hosts for orchistration
+/etc/ssh/ssh_config  -  define configuration to remote host. (Host,User,Port,HostName,IdentityFile)
+/etc/ansible/ansible.cfg  # configuration of ansible
+
+---	Simple CMD
+ansible-doc -l  # list installed module
+ansible-doc ModuleName
+			-s  # short info about module
+
+ansible [inventory] -m ModName -a 'options for module' -s (use sudo)
+
+ansible wazuh -m ping
+ansible wazuh -m apt -a "name=apache2 state=presented' -s
+ansible wazuh -m service -a 'name=apche2 state=started' -s
+
+ansible wazuh -m copy -a 'src=file_or_dir dest=dir_or_file' -s(switch to roo)
+
+---	Role
+Roles in Ansible are next level of abstraction of ansible playbook.
+
+---	Benefits of using Roles
+- Idea of include files and combine them to form clean, reusable abstractions
+- Easy to maintain/troubleshooting the playbooks.
+
+---	Structure of Roles
+files: contains regular files those needs to copied to the target hosts.
+handlers:	event handlers
+meta:	role dependencies
+templates:	similar to files, but it contains dynamic data.
+tasks:	playbook tasks
+vars/group_vars:	variables definitions
+
+
+# call template module to copy templates to remote host 
+- name: Configure DNS Client
+  template: src=resolv.conf dest=/etc/resolv.conf
+  tags: dns
+
+# obvious
+- name: Install ntp
+  apt: name=ntp state=present
+
+# if succeed call handler [notify]
+- name: Copy ntp file
+  template: src=ntp.conf dest=/etc/ntp.conf
+  tags: ntp
+  notify: restart ntp service
+
+handlers/main.yml:
+---
+
+- name: rstart ntp service
+  sevice: name=ntpd state=started
+
+----------------------------------------------------
+----		MAIN.YML to use roles		----
+----------------------------------------------------
+
+- hosts: all  # aplly to all hosts
+  tasks:
+
+- name: apply common configurration
+  hosts: all  # concretisize to which host apply the role
+  user: root  #
+# become: yes
+# becom_method: sudo 
+  tasks:
+
+  roles:
+    - common   # all tasks which defined in this role will be apply to specified hosts
+
+- name: install and configure apache wevservers
+  hosts: all
+  user: root
+  #become: yes
+  #become_method: sudo
+  tasks:
+
+  roles:
+    - web
+
+============	Setup your AWS EC2 Instances using Ansible Playbook.
+
+
+=============	Ansible : Performing User Management using Ansible on Linux/Unix Systems.
+Automation this task:
+1. Create local groups 
+2. Create local users
+3. Generate ssh keys for a user.
+4. Update the public keys in user's authorized_keys file.
+5. Delete local groups.
+6. Delete local users.
+
+
+## this is demo playbook on user management using Ansible.
+## playbook use "user,group,authorized_keys" modules.
+## use this playbook at your own risk 
+
+- hosts: all
+  become_user: root
+
+  tasks:
+    # this task creates groups 
+    - name: add a group
+      group:
+       name={{ item }}
+       state=present
+      with_items:
+       - demogrp
+       - demogrp1
+       - demogrp2
+      tags: add_new_group
+
+    - name: add several users
+      user:
+       name={{ item }}
+       state=present
+       groups=demogrp
+       password="lakjsfkjdhf9834n98yh3inrjfd9"
+       shell=/bin/bash
+      with_items:
+       - demouser1
+       - demouser2
+       - demouser3
+       - demouser4
+      tags: add_new_user
+    # this task generate public keys for user
+    - name: generate ssh keys for a user
+      user:
+       name={{ item }}
+       generate_ssh_key=yes
+       ssh_key_bits=4096
+       ssh_key_file=.ssh/id_rsa
+      with_items:
+       - demouser1
+      tags: generate_ssh_keys
+
+# this task is to copy the public keys to user account
+    - name: update authorized keys for a user
+      authorized_key:
+       user: root 
+       state: present
+       key: "{{ lookup('file', '/home/demouser1/.ssh/id_rsa.pub') }}"
+      tags: copy_pub_key
+
+# this tasks is to delete the users
+    - name: delete several users
+      user:
+       name={{ item }}
+       state=absent
+      with_items:
+       - demouser3
+       - demouser4
+      tags: remove_user
+
+# this tasks is to delete the group
+    - name: delete several group
+      group:
+       name={{ item }}
+       state=absent
+      with_items:
+       - demogrp1
+       - demogrp2
+      tags: remove_group
+
+
+=========		Ansible for Operating System Patch Management on Linux
+
+=========		How to perform Password Hashing? and use hashed password with Ansible.
+Password hashing is a method to take variable length password as input and creating a cryptic, fixed length password from it using the cryptic mechanisms.
+
+To make your hashed password more secure , you can add salt to your input. Salt is generally a random value used to generate hashed password.
+
+Benefits of using the hashing
+1. Instead of storing the plain password of user , storing hashed password makes more security.
+2. Hashing is one-way function, revering the hashed password to normal string is very difficult.
+3. Hashed password can be used for managing users in automation tools  etc.
+
+Methods to Generate Hashed Passwords
+There are different hashing algorithms, the most commonly used being MD5 and SHA. sha-512 is the securre algtoth as on date.
+
+
+Using Python:
+Python -c 'import crypt,gepass; print crypt.crypt(getpass.getpass())'
+
+Above command with add random salt and prompt user to type password. This method used sha-512 as hash method 
+
+Using openssl: (With Random salt)
+openssl passwd -1 -salt $(openssl rand -base64 6) SecurePass
+
+
+
+---	Before pushing password using Automation tools, check the password hashing algorithm of the OS .
+
+authconfig --test | grep "password hashing algorithm"
+
+---
+- hosts: all
+  user: root
+  vars:
+   user_pass: HashedUserPass
+   root_pass: HashedRootPass
+  tasks:
+   - name: create new user
+     user:
+      name: niki
+      uid: 1112
+      comment: niki_yeha
+      password: "{{ user_pass }}"
+      shell: /bin/bash
+     tags: create_user
+
+   - name: root password change
+     user: name=root update_password=always password="{{ root_pass }}"
+     tags: update_root_pass
+
+
+=========		Configuring and Managing the NTP client on the Enterprise servers is one of the 
+	tasks for systems administrators.
+
+NTP client is responsible for the time sync of client server with the time sources. Assume a scenario,
+you have to configure NTP client on multiple servers and in manual way it is going to take long time 
+ and always chance of error.
+
+How if we Ansible to perform this tsks?
+
+playbook:
+which you can customize further to install , configure and manage the NTP client on Linux/Unix Systems. Below modules as part of tasks
+
+1. Yum 
+2. Template
+3. Service
+
+Along with modules, I have used variables and handlers to male this demo playbook more efficient.
+
+Once yiou are good with basics you can integrate these tasks in Ansible roles for easy management.
+
+---
+- hosts: all
+  become_user: root
+  
+  vars:
+   ntp_server1: ntp1.syrahost.com
+   ntp_server2: ntp2.syrahost.com
+
+- name: remove chrony client package from the system 
+  apt:
+   name=chrony
+   state=absent
+  tags: remove_chrony
+
+- name: check/install ntp client package
+  apt:
+   name=ntp
+   state=present
+  tags: install_ntp
+
+# this task is to copy the custom ntp.conf file
+
+- name: deploy ntp.conf file to the clients
+  template:
+   src=templates/ntp.j2
+   dest=/etc/ntp.conf
+   owner=root
+   group=root
+   mode=0644
+   backup=yes
+  notify: start_restart_ntp_client
+  tags: copy_ntp_conf
+
+
+handlers:
+  - name: start_restart_ntp_client
+    service:
+     name=ntpd
+     state=restarted
+     enabled=yes
+    
+--- templates/ntp.j2
+## NTP Config - Managed using Ansible
+## Please don't edit manually.
+
+driftfile /var/lib/ntp/drift
+restrict default nomodify notrap nopeer noquery
+restrict 127.0.0.1
+restrict ::1
+
+server {{ ntp_server1 }} iburst
+server {{ ntp_server2 }} iburst
+
+keys /etc/ntp/keys
+disable monitor
+
+
+===========
+===========	CIS RHEL/CentOS 6 Benchmark - Checking and applying CIS Operatin System Hardening	
+===========		Recommendations using Ansible
+===========		
+
+CIS Secutity Benchmarking:
+1. Recommendations on Operating System hardening
+2. The recommendations are end result of discussion/tests hundreds of security professionals worldwide
+3. CIS guidelines/benchmarking are used by most of the Organizations worldwide for securing their 
+environment
+
+Ansible CIS Role: https://github.com/major/cis-rhel-ansible.git
+
+=============		Ansible tips and tricks
+
+#List all tasks in playbook
+ansible-playbook playbook.yml --list-tasks
+
+Start the ply from a particular task
+ansible-playbook playbook.yml --start-at-task="task name"
+
+Start the play step by step with interactive way. This will prompt the user for to confirm 
+each task before running
+ansible-playbook playbook.yml --step
+
+Check syntax of the playbook
+ansible-playbook playbook.yml --syntax-check
+
+Execute the playbook in the check (dry-run) mode, which check what changes will be performed
+ansible-playbook playbook.yml -check
+
+List hosts on which playbook will be executed
+ansible-playbook playbook.yml --list-hosts -l subset
+
+List tags in the playbook
+ansible-playbook playbook.yml --list-tags
+
+Only run plays and tasks tagged with these tag values
+ansible-playbook playbook.yml --tags tag1,tag2,tag3,...,tagN
+
+Skip the tasks associated with specific tasks
+ansible-playbook playbook.yml --skip-tags tag1,tag2,...,tagN
+
+The --forks what lets ansible run on multiple hosts in parallel . NUM is specified as an integer, the
+default is 5
+ansible-playbook playbook.yml --forks=NUM
+
+Run a playbook on the target hosts without inventory files.
+ansible-playbook playbook.yml -i [IP|ServerName]
+
+Limit hosts
+ansible-playbook playbook.yml -l [group,host]
+
+Run without inventory file
+ansible-playbook playbook.yml -i 192.168.1.1,  # comma is mandatory , required
+
+==============		
+ansible-playbook playbook.yml
+
+
+============	Role example
+`-- arillso.openvpn
+    |-- LICENSE
+    |-- README.md
+    |-- defaults
+    |   `-- main.yml
+    |-- handlers
+    |   `-- main.yml
+    |-- library
+    |   `-- win_chocolatey_facts.ps1
+    |-- meta
+    |   `-- main.yml
+    |-- tasks
+    |   |-- main.yml
+    |   `-- system
+    |       |-- Linux.yml
+    |       `-- Windows.yml
+    |-- templates
+    |   `-- client.conf.j2
+    `-- vars
+        `-- defaults.yml
+
+
+then make playbook with roles included
+---
+ - hosts: all
+ - roles:
+    - apache 
+    - nfs
+    - iptables
+
+for example
+
+===========		ANSIBLE-VAULT
+Example user.yml:
+---
+ - hosts: clients
+   tasks:
+    - name: Adding Users
+      user:
+       name: john
+       password: john@123
+       comment: "John Ben"
+       shell: /bin/bash
+       group: apache
+       createhome: yes
+       home: /home/john
+    - name: Copying Confidential Agrreement
+      copy: 
+       content: "Its a Confidential Agreement between an Employee & Employer\n"
+       dest: /home/john/Agreement
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

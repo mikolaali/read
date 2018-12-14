@@ -2907,6 +2907,2796 @@ mun of shards to use for the wazuh-monitoring-3.x-* indices.
 number of replicas to use for the wazuh-monitoring-3.x-* indices.
 
 
+==============	ossec.conf
+
+---	active-response		manager,agent
+	existing command is bound to one or more reles or rule types along with additional
+	criteria for when to execute the command. No limit to the num of active responses 
+	that can be used , however, each active resonse must be configured in its own
+	separate <active-response> section.
+	disabled
+	Manager: command; 
+	location - (n/a) local - runs command on the agent that generated the event;
+			server - on the wazuh manager .
+			defined-agent - on a specific agent id by agent_id.
+			all - on all agents. Use with caution.
+	agent_id - (n/a) - ID of the agent on which to execute the active response command; 
+	level - ( n/ a ) minimum severity level required for the command to be executed;
+	rules_group - (n/a) - defines rule group that a rule must belong to one for the 
+	command to be executed;
+	rules_id - (n/a) -Limits the command execution to only when one or more listed rules
+	fire. When setting level, rules_group and rules_id together, the active response will be triggered always that any rule matches with one of these options. In other words, they are 
+	accumultive options, not restrictive.; 
+	timeout - how long in seconds before the reverse command is execcuted. 
+		When repeated_offenders is used, timeout only applies to the first offense.
+	Agent side : 
+	repeated_offenders - (n/a) - timeouts in minutes for repeat offenders . This is a 
+	comma-separated list of increasing timeouts that can contain a maximum of 5 entries;
+		This option must be configured directly in the ossec.conf file of the agent, 
+		even when using a manager/agent setup with centralized configuration
+		of other settings via agent.conf . Apart from that, it has to be defined in the upper <active-response> section found in the configuration file .
+	ca_store - ( wpk_root.pem) - Indicates the path to the root CA certificate.
+	The agent needs the certificate with which the WPK was signed in order to be updated.;
+	ca_verification - (yes) en or dis the WPK validation using the root CA certificate.
+			If set to no the agent will accept any WPK package coming from the 
+			manager.
+	def: no
+---	agentless		manager
+		allows you to run integrity checks on systems without an agent installed.
+		type - (n/a) - ssh_integrity_check_bsd [list of directories]
+			[ssh_integrity_check_linux|ssh_generic_diff|ssh_pixconfig_diff] ;
+		 frequency - (n/a) - controls the number of seconds between each check of the 
+				agentless device.;
+	host - (n/a) - defines the username and the name of the agentless host. ;
+	state - (n/a) - Determines whether the type of check is periodic or periodic_diff ;
+		[periodic|periodic_diff].
+	arguments - (n/a) - Defines the arguments passed to the agentless check.;
+Sample configuration 
+<agentless>
+	<type> ssh_integrity_check_linux</type>
+	<frequency>300</frequency>
+	<host>admin@192.168.1.108</host>
+	<state>periodic_diff</state>
+	<arguments>/etc /usr/bin/ /usr/sbin</arguments>
+</agentless>
+
+
+---	alerts			manager
+		[log_alert_level|email_alert_level|use_geoip]
+		-log_alert_level - (3) - minimum severity level for alerts that will be stored to alerts.log and / or alerts.json.
+		-email_alert_level - (12) - min level for an alert to trigger an email.
+		overrides granular email alert configuration.
+		Individual rules can override this with the alert_by_email option which 
+		forces an email alert regardless of gloval or granular alert level thresholds.
+		-use-geoip -(n/a) - deprecated since version 2.0.
+Default configuration
+<alerts>
+	<log_alert_level>3</log_alert_level>
+	<email_alert_level>12</email_alert_level>
+</alerts>
+
+---	auth			manager
+	[disabled|port|use_source_ip|force_insert|force_time|purge|use_password|ssl_agent_ca|
+	ssl_verify_host|ssl_manager_cert|ssl_manager_key|ssl_auto_negotiate|ciphers|	
+	limit_maxagents]
+	-disabled (no) - Toggles the execution of the auth daemon on or off.
+	-port -(1515) - tcp port number for listening to connections.
+	-use_source_ip -(no) - Toggles the use of the client's source IP address or the
+		use of "any" to add an agent.
+	-force_insert -(no) Toggles whhether or not to force the insertion of an agent if there is a duplicate name or IP address.
+	-force_time - (0) - When forcing to remove old agents with the same name or IP address
+	, this options specifies that the deletion will be performed only if the agent's 
+	keepalive has more than the defined number of seconds.
+	0 - always force the deletion.
+	-purge -(no) - Toggles the deletion of client keys on off when agents are removed.
+	-use_password -(no) - Toggles shared password authentication on or off.
+	When enabled, the shared password will be read from the /var/ossec/etc/authd.pass file
+	If this file does not exist , a random password will be generated.
+	-ssl_agent_ca (A full path) - Specifies the full path to the CA certificate used
+		to verify clients.
+	-ssl_verify_host - (no) - Toggles source host verification on and off when aCA certificate is specified. This means that the client source IP address will be validated using the Common Name field.
+	-ssl_manager_cert - (/var/ossec/etc/sslmanager.cert) - specifies the full path to the server ssl certificate.
+	-ssl_manager_key (/var/ossec/etc/sslmanager.key) - server's SSL key.
+	-ssl_auto_negotiate (no) - Toggles whether or not to auto select the SSL/TLS method.
+	By def only TLS v1.2 is allowed. When set to yes the system will negotiate the most secure common methd with the client. In older systems , where the manager does not support TLS v1.2, this option will be enabled automatically.
+	-ciphers - (HIGH:!ADH:!EXXP:!MD5:!PC4:!3DES:!CAMELLIA:@STRENGTH) - sets the list of
+		ciphers for network communication using SSL.
+	-limit_maxagents - (yes) - Toggles whether or not to operatte based on the maximum number of agents.
+
+Default configuration.
+<auth>
+	<disableed>no</disabled>
+	<port>1515</port>
+	<use_source_ip>no</use_source_ip>
+	<force_insert>no</force_insert>
+	<force_time>0</force_time>
+	<purge>no</purge>
+	<use_password>no</use_password>
+	<limit_maxagents>yes</limit_maxagents>
+	<ciphers>HIGH:!ADH:....</ciphers>
+	<!--<ssl_agent_ca></ssl_agent_ca> -->
+	<ssl_verify_host>no</ssl_verify_host>
+	<ssl_manager_cert>/var/ossec/etc/sslmanager.cert</ssl_manager_cert>
+	<ssl_manager_key>/var/ossec/etc/sslmanager.key</ssl_manager_key>
+	<ssl_auto_negotiate>no</ssl_auto_negotiate>
+</auth>
+
+---	client			agent
+	This section explatins how to configure the connection to the manager.
+	-server - configures the connection parameters for each server an agent connects to.
+		-address(n/a)|port(1514)|protocol(udp)
+	Options:
+	-server-ip|server-hostname|port|protocol|config-profile|notify_time|time-reconnect|local_ip|disable-active-response|auto_resart|crypto_method
+	-server-ip (n/a) - any wazuh manager IP.
+	-server-hostname - manager hostname.
+	-port (1514) - 1..65535
+	-protocol - Deprecated since version 3.0.0.
+	-config-profile (n/a) - Specifies the agent.conf profile(s) to be used by the agent.
+		Multiple profiles can be included, separated by a comma and a space.
+	-notify_time (60) - time in sec between agent checkins to the manager.
+			(Shared agent.conf)
+	-time-reconnect (300) - time in sec before a reconnection is attempted. This should
+		be set to a higher number than the notify_time parameter.
+	-local_ip - (n/a) - which IP addr will be used to communicate with the manager when the agent has multiple network interfaces.
+	-disable-active-response (no) - obsolete method to disable active response.
+	-auto_restart - (yes) - Toggles on and off the automatic restart of agents when a new valid connfiguration is received from the manager.
+	-crypto_method - (aes) - encryption of the messages that the agent sends to 
+		the manager.
+Sample configuration.
+<client>
+	<server>
+		<address>192.168.1.100</address>
+		<port>1514</port>
+		<protocol>tcp</protocol>
+	</server>
+	<server>
+		<address>ex.hostname</address>
+		<protocol<udp</protocol>
+	</server>
+	<config-profile>webserver, debian8</config-profile>
+	<notify_time>30</notify_time>
+	<time-reconnect>120</time-reconnect>
+	<auto_restart>yes</auto_restart>
+</client>
+
+---	client_buffer		agent
+	Options:
+	[disabled|disable|queue_size|length|events_per_second]
+	disabled - (no) - agent buffer on and off. When set to yes, the agent will send 
+		events to the manager without any congestion control.
+	-disable (deprecated since version 3.1.0.)
+	-queue_size - (5000) - Sets the capacity of the agent buffer in number of events.
+	-length (5000) - deprecated since 3.0.0
+	-events_per_second - (500) 
+Deffault configuration
+<client_buffer>
+	<!-- Agent buffer options -->
+	<disabled>no</disabled>
+	<queue_size>5000</queue_size>
+	<events_per_second>500</events_per_second>
+</client_buffer>
+
+---	cluster			manager
+	Options:
+	[name|node_name|node_type|key|port|bind_addr|nodes|hidden|disabled]
+	-name - (wazuh) -Specifies the name of the cluster this node belongs to.
+	-node_name - (node01) - Specifies the name of the current node of the cluster.
+		Each node must have a unique name . Else will be rejected.
+	-node_type - (master) [master,worker] - role
+	-key - (n/a) - Defines the key used to encrypt the communication between the nodes.
+		This key must be 32 characters long. Refer to the Deploying a Wazuh 
+		cluster for information on how to generate a key.
+	-interval - (2m) - Deprecated since version 3.2.3. Sets the interval between cluster
+			synchronizations.
+	-port - (1515) - Specifies the port use for the cluster communications.
+	-bind_addr - (0.0.0.0) - which IP address will communicate with the cluster when 
+			the node has multiple network interfaces.
+	-nodes - (NODE_IP) - Lists all master modes in the cluster using the <node> 
+				tag for each one.
+	-hidden - ( no ) - Toggles whether or not to show information about the cluster that generated an alert. If this is set to yes, information about the cluster that generated the event won't be included in the alert.
+	-disabled (yes) - en or dis cluster.
+Sample configuration.
+<cluster>
+	<name>wazuh</name>
+	<node_name>manager_01</node_name>
+	<node_type>master</node_type>
+	<key>ladfjkjavnadkfj</key>
+	<port>1516</port>
+	<bind_addr>0.0.0.0</bind_addr>
+	<nodes>
+		<node>master</node>
+	</nodes>
+	<hidden>no</hidden>
+</cluster>
+
+---	command			manager
+	Defined command that will be used by one or more active responses.There is no limit on the number of commands that may be used by an active response , however, each one must be in 
+		its own separate <command> section.
+	Options:
+	-name - (n/a) - name of the command which is called in the active-response section.
+	-executable - (n/a) - [any file name] Name an executable file to run from the 
+		/var/ossec/active-response/bin directory. It is not necessary to provide the
+			path.
+	-expect - (n/a) - list of extracted felds that are to be passed as parameters to the command . If any of the listed fields were not extracted in  a certain instance, those field values would be passed as a dash (-) instead of as no value at all.
+	A good example is the firewall-block command which expects the srcip field in order to knows which IP address to block. Multiple expected field names are comma separated.
+
+	-extra_args - (n/a) - allows the user to customize the parameters sent to the active response script living on the agent side. [any extra argument to be read by the active-esponse scripts].
+	-timeout_allowed -(no) - whether the command is stateful or stateless. If yes, the command is stateful, it will undo its original action after the period of time specified in the active response.
+
+Sample configuration
+<command>
+	<name>custom_command</name>
+	<executable>custom_script.sh</executable>
+	<extra_args>-arg1 --arg2 arg3 ; cat /etc/passwd</extra_args>
+	<timeout_allowed<yes</timeout_allowed>
+</command>
+<command>
+	<name>win_route-null</name>
+	<executable>route-null.cmd</executable>	
+	<expect>srcip</expect>
+	<timeout_allowed>yes</timeout_allowed>
+</command>
+
+---	database_output		manager
+	MySQL and PostgreSQL database output is supported. It is configured with the options below.
+	Options:
+	-hostname - (n/a) - IP addr of the database server.
+	-username - (n/a) - for access the database.
+	-password - (n/a) - 
+	-database - which to store the alerts.
+	-type - (n/a) - [mysql/postgresql]
+	Wazuh must be compiled with the database type that is to be used.
+Example of configuration
+<database_output>
+	<hostname>192.168.1.122</hostname>
+	<username>MySQLadmin</username>
+	<password>secret1234</password>
+	<database>Alerts_DB</database>
+</database_output>
+
+---	email_alerts		manager
+	This extends the email options configured in the <global> section.
+	Options:
+	-email_to - (n/a) - single email addr to which to send email alerts. If you want to send alerts to multiple addr , each addr must be listed in a separate <email_to> section. Lists are not allowed.
+	-level - (n/a) - [0..16] This is the minimum alert severity level ffor which emails will be sent.
+	The level option should be set at or above the email_alert_level in the <alerts> section of the configuration.
+	-group - (n/a) - limits the sending of emails to only when rules are tripped that belongs to one of the listed groups. Observe that all groups must be finished by comma.
+	-event_location - the alert must match this event location to be forwarded . Do not specify this option repeatedly, as only the last instance would be used.
+	-format - (full) - specifies the email format.[default|full|sms]
+	-rule_id - (n/a) - limits the sending of emails to only when rules are tripped that 
+		have one of the listed rule IDs.
+	-do_not_delay - (n/a) - causes email alerts to be sent right away, rather than to be delayed for the purpose of batching multiple alerts together.
+	-do_not_group - (n/a) - disables grouping of multiple alerts into the same email.
+		do_not_delay and do_not_group are special empty-element XML tags, so 
+		they stand alone, not having a starting and ending version of the tag. 
+		This is indicated by the tag name containing "/" at the end of the name.
+Example of configuration 
+<email_alerts>	
+	<email_to>recipient@example.wazuh.com</email_to>
+	<email_to>recip2@gmail.com</email_to>
+	<level>12</level>
+	<group>sshd,</group>
+	<do_not_delay/>
+</email_alerts>
+
+
+---	global			manager
+	Global configuration generally applies to features that affect the system as a whole, rather than a specific component.
+	Options:
+	-alerts_log -(yes) - toggles the writing of alerts to /var/ossec/logs/alerts/alerts.log
+	-email_notification -(no) - use of email alerting.
+	-email_to -(n/a) - specifies the email recipient for alerts. Base configuration must be included in the section in order to use granular email configurations,.
+	This  section allow only one record, but can be repeated for each email addr you would wish include.
+	-email_from -(n/a) source address contained in the email alerts.
+	-email_reply_to - (n/a)  - specifies the "reply_to" address contained in the email alerts
+	-smtp_server - (n/a) - This option defines what SMTP server to use to deliver alerts
+	-helo_server (notify.ossec.net) - how the ossec server will identify itself when sending mail.
+	-email_maxperhour - (12) - max number of email alerts that can be sent per hout.All emails beyond this hourly threshold are then queued to be sent together in a single email at the end of the hour.Whether mail grouping is turned on or not.
+	-email_idsname (n/a) - name will be added to the email headers with the specified value.
+	-custom_alert_output - The values below may be used with this option to specify the format of the alerts that are written to alerts.log:
+	$TIMESTAMP - time the event was processed by OSSEC.
+	$ftell - Unknown
+	$RULEALERT - unknown
+	$HOSTNAME - hostname of the system generating the event.
+	$LOCATION - The file the log messages were saved to.
+	$RULEID - The rule id of the alert.
+	$RULELEVEL - The rule level of the alert.
+	$RULECOMMENT - Unknown
+	$SRCIP - The source IP specified in the log message.
+	$DSTUSER - The destination user specified in the log message.
+	$FULLLOG - The original log message. 
+	$RULEGROUP - The group containing the rule.
+
+	-stats - (8) - Thes sets the severity level for events that are generated by statistical analysis. [0 to 16]
+	-logall - (no) - This toggles whether to store events even when they do not trip  a rule with results written to /var/ossec/logs/archives/archives.log
+	-logall_json - (no) - whether to store events even when they do not trip a rule with results written to /var/ossec/logs/archives/archives.json.
+	-memory_size (8192) - memory size for the event correlation engine.
+	-white_list - IP that should never be blocked with an active response and , though only one IP address can be included in this section ,you may repeat this as many times as needed to include additional IP addresses. (n/a)
+	-host_information - (8) - severity level for events generated by the host change monitor.
+	-jsonout_output - (no) - This toggles the writing of JSON-formatted alerts to /var/ossec/logs/alerts/alerts.json which would include the same events that would be sent to alerts.log, only in JSON format.
+	-prelude_output - (no) - prelude output.
+	-prelude_log_level - (0) - minimum alert level requirred to trigger prelude output.
+	-prelude_profile -(OSSEC) - client anlyzer name.
+	-zeromq_output - (n/a) - enables ZeroMQ output
+	-zeromq_uri -  (n/a) - ZeroMQ URI for the publisher socket to bind to.
+	This will listen for ZeroMQ subscribers on IP address 127.0.0.1:11111
+	<zeromq_uri>tcp://localhost:11111</zeromq_uri>
+	This will listen on port 21212 for ZeroMQ subscribers, binding to the IP address assegned to eth0.
+	<zeromq_uri>tcp://eth0:21212</zeromq_uri>
+	This will listen for zeromq on the Unix Domain socket /alerts-zmq.
+	<zeromq_uri>ipc:///alerts-zmq</zeromq_uri>
+
+	-geoipdb -(n/a) - This indicates the full path of the MaxMind GeoIP IPv4 database file location
+	<geoipdb>/etc/GeouLiteCity.dat</geoipdb>
+	
+	-rotate_interval - (0 disabled) - New in version 3.1.0. interval between file rotation with nim_rotate_interval the highest allowed value
+	<rotate_interval>10h</rotate_interval>
+	-max_output_size - (0 disabled ) - New in version 3.3.0. size of the message input buffer in Analysisd (number of events).
+	-queue_size - (16384) - New in version 3.3.0. size of the message input buffer in Analysisd (number of events)
+Example
+<queue_size>16384</queue_size>
+Default configuration
+<global>
+	<jsonout_outpu>yes</jsonout_output>
+	<alerts_log>yes</alerts_log>
+	<logall>no</logall>
+	<logall_json>no</logall_json>
+	<email_notification>yes</email_notification>
+	<smtp_server>smtp.ex.com</smtp_server>
+	<email_from>ossec@ex.com</email_from>
+	<email_to>recipient@ex.com</email_to>
+	<email_maxperhour>12</email_maxperhour>
+</gloval>
+
+---	integration		manager
+	This configures the manager to connect Wazuh to external APIs and alerting tools such as Slack, PagerDuty and VirusTotal.
+	Options:
+	-name - (n/a) - This indicates the service to integrate with.
+	-hook_url - (n/a) - This is the URL provided by Slack when integration is enabled on the Slack side. This is mandatory for Slack.
+	-api_key - (n/a) - the key that you would have retrieved from the PagerDuty or VirusTotal API. This is mandatory for PagerDuty and VirusTotal.
+	Optional filters:
+	-level - (n/a) - filters alerts by rule level so that only alerts with the specified level or above are pushed.
+	-rule_id - (n/a) - filters alerts by rule ID.
+	-group - (n/a) - filters alerts by rules. For the Cirustotal integration, only rules from the syscheck group are available. OS_Regex Syntax.
+	-event_location - (n/a) - filters alerts by where the event originated . OS_Regex Syntax.
+	-alert_format - (n/a) - weites the alert file in the JSON format. The Integrator makes use this file to fetch fields values.
+	-max_log - (165) - max length of an alert snippet that will be sent to the integrator. Longer strings will be truncated with ...
+Configuration example
+<!-- Integration with Slack -->
+<integration>
+	<name>slack</name>
+	<hook_url>https://hooks.slack.com/services/T000/B000/XXXXX</hook_url>
+	<level>10</level>
+	Ngroup>multiple_drops|authentication_failures</group>
+	<alert_format>json</alert_format>
+</integration>
+
+<!-- Integration with VirusTotal -->
+<integration>
+	<name>virustotal</name>
+	<api_key>VirusTotal_API_Key</api_key>
+	<group>syscheck</group>
+	<alert_format>json</alert_format>
+</integration>
+
+---	labels			manager,agent
+	The labels section of ossec.conf allows additional user-defined information about agents to be included in alerts. When email notifications are enables, this additional data is also contained in the email alerts without any further configutation.
+	Options:
+	-label - additional info that will appear in alerts . Labels can be nested in JSON formatted alerts by separating the "key" terms bt a period.
+	key	The title that will describe the info of the label.
+		allowed value - any string
+	hedden	For labels that are hidden by default.
+		def val - no
+		allowed val - yes, no
+	In internal_options.conf, hidden labels can be set to be displayed in alerts.
+Example of configuration.
+<labels>
+	<label key="aws.instance-id">i-052a1838c</label>
+	<label key="aws.sec-group">sg-1103</label>
+	<label key="network.ip">172.17.0.0</label>
+	<label key="network.mac">02:42:ac:11:00:02</label>
+	<label key="installation" hidden="yes">January 1st, 2018</label>
+</labels>
+
+
+---	localfile		manager,agent
+	used to configure the collection of log data from files, Windows events, and from  the output of commands.
+	Options:
+	-location - location of the log or wild-carded group of logs to be read. strftime format strings may be used for log file names.
+	file.loog-%Y-%m-%d
+	may be used on non-Windows systems, but if the log file doesn't exist at the time
+	ossec-logcollector is started , it will be added after logcollector.vcheck_files seconfs.
+	-command - (n/a) - designates a command to be run . All output from this command will be read as one or more messages depending on whether cammand or full_command is used
+	-alias - (n/a) - used to assign an alias to a command that will replace the command name in the log message.
+	example
+	<alias>usb-check</alias> would replace:
+	ossec: output: 'reg QUERY HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR':
+	with:
+	ossec" output: 'usb-check':
+	
+	-frequency - (n/a) - spec the min amount of time in sec between command runs. The command will likely not repeat in the exact the num of sec specified , however, the time between runs will be no less than the number of seconds specified.
+	This can be used with command or full_command.
+	-only-future-events - (n/a) - used only with the eventchannel log format. By def Wazuh will  read all log content from agiven Windows Event Channel since the last time Wazuh was stopped. If this is set to yes Wazuh would then only receive events that occurred after the agent was started .
+	-query - (n/a) - only with the eventchannel log format.You can identify an XPATH query following the event schema that will filter the events that Wazuh will process.
+
+Ex
+	<localfile>
+		<location>System</location>
+		<log_format>eventchannel</log_format>
+		<query>Event/System[EventID=7040]</query>
+	</localfile>
+
+	-label - New in 3.0.0 . allows for addition of custom data in JSON events and is available when log_format is set to json.
+	can be used as follows to identify the source of each log entry when monitoring several feles simultaneously:
+<localfile>
+	<location>/var/log/myapp/log.json</location>
+	<log_format>json</log_format>
+	<label key="@source|>myapp</label>
+	<label key="agent.type">webserver</label>
+</localfile>
+This is a sample JSON object from the log file:
+
+{
+  "event": {
+    "type": "write",
+    "destination": "sample.txt"
+  },
+  "agent": {
+    "name": "web01"
+  }
+}
+The additional fields configured above would appear in the resulting event as below:
+
+{
+  "event": {
+    "type": "write",
+    "destination": "sample.txt"
+  },
+  "agent": {
+    "name": "web01",
+    "type": "webserver"
+  },
+  "@source": "myapp"
+}
+
+	-target (agent) - New in 3.3.0 - spec the name of the socket where the output will
+		be redirected. The socket must be defined previosly to use it with this option.
+	-log_format - (n/a) - spec the format of the log being read . It is equired field.
+		For most of the text log files that only have one entry per line , syslog may be used.
+		syslog(plain text)|json(JSON files)|snort-full|snort-fast|squid|iis|eventlog(win)|eventchannel|audit(auditd)|mysql_log|postgresql_log|nmapg|apache|command| command (read output from the command ( as run by root) spec by the command tag , each line as separate log)|
+	full_command(entire output as log)|djb-multilog(read in format produced by the multilog sevice logger)| multi-line (monitor applications that log multiple lines per event;num of lines must be consistent in order to use this value;num of lines in each log entry must be spec,
+	each line will e comined with the previous lines until all lines are;
+	may be multiple timestamps in the final event.
+	format for this value is : <log_format> multi-line:
+	!!! Agents will ignore command and full_command log sources unless they have logcollector.remote_commands=1 set in their /var/ossec/etc/internal_optionas.conf or /var/ossec/etc/local_internal_options.conf file. This is a security precaution to prevent the WM from running arbitraty commands on agents in their root security context.
+
+	-out_format - new in v3.3.0 - allows formatting logs from Logcollector using field substitution . Sybtax is: $(parameter)
+	list of available parameters is:
+	log-Message from the log.
+	output- Output from a command.Alias of log.
+	location - Path to the source log file 
+	command - command line or alias defined for the command. Alias of location.
+	timestamp - Current timestamp (when the log is sent), in RFC3164 format.
+	timestamp <format> Custom timestamp, in strftime string format.
+	hostname - System's host name.
+	Attributes:
+	-target - selects a defined target to apply the output format.
+Configuration examples
+Linex configuration :
+<!-- For monitoring log files -->
+<localfile>
+	<log_format>syslog</log_format>
+	<location>/var/log/syslog</location>
+</localfile>
+
+<!-- For monitoring command output -->
+<localfile>
+	<log_format>command</log_format>
+	<command>df -P</command>
+	<frequency>360</frequency>
+</localfile>
+
+<!-- To use a custom target or format -->
+<localfile>
+	<log_format>syslog</log_format>
+	<location>/var/log/auth.log</location>
+	<target>agent,custom_socket</target>
+	<out_format target="custom_socket">$(timestamp %Y-%m-%d %H:%M:%S): $(log)</out_format>
+</localfile>
+
+Windows configuration:
+<!-- For monitoring Windows eventchannel -->
+<localfile>
+	<location>Security</location>
+	<log_format>eventchannel</log_format>
+	<only-future-events>yes</only-future-events>
+	<query>Event/System[EventID != 5145 and EventID != 5156]</query>
+</localfile>
+ 
+
+---	logging			manager,agent
+	Options:
+	-log_format - (plain) - configure the format of internal logs.
+	[json|plain,json|plain]
+Default configuration
+<logging>
+	<log_format>plain</log_format>
+</logging>
+
+---	remote			manager
+Example of configuration
+<remote>
+	<connection>syslog</connection>
+	<port>514</port>
+	<protocol>udp</protocol>
+	<allowed-ip>192.168.1.0/24</allowed-ips>
+	<local_ip>192.168.1.5</local_ip>
+</remote>
+<remote>
+	<connection>secure</connection>
+	<port>1514</port>
+	<protocol>udp</protocol>
+	<queue_size>16384</queue_size>
+</remote>
+
+---	reports			manager
+	Configuration options for reporting of alerts.
+	Options:
+	-group|category|rule|level|location"srcip"|user|title|email_to|showlogs
+	group - filter by group/category. It only accepts one group/category.
+	-category - Filter by group/category.
+	-rule - Rule ID to filter for.
+	-level - (n/a) - alert level to filter for. The report will include all levels abeove and including level specified.
+	-location - filter by the log location or agent name.
+	- srcip - filter by the source ip of the event.
+	- user - filter by the user name. This will match either the srcuser or dstuser
+	-title - name of the report. Required field.
+	-email_to - send to - required field.
+	-showlogs - en or dis the inclusion of logs when creating the report
+Example
+<reports>
+	<group>authentication_failed,</group>
+	<srcip>192.168.1.10</srcip>
+	<title>Auth_Report</title>
+	<email_to>recip@example.com</email_to>
+	<showlogs>yes</showlogs>
+</reports>
+
+
+---	rootcheck		manager,agent
+	Conf options for policy monitoring and anomaly detection.
+	OPtions:
+	base_directory|ignore|rootkit_files|rootkit_trojans|windows_audit|system_audit|windows_apps|windows_malware|scanall|frequency|disabled|check_dev|check_files|check_if|check_pids|check_ports|check_sys|check_trojans|check_unixaudit|check_winapps|check_winaudit|check_winmalware|skip_nfs
+
+	-base_directory    The base directory that will be prepended to the following options:
+		rootkit_files
+		rootkit_trojans
+		systems_audit
+	-ignore - files or dirs to be ignored.(one entry per line).
+	-rootkit_files - DB (/var/ossec/etc/shared/rootkit_files.txt)
+	-rootkit_trojans - DB (/var/ossec/etc/shared/rootkit_trojans.txt)
+	-windows_audit - Win audit definition file.
+	-system_audit - path to an audit definition file for Unix-like systems.
+	-windows_apps - path to a win app definition file.
+	-windows_malware - path to a win malware definitions file.
+	-scanall - tells rootcheck to scan the entire system.May lead to some false positivies
+	-frequency - (36000) - in sec
+	-disabled - dis of execution of rootcheck.
+	-check_dev - (yes) - en or dis checking of /dev
+	-check_files - (yes) - en or dis the checking of files.
+	-check_if - (yes) - en or dis the checking of network interfaces.
+	-check_pids - (yes) - en or dis the checking of process ID's
+	-check_ports - (yes) - en or dis checking of network ports
+	-check_sys - (yes) - en or dis checking for anomalous file system objects.
+	-check_trojans - (yes) - en or dis checking for trojans.
+	-check_unixaudit - (yes) - en or dis checking of unixaudit.
+	-check_winapps - (yes) -en or dis the checking of winapps.
+	-check_winaudit - (yes) - en or dis the checking of winaudit.
+	-check_winmalware - (yes) - en or dis checking for win malware.
+	-skipnfs - (yes) - en or dis the scanning of network mounted filesystems (Works on Linux and FreeBSD).
+	Currently,skip_nfs will exclude checking files on CIFS or NFS mounts.
+Default Unix configuration
+<@-- Policy monitoring -->
+<rootcheck>
+	<disabled>no</disabled>
+	<check_unixaudit>yes</check_unixaudit>
+	<check_files>yes</check_files>
+	<check_trojans>yes</check_trojans>
+	<check_dev>yes</check_dev>
+	<check_sys>yes</check_sys>
+	<check_pids>yes</check_pids>
+	<check_ports>yes</check_ports>
+	<check_if>yes</check_if>
+	<!-- Frequency that rootcheck is executed - every 12 hours -->
+	<frequency>43200</frequency>
+	<rootkit_files>/var/ossec/etc/shared/rootkit_hiles.txt</rootkit_files>
+	<rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+
+	<system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
+	<system_audit>/var/ossec/etc/shared/system_audit_ssh.txt</system_audit>
+	<system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+
+	<skip_nfs>yes</skip_nfs>
+</rootcheck>
+
+
+---	ruleset			manager
+	Conf for enabling or dis rules and decoders.
+	-rule_include - load a single rule file.
+	-rule_dir - load a dir of rules. files will be loaded in alphabetical order and any duplicate filenames will be skipped.
+	-rele_exclude - exclude a single rule file.
+	-decoder_include - load a single decoder file.
+	-decoder_dir - load a directory of decoders . 
+	-decoder_exclude - exclude a single decoder file
+	-list - load a single CDB reference for use by other rules.
+Example of configuration 
+<ruleset>
+	<rule_include>ruleset/rules/my_rules.xml</rule_include>
+	<rule_dir pattern="+rules.xml$">ruleset/rules</rule_dir>
+	<rule_exclude>0215-policy_rules.xml</rule_exclude>
+	<decoder_include>ruleset/decoders/my_decoder.xml</decoder_include>
+	<decoder_dir pattern=".xml$">ruleset/decoders</decoder_dir>
+	<decoder_exclude>ruleset/decoders/my_decoder.xml</decoder_exclude>
+	<list>etc/lists/blocked_hosts</list>
+</ruleset>
+
+---	socket			manager,agent
+	Conf or defining output sockets.
+	Options
+	-name - required field.
+	-location - required - path of the socket.
+	-mode - unix SOCKET COMMUNICATION PROTOCOL.
+	-prefix - (n/a) - The prefix is placed before the message.
+Example
+<socket>
+	<name>custom_socket</name>
+	<location>/var/run/custom.sock</location>
+	<mode>tcp</mode>
+	<prefix>custom_syslog:</prefix>
+</socket>
+
+---	syscheck		manager,agent
+	Conf for file integrity monitoring.
+	-directories - add or remove dirs to be monitored . Must be comma separated.
+		all files and subdirs will be monitored too.
+		Drive letter without dirs are not valid. At a minimum the '.' should be included (d:\.)
+		def(/etc,/usr/bin,/usr/sbin,/bin,/sbin
+		Attributes:
+		realtime
+		realtime	
+This will enable real-time/continuous monitoring on Linux (using the inotify system calls) and Windows systems.
+
+Real time only works with directories, not individual files.
+Allowed values	yes, no
+whodata	This will enable who-data monitoring on Linux and Windows systems.
+Allowed values	yes, no
+report_changes	Report file changes. This is limited to text files at this time.
+Allowed values	yes, no
+check_all	All attributes with the prefix check_ will be activated.
+Allowed values	yes, no
+check_sum	
+Check the MD5, SHA-1 and SHA-256 hashes of the files.
+
+Same as using check_md5sum="yes", check_sha1sum="yes" and check_sha256sum="yes" at the same time.
+Allowed values	yes, no
+check_sha1sum	Check only the SHA-1 hash of the files.
+Allowed values	yes, no
+check_md5sum	Check only the MD5 hash of the files.
+Allowed values	yes, no
+check_sha256sum	Check only the SHA-256 hash of the files.
+Allowed values	yes, no
+check_size	Check the size of the files.
+Allowed values	yes, no
+check_owner	
+Check the owner of the files.
+
+On Windows, uid will always be 0.
+Allowed values	yes, no
+check_group	
+Check the group owner of the files/directories.
+
+Available for UNIX. On Windows, gid will always be 0 and the group name will be blank.
+Allowed values	yes, no
+check_perm	
+Check the UNIX permission of the files/directories.
+
+On Windows, this will only check the POSIX permissions.
+Allowed values	yes, no
+check_mtime	
+Check the modification time of a file.
+
+New in version 2.0.
+Allowed values	yes, no
+check_inode	
+Check the file inode.
+
+Available for UNIX. On Windows, inode will always be 0.
+
+New in version 2.0.
+Allowed values	yes, no
+restrict	
+Limit checks to files containing the entered string in the file name.
+
+Any directory or file name (but not a path) is allowed
+Allowed value	sregex
+tags	
+Add tags to alerts for monitored directories.
+
+New in version 3.6.0.
+Allowed values	Tags list separated by commas
+recursion_level	
+Limits the maximum level of recursion allowed.
+
+New in version 3.6.0.
+Allowed values	Any integer between 0 and 320
+
+	-ignore - files or dirs to be ignored (one entry per line). Multiple lines may be entered to include multiple files or dirs. These files and dirs are still checked,but the results are ignored.
+		type - simple regex pattern to filter out files so alerts are not generated.
+	-nodiff - (any file name) - list of files to not compute the diff (one per line). 
+		could be used for sensitive files like a private key, credentials stored in a file or db conf , avoidinng data leaking by sending the file content changes through alerts.
+		ex: /etc/ssl/private.key
+		type - simple regex pattern to filter out files so alerts are not generated.
+	-frequency - (21600) - Frequency that the syscheck will be run(in sec)
+	-scan_time - (n/a) - time to run the scans. (9pm or 8:30)
+	-scan_day - (n/a) - day of the week to run the scans (one per line).
+	-auto_ignore - (no) - whether or not syscheck will ignore files that change too many times (manager only)
+		Attributes:
+
+frequency	Number of times the alert can be repeated in the’timeframe’ time interval.
+Default value	10
+Allowed values	Any number between 1 and 99.
+timeframe	Time interval in which the number of alerts generated by a file accumulates.
+Default value	3600
+Allowed values	Any number between 1 and 43200.
+
+	-alert_new_files - (no) - spec if syscheck should alert when new files are created.
+	-scan_on_start - (yes) - spec if syscheck scans immediately when started.
+	-windows_registry - (hkey_local_machine\Softwar) spec win reg entries . 
+	-registry_ignore - (n/a) -list of registry entries to be ignored. 
+	-prefilter_cmd - (n/a) - run to prevent prelinking from creating false positives.
+		ex: <prefilter_cmd>/usr/sbin/prelink -y</prefilter_cmd>
+	-skip_nfs - if sycheck should scan network mounted filesystems (on LIn and FreeBsd)
+		Currently, skip_nfs will exclude checking files on CIFS or NFS mounts.
+	-remove_old_diff - (yes) - New in 3.4.0 - spec if Syscheck should delete the local snapshots that are not currently being monitorized.
+	-restart_audit - (yes) - new in 3.5.0 - allow the system to restart auditd after installing the plugin. Note that setting this field to no the new whodata rules won't be applied automatically.
+	-windows_audit_interval - (5 min) - freq with which the win agent will check that the SACLs of the directories monitored in whodata mode are correct.
+Default Unix configuration
+<!-- File integrity monitoring -->
+<syscheck>
+	<disabled>no</disabled>
+	<!-- Frequency that syscheck is executed default every 12 hours -->
+	<frequency>43200</frequency>
+	<scan_on_start>yes</scan_on_start>
+	<alert_new_files>yes</alert_new_files>
+	<auto_ignore frequency="10" timeframe="3600">no</auto_ignore>
+	<directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories>
+	<directories check_all="yes">/bin,/sbin,/boot</directories>
+	<ignore>/etc/mtab</ignore>
+	<ignore>/etc/hosts.deny</ignore>
+	<ignore ....
+	<nodiff>/etc/ssl/pro=ivate.key</nodiff>
+	<skip_nfs>yes</skip_nfs>
+	<remove_old_diff>yes</remove_old_diff>
+	<restart_audit>yes</restart_audit>
+</syscheck>
+
+	
+---	syslog_output		manager
+	conf for sending alerts to a syslog server
+	-server - ip
+	-port - (514)
+	-level
+	-group
+	-rule_id
+	-location
+		The location field refers to the origin of the alert, that it could be:
+		syscheck|rootcheck|File path|Command or its alias| command_tag(wodle)
+		aws-cloudtrail|cis-cat|vulnerability-detector|syscollector
+	-use_fqdn - (no) - toggle for full or truncated hostname configured on the server.By default, ossec truncates the hostname at the first period ('.') when generating syslog messages.
+	-format - (default) - format of alert output. When jsonout_output in global section 
+		is enabled, alerts are read from alerts.json instead of alerts.log for JSON format.
+	[cef|splunk|json|default]
+Example of configuration 
+<syslog_output>
+	<server>192.168.1.3</server>
+	<level>7</level>
+	<format>json</format>
+</syslog_output>
+---	wodle name="open-scap"	manager,agent
+	conf of the OpenSCAP wodle.
+		Options	Allowed values		Default
+		disabled	yes, no		no
+		timeout	A positive number (seconds)	1800
+		interval	A positive number	1d
+		scan-on-start	yes, no			yes
+		content	N/A				define an evaluation.
+		type:xccdf or oval
+		path: use specified policy file (DataStream,XCCDF or OVAL)
+		timeout: Timeout for the evaluation (in sec)
+		xccdf-id:	XCCDF id.
+		oval-id: 	OVAL id
+		datastream-id:	
+		cpe:	CPE dictionary file
+			def path: /var/ossec/wodles/oscap/policies
+		profile:	select profile.
+example
+<wodle name="open-scap">
+	<timeout>1800</timeout>
+	<interval>1d</interval>
+	<scan-on-start>yes</scan-on-start>
+	<content type="xccdf" path="ssg-cetos-7-ds.xml"/>
+	<content type="xccdf" path="ssg-centos-6-ds.xml"/>
+</wodle>
+
+
+	
+---	wodle name="command"	manager,agent
+	conf of the command wodle.
+	disabled - (no) - dis the command wodle.
+	tag - (n/a) - descriptive name for the command.
+	command - (n/a) - Path and arguments of the command to be executed.
+	interval - (2s) - time between commands executions.
+	run_on_start - (yes) - run command immediately when service is started.
+	ignore_output - (no) - ignore the command output when executed.
+	timeout - (n/a) - new in 3.2.2 - timeout for each command to wait for the end of the execution. Whether this parameter is set to 0 , it will wait indefinitely for the end of the process. However, if the timeout is other than 0, the execution will finished if it expires.
+	verify_md5 - (n/a) - verify the binary MD5 sum.
+	verify_sha1 - (n/a) - from 3.6.0
+	verify_sha256
+	skip_verification - (no) - run the command defined although the checksum does not match.
+			Inthis case, the agent will log that the checksum verification failed
+			but will run the application.
+	---Centralized configuration
+	Remote commands may be specified in the centralized configuration,however, they are disabled by default due to security reasons.
+	When setting commands in a shared agent configuration, you must enable remote commands for Agent Modules.
+	etc/local_internal_options.conf in the agent:
+		wazuh_command.remote_commands=1
+Example of configuration.
+<wodle name="command">
+	<disabled>no</disabled>
+	<tag>test</tag>
+	<command>/bin/bash /root/script.sh</command>
+	<interval>1d</interval>
+	<ignore_output>no</ignore_output>
+	<run_on_start>yes</run_on_start>
+	<timeout>0</timeout>
+	<verify_md5>lakfj89249284w9..</verify_md5>
+	<verify_sha1>d892dd39f9a8...</verify_sha1>
+	<verify_sha256>283472...</verify_sha256>
+</wodle>
+
+---	wodle name="cis-cat"	--||--
+	CIS-CAT wodle. From 3.1.0. 
+	-Scheduling options:
+	[scan-on-start|interval|day|wday|time]
+		scan-on-start - (yes) - 
+		interval - (1d) between CIS-CAT execution.
+		day - (n/a) - from 3.5.0.
+		wday - (n/a) - from 3.5.0. Not compatible with the dat option.
+			[sun|mon|tue|wed|thu|fri|sat]
+		time - (n/a) - from 3.5.0. Time of day to run execution.  [hh:mm]
+
+	-Main options.
+	disabled - (no)
+	timeout - (1800) - IN case the execution takes longer that the specified timeout, it stops.
+	java_path - ($PATH) - 
+	ciscat_path - (wodles/ciscat) - where CIS-CAT is located.
+	content - Define an evaluation.You can only run assessments for XCCDF policy files.
+		Attributes:
+		path - policy file.
+		timeout - in sec. overwrites the generic timeout.
+		profile - select pofile . 
+Example configuration
+<wodle name="cis-cat">
+	<disabled>no</disabled>
+	<timeout>1800</timeout>
+	<wday>monday</wday>
+	<time>04:00</time>
+	<interval>2w</interval>
+	<scan-on-start>yes</scan-on-start>
+	<java_path>/usr/bin</java_path>
+	<ciscat_path>wodles/ciscat</ciscat_path>
+	<content type="xccdf" path="benchmarks/CIS_Ubuntu_Linux_16.04_LTS_Benchmark_v1.0.0-xccdf.xml">
+		<profile>xccdf_org.cisecurity.benchmarks_profile_Level_2_-_Server</profile>
+	</content>
+</wodle>
+
+---	wodle name="aws-s3"	--||--
+	-disabled - (no) - dis the CloudTrail wodle.
+	-bucket - (n/a) - Name of the S3 bucket from where logs are read.
+	-interval - (10m) - reading from the S3 bucket.
+	-acccess_key - access key ID for the IAM user with the perm to read logs from the bucket.
+	-secret_key - (n/a) - key created for the IAM user with the perm to read logs from the bucket.
+	-remove_from_bucket - (yes) - del logs after it was read  by the wodle.
+	-run_on_start - (yes) - 
+	-skip_on_error - (yes) - if unable to process and parse a CloudTrail log skip the log and continue processing .
+	-bucket type - 
+Bucket options
+Options	Allowed values	Mandatory/Optional
+type	cloudtrail, custom	Mandatory
+bucket\name	Any valid bucket name	Mandatory
+bucket\aws_account_id	Comma list of AWS Accounts	Optional (only works with CloudTrail buckets)
+bucket\aws_account_alias	Any string	Optional
+bucket\access_key	Alphanumerical key	Optional
+bucket\secret_key	Alphanumerical key	Optional
+bucket\aws_profile	Any string	Optional
+bucket\iam_role_arn	IAM role ARN	Optional
+bucket\path	Prefix for S3 bucket key	Optional
+bucket\only_logs_after	Date (YYYY-MMM-DDD, for example 2018-AUG-21)	Optional
+bucket\regions	Comma list of AWS regions	Optional (only works with CloudTrail buckets)
+
+Example of configuration.
+<wodle name="aws-s3">
+	<disabled>no</disabled>
+	<remove_from_bucket>no</remove_from_bucket>
+	<interval>10m</interval>
+	<run_on_start>no</run_on_start>
+	<skip_on_error>no</skip_on_error>
+	<bucket type="cludtrail">
+		<name>s3-dec-bucket</name>
+		<access_key> KEY </access_key>
+		<secret_key> sec </secret_key>
+		<only_logs_after>2018-JUN-01</only_logs_after>
+		<regions>us-east-1,us-west-1,eu-central-1</regions>
+		<path>/dev1/</path>
+		<aws_account_id>1234456789012</aws_account_id>
+		<aws_accout_alias>dev1-account</aws_account_alias>
+	</bucket>
+	<bucket type="cloudtrail">
+		<name>s3-dev-bucket</name>
+		<access_key>insert_key</access_key>
+		<secret_key>ins_key</secret_key>
+		<only_logs_after></only_logs_after>
+		<refions>us-east-1,us-west-1,eu-central-1</regions>
+		<path>/dev2</path>
+		<aws_account_id>2323</aws_account_id>
+		<aws_account_alias>dev2-account</aws_account_alias>
+	</backet>
+	<bucket type="custom">
+		<name>s3-stage-bucket</name>
+		<aws_profile>stage-creds</aws_profile>
+		<aws_account_id>12314243</aws_account_id>
+		<aws_account_alias>stage-account</aws_account_alias>
+	</bucket>	
+	<bucket type="custom">
+		<name>s3-prod-bucket</name>
+		<iam_role_arn>arn:aws:iam::010203040506:role/ROLE_SVC_Log-Parser</iam_role_arn>
+		<aws_account_id>111122222333</aws_account_id>
+		<aws_account_alias>prod-account</aws_account_alias>
+	</bucket>
+</wodle>
+
+
+---	wodle name="syscollector"	--||--
+		Conf options of the Syscollector wodle for system inventory 
+	disabled - (no) - 
+	interval - (1h) - between system scan
+	scan_on_start - (yes) -
+	hardware - (yes) - enables the hardware scan.
+	os - (yes) - OS scan.
+	network - (yes) - net scan
+	packages - (yes) - packages scan 
+	ports - (yes) - enables the ports scan.
+		with option all='no' it will only scan listening ports.
+	processes - (yes) - processes scan 
+Example configuration
+<wodle name="syscollector">
+	<disabled>no</disabled>
+	<interval>1h</intercal>
+	<scan_on_start>yes</scan_on_start>
+	<hardware>yes</hardware>
+	<os>yes</os>
+	<network>yes</network>
+	<packages>yes</packages>
+	<ports all="no">yes</ports>
+	<processes>yes</processes>
+</wodle>
+		
+---	wodle name="vulnerability-detector"	manager
+	Configuration options of the Vulnerability detector wodle.
+	disabled
+	interval - (5m) - character indicating a time unit: s (seconds), m (minutes), h (hours) or d (days).
+	run_on_start - (yes) - 
+	ignore_time - (6hours) - Time during wwhich vulnerabilities that have already been alered will be ignored.
+	feed - conf block to specify vulnerability updates.
+	Allowed tags:
+		name: ubuntu 12|14|16|18
+			redhat 5|6|7
+			debian 7|8|9
+		disabled yes,no
+		update_interval (1hour)
+		url - link to alternative OVAL file.
+		path - path to an alternative OVAL file.
+		allow - allows you to use the vulnerability database with agents with different OS.
+		List of OS that will allow the use of this OVVAL.ex: "linux mint-12,ubuntu-17"
+Example configuration
+<wodle name="vulnerability-detector">
+	<disabled>no</disabled>
+	<interval>5m</interval>
+	<run_on_start>yes</run_on_start>
+	<feed nmae="debian-9">
+		<disabled>no</disabled>
+		<path>/home/debian-9-oval.xml</path>
+		<update_interval>1h</update_interval>
+	</feed>
+	<feed name="redhat-7">
+		<disabled>no</disabled>
+		<url port="443">https://myserver.com/redhat-7-oval.xml</url>
+		<update_interval>1h</update_interval>
+	</feed>
+	<feed name="ubuntu-16">
+		<disbled>no</disabled>
+		<update_interval>1h</update_interval>
+		<allow>linux mint-18, ubuntu-15</allow>
+	</feed>
+</wodle>
+
+
+---	wodle name="osquery"	manager,agent
+	Conf oprions of the osquery wodle.
+	disabled
+	run_daemon - (yes) - makes the module run osqueryd as a subprocess or lets the module monitor the results log without running Osquery.
+	bin_path - (empty) - full path to the folder that contains the osqueryd executable
+	log_path - (/var/log/osquery/osqueryd.results.log) - full path to the results log written bt Osquery.
+	config_path - (/etc/osquery/osquery.conf) - conf file.Can be relative to the folder where the Wazuh agent is running.
+	add_labels - (yes) - add the agent labels defined as decorators.
+	pack -(empty) - add a query pack to the configuration. 
+Example of configuration.
+<wodle name="osquery">
+	<disabled>no</disabled>
+	<run_daemon>yes</run_daemon>
+	<bin_path>/usr/bin</bin_path>
+	<log_path>/var/log/osquery/osqueryd.results.log</log_path>
+	<cnfig_path>/etc/osquery/osquery.conf</config_path>
+	<add_labels>no</add_labels>
+	<pack name="custom_pack">/path/to/custom_pack.conf</pack>
+</wodle>
+
+---	wodle name="docker"	agent
+	Configuration options of the Docker wodle.
+	interval - (10m) - waiting time to rerun the wodle in case it fails.
+	attempts - (5) - attempts to execute the wodle.
+	run_on_start - (yes) - run command immediately when sevice is started.
+	disabled - (no) - dis docker wodle.
+Example of configuration
+<wodle name="docker-listener">
+	<interval>10m</interval>
+	<attempts>5</attempts>
+	<run_on_start>no</run_on_start>
+	<disabled>no</disabled>
+</wodle>
+
+
+---	wodle name="azure-logs"	manager
+	Configuration options of the Azure-Logs wodle.
+Options	Allowed values
+disabled	yes, no
+interval	A positive number + suffix
+run_on_start	yes, no
+day	A day of the month
+wday	A day of the week
+time	A time of the day [hh:mm]
+timeout	A positive number (seconds)
+log_analytics	N/A
+log_analytics\application_id	Any string
+log_analytics\application_key	Any string
+log_analytics\auth_path	File path
+log_analytics\tenantdomain	Any string
+log_analytics\request	N/A
+log_analytics\request\tag	Any string
+log_analytics\request\query	Any string
+log_analytics\request\workspace	Any string
+log_analytics\request\timeout	A positive number (seconds)
+log_analytics\request\time_offset	A positive number + suffix
+graph	N/A |
+graph\application_id	Any string
+graph\application_key	Any string
+graph\auth_path	File path
+graph\tenantdomain	Any string
+graph\request	N/A
+graph\request\tag	Any string
+graph\request\query	Any string
+graph\request\timeout	A positive number (seconds)
+graph\request\time_offset	A positive number + suffix
+storage	N/A
+storage\account_name	Any string
+storage\account_key	Any string
+storage\auth_path	File path
+storage\tag	Any string
+storage\container	N/A
+storage\container name	Any string
+storage\container\blobs	Extension
+storage\container\content_type	text, json_file or json_inline
+storage\container\timeout	A positive number (seconds)
+storage\container\time_offset	A positive number + suffix
+
+Example of log_analytics configuration
+<wodle name="azure-logs">
+
+    <disabled>no</disabled>
+    <day>15</day>
+    <time>02:00</time>
+    <run_on_start>yes</run_on_start>
+
+    <log_analytics>
+
+        <application_id>8b7...c14</application_id>
+        <application_key>w22...91x</application_key>
+        <tenantdomain>wazuh.onmicrosoft.com</tenantdomain>
+
+        <request>
+            <tag>azure-activity</tag>
+            <query>AzureActivity | where SubscriptionId == "2d7...61d </query>
+            <workspace>d6b...efa</workspace>
+            <time_offset>36h</time_offset>
+        </request>
+
+    </log_analytics>
+
+</wodle>
+
+
+	graph
+<wodle name="azure-logs">
+
+    <disabled>no</disabled>
+    <wday>Friday</wday>
+    <time>12:00</time>
+    <run_on_start>no</run_on_start>
+    <timeout>1800</timeout>
+
+    <graph>
+
+        <auth_path>/Azure/graph_auth.txt</auth_path>
+        <tenantdomain>wazuh.onmicrosoft.com</tenantdomain>
+
+        <request>
+            <tag>azure-active_directory</tag>
+            <query>activities/audit?api-version=beta</query>
+            <time_offset>1d</time_offset>
+        </request>
+
+    </graph>
+
+</wodle>
+
+	Storage
+Example of storage configuration
+<wodle name="azure-logs">
+
+    <disabled>no</disabled>
+    <interval>1d</interval>
+    <run_on_start>yes</run_on_start>
+
+    <storage>
+
+        <auth_path>/home/manager/Azure/storage_auth.txt</auth_path>
+        <tag>azure-activity</tag>
+
+        <container name="insights-operational-logs">
+            <blobs>.json</blobs>
+            <content_type>json_file</content_type>
+            <time_offset>24h</time_offset>
+        </container>
+
+    </storage>
+</wodle>
+Example of all integration
+
+<wodle name="azure-logs">
+
+    <disabled>no</disabled>
+    <day>15</day>
+    <time>02:00</time>
+    <run_on_start>yes</run_on_start>
+
+    <log_analytics>
+
+        <application_id>8b7...c14</application_id>
+        <application_key>w22...91x</application_key>
+        <tenantdomain>wazuh.onmicrosoft.com</tenantdomain>
+
+        <request>
+            <tag>azure-activity</tag>
+            <query>AzureActivity | where SubscriptionId == "2d7...61d </query>
+            <workspace>d6b...efa</workspace>
+            <time_offset>36h</time_offset>
+        </request>
+
+    </log_analytics>
+
+    <graph>
+
+        <auth_path>/Azure/graph_auth.txt</auth_path>
+        <tenantdomain>wazuh.onmicrosoft.com</tenantdomain>
+
+        <request>
+            <tag>azure-active_directory</tag>
+            <query>activities/audit?api-version=beta</query>
+            <timeout>7200</timeout>
+            <time_offset>1d</time_offset>
+        </request>
+
+    </graph>
+
+    <storage>
+
+        <auth_path>/home/manager/Azure/storage_auth.txt</auth_path>
+        <tag>azure-activity</tag>
+
+        <container name="insights-operational-logs">
+            <blobs>.json</blobs>
+            <content_type>json_file</content_type>
+            <time_offset>24h</time_offset>
+        </container>
+
+    </storage>
+</wodle>
+
+
+
+Verifying configuration 
+Syscheck/Rootcheck	/var/ossec/bin/ossec-syscheckd -t
+local files 		/var/ossec/bin/ossec-logcollector -t
+Wodles			/var/ossec/bin/wazuh-modulesd -t
+global/rules/decoders (manager only)	/var/ossec/bin/ossec-analysisd -t
+Client (agent only) 	/var/ossecc/bin/ossec-agentd -t
+
+
+=================	Agent
+	-	introduction
+	A can be conf remotely by using the agent.conf file. Following capabilities can be conf remotely:
+	FIC|RootKit detection|Log data collection(localfile)|Security policy monitoring (rootcheck, wodle name="open-scap",wodle name="cis-cat")|remote commands(wodle name="command")|anti-flooding mechanism(bucket options)|labels for agent alerts(labels)
+	!
+	When setting up remote commands in the shared agent configuration, you must enable remote commands for Agent Modules. This is enabled by adding the following line to the 
+/var/ossec/etc/local_internal_options.conf file in the agent:
+	wazuh_command.remote_commands=1
+
+=================	Agent group
+A can be grouped together in order to send them unique centralized conf that is group specific.
+Each a can belong to more than one group and unless otherwise configured, all a belong to a 
+group called default.
+
+Manager pushes all files included in the group folder to the agents belonging this group.
+Ex,all files in /var/ossec/etc/shared/default will be pushed to all A belonging to default group.
+
+In case an agent is assigned to multiple groups, all the files contained in each group folder will be merged into one , and subsequently ent to the agents, being the last one the group with the highest priority.
+
+The file ar.conf (active response status) will always be sent to agents even if it is not present in the group folder.
+
+The agent will store the shared files in /var/ossec/etc/shared, not in a group folder.  
+
+Below are the files that would be found in this folder on an agent assigned to the debian group. Notice that these files are pushed to the agent from the manager's /var/ossec/etc/shared/debian folder.
+
+Manager
+/var/ossec/etc/shared/
+├── ar.conf
+├── debian
+│   ├── agent.conf
+│   ├── cis_debian_linux_rcl.txt
+│   ├── cis_rhel5_linux_rcl.txt
+│   ├── cis_rhel6_linux_rcl.txt
+│   ├── cis_rhel7_linux_rcl.txt
+│   ├── cis_rhel_linux_rcl.txt
+│   ├── cis_sles11_linux_rcl.txt
+│   ├── cis_sles12_linux_rcl.txt
+│   ├── custom_rootcheck.txt
+│   ├── debian_ports_check.txt
+│   ├── debian_test_files.txt
+│   ├── merged.mg
+│   ├── rootkit_files.txt
+│   ├── rootkit_trojans.txt
+│   ├── system_audit_rcl.txt
+│   ├── system_audit_ssh.txt
+│   ├── win_applications_rcl.txt
+│   ├── win_audit_rcl.txt
+│   └── win_malware_rcl.txt
+└── default
+    ├── agent.conf
+    ├── cis_debian_linux_rcl.txt
+    ├── cis_rhel5_linux_rcl.txt
+    ├── cis_rhel6_linux_rcl.txt
+    ├── cis_rhel7_linux_rcl.txt
+    ├── cis_rhel_linux_rcl.txt
+    ├── cis_sles11_linux_rcl.txt
+    ├── cis_sles12_linux_rcl.txt
+    ├── merged.mg
+    ├── rootkit_files.txt
+    ├── rootkit_trojans.txt
+    ├── system_audit_rcl.txt
+    ├── system_audit_ssh.txt
+    ├── win_applications_rcl.txt
+    ├── win_audit_rcl.txt
+    └── win_malware_rcl.txt
+
+Agent (Group: ‘debian’)
+/var/ossec/etc/shared/
+├── ar.conf
+├── agent.conf
+├── cis_debian_linux_rcl.txt
+├── cis_rhel5_linux_rcl.txt
+├── cis_rhel6_linux_rcl.txt
+├── cis_rhel7_linux_rcl.txt
+├── cis_rhel_linux_rcl.txt
+├── cis_sles11_linux_rcl.txt
+├── cis_sles12_linux_rcl.txt
+├── custom_rootcheck.txt
+├── debian_ports_check.txt
+├── debian_test_files.txt
+├── merged.mg
+├── rootkit_files.txt
+├── rootkit_trojans.txt
+├── system_audit_rcl.txt
+├── system_audit_ssh.txt
+├── win_applications_rcl.txt
+├── win_audit_rcl.txt
+└── win_malware_rcl.txt
+
+agent.conf is shown below along with the process for pushing the configuration from the manager to the agent.
+
+agent.conf
+The agent.conf is only valid on server installations.
+The agent.conf may exist in each group folder at /var/ossec/etc/shared.
+For example, for the group1 , it is in /var/ossec/etc/shared/group1. Each of these files 
+	should be readable by the ossec user.
+
+Options
+	name	allows assegnment of the block to one particular agent.
+	os allows assignmment of the block to an OS
+	profile		profile name to a block.
+Examples
+
+<agent_config name=”agent01”>
+...
+<agent_config os="Linux">
+...
+<agent_config profile="UnixHost">
+
+================	Centralized configuration process
+Example
+1. Configure the agent.conf file:
+	Edit the file corresponding to the agent group.
+<agent_config name="agent_name">
+    <localfile>
+        <location>/var/log/my.log</location>
+        <log_format>syslog</log_format>
+    </localfile>
+</agent_config>
+
+<agent_config os="Linux">
+    <localfile>
+        <location>/var/log/linux.log</location>
+        <log_format>syslog</log_format>
+    </localfile>
+</agent_config>
+
+<agent_config profile="database">
+    <localfile>
+        <location>/var/log/database.log</location>
+        <log_format>syslog</log_format>
+    </localfile>
+</agent_config>
+
+The profile option uses the values defined on the <config-profile> setting from the client configuration.
+
+2. Run /var/ossec/bin/verify-agent-conf:
+
+Each time you make a change to the agent.conf file, it is important tocheck for configuration errors. If any errors are reported by this check, they must be fixed before the next step. Failure to perform this step may allow errors to be pushed to agents which may prevent the agents from running. At that point, it is very likely that you will be forced to visit each agent manually to recover them.
+
+3. Push the configuration to the agents:
+Every 10 min , agent looks to see if a new version of agnet.conf is available from the manager. When a new version is, it pulls the new file.But it is not used by the agent until the next time the agent is restarted, as in step 5.
+
+Restarting the manager will make the new agent.conf file available to the agents more quickly.
+
+4. Confirm that the agent received the configuration:
+
+The agent_groups tool or the API can show whether the group is synchronized in the agent:
+curl -u foo:bar -X GET "http:/localhost:55000/agents/001/group/is_sync?pretty"
+
+/vat/ossec/bin/agent_groups -S -i 001
+
+5. Restart the agent:
+By def , The agent restarts by itself when it receives a new shared config.
+
+If auto_restart has been disabled (in the <client> section of Local configuration), the agent
+	will have to be manually restarted so that the new agent.conf file will be used.
+manager:
+	/var/ossec/bin/agent_control -R -u 1032
+
+=================	Precedence
+1. When central conf is utilized, the local and the shared configuration are merged, however, the ossec.conf file is read before the shared agent.conf
+2. last conf of any setting will overwrite the previous.
+3. If file path for a particular setting is set in both , both paths will be included in the final conf
+
+For example:
+
+Let’s say we have this configuration in the ossec.conf file:
+
+<rootcheck>
+  <disabled>no</disabled>
+  <check_unixaudit>no</check_unixaudit>
+  <check_files>yes</check_files>
+  <check_trojans>no</check_trojans>
+  <check_dev>yes</check_dev>
+  <check_sys>yes</check_sys>
+  <check_pids>yes</check_pids>
+  <check_ports>yes</check_ports>
+  <check_if>yes</check_if>
+  <system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
+</rootcheck>
+and this configuration in the agent.conf file.
+
+<rootcheck>
+  <check_unixaudit>yes</check_unixaudit>
+  <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
+  <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+  <system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+  <system_audit>/var/ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
+  <system_audit>/var/ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
+</rootcheck>
+The final configuration will overwrite check_unixaudit to “yes” because it appears in the agent.conf file. However, the path listed with the system_audit option will be repeated with both settings in the final configuration. In other words, system_audit_rcl.txt (from ossec.conf) and cis_debian_linux_rcl.txt (from agent.conf) will be included.
+
+================	How to ignore shared configuration.
+don't want to apply the shared conf in a specific agent, it can be disabled by adding the following line to the /var/ossec/etc/local_internal_options.conf file in that agent:
+agent.remote_conf=0
+
+===============	Download configuration files from remote location.
+Wazuh manager has the capability to download configuration files like merged.mg as well as other files to be merged for the groups that you want to.
+
+Need to put a yaml file named files.yml under the directory 
+/var/ossec/etc/shared/.
+groups:
+    my_group_1:
+        files:
+            agent.conf: https://example.com/agent.conf
+            rootcheck.txt: https://example.com/rootcheck.txt
+            merged.mg: https://example.com/merged.mg
+        poll: 15
+
+    my_group_2:
+        files:
+            agent.conf: https://example.com/agent.conf
+        poll: 200
+
+agents:
+    001: my_group_1
+    002: my_group_2
+    003: another_group
+
+Here we can distinct the two main blocks: groups and agents
+1. In the groups block we define the group name from which we want to download the files.
+	- If the group doesn't exists, it will be created.
+	- If a file has the name merged.mg, only this file will be downloaded. Then it will be calidated.
+	- The poll label indicates the download eate in sec of the specified files.
+2. In the agents block, we define for each agent the group to which we want it to belong.
+
+This conf can be changed on the fly . The manager will reload the file and parse it again so there is no need to restart the manager every time
+
+The info about the parsing is shown on the /var/ossec/logs/ossec.log file.
+Ex:
+Parsing is successful:
+INFO: Successfully parsed of yaml file: /etc/shared/files.yml
+File has been changed:
+INFO: File '/etc/shared/files.yml' changed. Reloading data
+Parsing failed due to bad token:
+INFO: Parsing file '/etc/shared/files.yml': unexpected identifier: 'group'
+Download of file failed:
+ERROR: Failed to download file from url: https://example.com/merged.mg
+Downloaded merged.mg file is corrupted or not valid:
+ERROR: The downloaded file '/var/download/merged.mg' is corrupted.
+
+==============	Internal configuration.
+The main conf is located in the ossec.conf file, however some internal conf features are located in the /var/ossec/etc/internal_options.conf file.
+
+Generally,this file is reserved foe debugging issues and for troubleshooting. Any error in this file may cause your installation to malfunction or fail to run.
+
+!
+This file will be overwritten during upgrades. In order to maintain custom changes, you must use the /var/ossec/etc/local_internal_options.conf file. 
+
+	---Agent
+	agent.tolerance
+	agent.warn_level
+	agent.normal_level
+	agent.min_eps
+	agent.rexv_timeout
+	agent.state_interval
+	agent.debug
+	agent.remote_conf
+	---Analysisd
+	analysisd.default_timeframe (360)
+	alakysisd.stats_maxdiff (stats max diff) 10..999999
+	analysisd.stats_mindiff (1250) 10..999999
+	analysisd.stats_percent_diff (150) 5..9999
+	analysisd.fts_list_size (32) 12..512
+	analysisd.fts_min_size_for_str (14) 6..128
+	analysisd.log_fw (1) 0,1
+	analysisd.decoder_order_size (64) 10..64
+	analysisd.geoup_jsonout (0) 0,1
+	analysisd.label_cache_maxage (0) 0..60
+	analysisd.show_hidden_labels (0) 0,1
+	analysisd.rlimit_nofile (16384) 1024..1048576
+	analysisd.debug (0) 1-std 2-verbose
+	analysisd.min_retate_interval (600) - min interval between log retate
+	analysisd.event_threads (0) 0..32
+	analysisd.syscheck_threads (0) 0..32
+	analysisd.syscollector_threads (0) 0..32
+	analysisd.rootcheck_threads (0) 0..32
+	analysisd.hostinfo_threads (0) 0..32
+	analysisd.rule_matching_threads(0) 0..32
+	analysisd.decode_event_queue_size (16384) 128..2000000
+	analysisd.decode_syscheck_queue_size (16384) 128..200000
+	analysisd.decode_syscollector_queue_size (16384) 128..200000
+	analysisd.decode_rootcheck_queue_size (16384) 128..200000
+	analysisd.decode_rootcheck_queue_size
+	analysisd.decode_hostinfo_queue_size (16384) 128..200000
+	analysisd.decode_output_queue_size (16384) 128..200000
+	analysisd.archives_queue_size (16384) 128..200000
+	analysisd.statistical_queue_size (16384) 128..200000
+	analysisd.alerts_queue_size (16384) 128..200000
+	analysisd.firewall_queue_size (16384) 128..200000
+	analysisd.state_interval (5) 0..86400
+
+	---Authd
+	authd.debug (0) [012]
+	auth.timeout_seconds (1) 1..2147483647
+	auth.timeout_microseconds (0) 0..999999
+	
+	---DBD
+	dbd.reconnect_attempts (10) 1..9999
+	
+	---Execd
+	excd.request_timeout (60) 1..3600
+	execd.max_restart_lock (600) 0..3600
+	execd.debug (0) [012]
+	
+	---Integrator
+	integrator.debug (0) [012]
+	
+	---Logcollector
+	logcollector.loop_timeout (2) 1..120
+	logcollector.open_attempts (8) 0..998
+	logcollector.remote_commands (0) 1- enable
+	logcollector.vcheck_files (64) 0..1024
+	logcollector.max_lines (10000) 100..100000
+	logcollector.sample_log_length (64) 1..4096
+	logcollector.debug (0) 1-std 2-verbose
+	logcollector.input_threads (4) 1..128
+	logcollector.queue_size (1024) 128..220000
+	logcollector.max_files (1000)1..100000
+	logcollector.rlimit_nofile (1100) 1024 .. 1048576
+	logcollector.force_reload (0) 1-enable
+	logcollector.reload_interval (64) 1..86400
+	logcollector.reload_delay (1000) 0..30000
+
+	---Maild
+	maild.strict_checking (1) 0,1
+	maild.grouping (1) 0,1
+	maild.fill_subject (0) 0,1
+	maild.geoup (1) 0,1
+
+	---Monitord 
+	monitord.day_wait (10) 0..600
+	monitord.compress (1) 0,1
+	monitord.sign (1) 0,1
+	monitord.monitor_agents (1) 0,1
+	monitord.rotate_log (1) 0,1
+	monitord.keep_log_days (31) 0..500
+	monitord.size_retate (512) 0..4096
+	monitord.dily_rotations (12) 1..256
+	monitord.debug (0) 1-std 2-verbose
+	
+	---Remoted 
+	remoted.recv_counter_flush (128) 10..999999
+	remoted.comp_average_printout (19999) 10..999999
+	remoted.verify_msg_id (0) 0,1
+	remoted.pass_empty_keyfile (1) 0,1
+	remoted.secder_pool (8) 1..64
+	remoted.request_pool (8) 1..64
+	remoted.request_timeout (10) 1..600
+	remoted.response_timeout (60) 1..3600
+	remoted.request_rto_sec (1) 0..60
+	remoted.request_rto_msec (0) 0..999
+	remoted.max_attempts (4) 1..16
+	remoted.shared_reload (10) 1..18000
+	remoted.rlimit_nofile (16384) 1024..1048576
+	remoted.recv_timeout (1) 1..60
+	remoted.send_timeout (1) 1..60
+	remoted.worker_pool
+	remoted.keyupdate_interval (10) 1..3600
+	remoted.debug (0) 1-std 2-verbose
+	remoted.keyupdate_interval (10) 1..3600
+	remoted.worker_pool (4) 1..16
+	remoted.state_interval (5) 0 -disable , 1..86400
+	remoted.guess_agent_group (0) 0,1
+
+	---Syscheck
+	syscheck.sleep (1) 0..64
+	syscheck.sleep_after (100) 1..9999
+	syscheck.rt_delay (10) 1..1000
+	syscheck.max_fd_win_rt (256) 1..1024
+	syscheck.default_max_depth (256) 1..320
+	syscheck.debug (0) , 1-std , 2-verbose debug
+
+	---Rootcheck
+	root.check.sleep (50) 0..1000
+	
+	---Wazuh
+	wazzuh.thread_stack_size (8192) 2048..65536
+	
+	---Wazuh Database
+	W DB synchronization Module starts automatically on the server and local profiles and requires no configuration, however,some optional settings are available.
+
+The module uses inotify from Linux to monitor changes to every log file in real-time. Db will be updated as soon as possible when a change is detected. If inotify is not supported, every log file will be scanned continuously, looking for changes, with a default delay of one minute between scans.
+	
+	---How  to disable the module 
+	etc/local_internal_options.conf :
+	wazuh_database.sync_agents=0
+	wazuh_database.sync_syscheck=0
+	wazuh_database.sync_rootcheck=0
+
+	After conf saved --> wazuh-manager restart
+	With the above settings, the Database synchronization Module will not be loaded when Wazuh starts.
+
+	wazuh_database.sync_agents (1) 0,1
+	wazuh_database.sync_syscheck (0) 0,1
+	wazuh_database.sync_rootcheck (1) 0,1
+	wazuh_database.full_sync (0) 0,1
+	wazuh_database.real_time (1) 0,1
+	wazuh_database.interval (60) 0..86400
+	wazuh_database.max_queued_evnts (0) 0..2147483647
+	
+	---Wazuh Modules
+	wazuh_modules.task_nice (10) -20..19
+	wazuh_modules.max_eps (100) 1..1000
+	wazuh_modules.debug (0) 1-std, 2- verbose debug 
+		
+	---Wazuh Command (0) 1-en remote commands
+
+	---Wazuh-db (128) 1..1024
+	wazuh_db.sock_queue_size (128) 1..1024
+	wazuh_db.worker_pool_size (8) 1..32
+	wazuh_db.commit_time (60) 1..3600
+	wazuh_db.open_db_limit (64) 1..4096
+	wazuh_db.rlimit_nofile (65536) 1024..10485776
+	wazuh_db.debug (0) 1-std, 2-verbose
+
+	---Windows
+	windows.debug (0) 1-std , 2-verbose
+
+===========	Daemons
+	ossec-agentd(agent) client side daemon that communicates with the server.
+	ossec-agentlessd(manager) runs integrity checking on systems where no agent is installed
+	ossec-analysisd(manager) - receives log messages and compares them to the rules 
+	ossec-authd(manager) -  Adds agents to the Wazuh manager 
+	ossec-csyslogd(manager) - Forwards Wazuh alerts via syslog 
+	ossec-dbd(manager) - Inserts alert logs into a database
+	ossec-execd(manager,agent) - Executes active responses
+	ossec-logcollector(manager,agent) - Monitors configured files and commands for new log messages 
+	ossec-maild(manager) - sends Wazuh alerts via email 
+	ossec-monitord(manager) - Monitors agent connectivity 
+	ossec-remoted(manager) - Communicates with agents 
+	ossec-reportd(manager) - Creates reports from Wazuh alerts 
+	ossec-syscheckd(manager,agent) - Checks configured files for security changes 
+	wazuh-clusterd(manager) - Manages the Wazuh cluster manager
+	wazuh-modulesd(manager,agent) - Manages the Wazuh modules
+	wazuh-db(manager) - Manages the Wazuh database
+	ossec-integratord(manager) - Allows Wazuh to connect to external APIs and alering tools
+
+-----		ossec-agentd
+	The  ossec-agentd program is the client-side daemon that communicates with the server. It runs as ossec and is chrooted to /var/ossec
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-V	Display the version and license information
+
+-----		ossec-agentlessd -allows integrity checks to be run on systems without an agent installed.
+
+-c <config>	Read the configuration from file <config>
+-D <dir>	Chroot to <dir>
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+-V	Display the version and license information
+
+-----		ossec-analysisd - program receives the log messages and compares them to the rules. It then creates an alert when a log message matches an applicable rule.
+
+-c <config>	Run using <config> as the configuration file.
+-D <dir>	Chroot to <dir>.
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u	Run as a specific user.
+-V	Display the version and license information.
+
+	How this works 
+	1. The socket receives the message and sends it to the respective decoder queue. They can be one of the following:
+	a. Syscheck event decoder queue.
+	b. syscollector event 
+	c. Rootchexk
+	d. Hostinfo
+	e. Event decoder queue.
+	If the selected queue is full ,the event is dropped.
+	2. Each decoder thread:
+	a. Takes out the event from  it's queue.
+	b. Cleans the event.
+	c. Decodes the event.
+	d. Sends the event to the rule matching queue.
+		3. Each rule matching thread:
+	a. Takes the event from the queue.
+	b. Runs rule matching
+	c. If the event is a firewall event, it is sended to the firewall queue.
+	d. If the event has statistical flag, it is sended to the statistical queue.
+	e. If the event has the fts FLAG, IT IS SENDED TO THE fts QUEUE.
+	F. If an alert is generated , it is sended to the alert queue.
+	g. If logall is activated, the event is sended to the archives queue.
+		4. Each writer thread :
+	a. Takes the event from the queue.
+	b. Stores the element in memory to be written on it's own log file.
+		4. Logging:
+	a. Every 1 second , all the log files are writted to the HDD.
+	b. Every 5 sec (by def, if not overrided), the status file for Analysisd is generated.
+
+-----		Automatic leveling of the threads
+	By default, when Analysisd starts it will spawn the number of threads based on the nunber of CPU cores of the machine where it's running. For example, if the machine has 4 physical cores, the following threads will be created:
+	-4 threads for decoders (4 for Syscheck , 4 for Syscollector, 4 for Rootcheck, 4 for Hostinfo aand 4 for others)	
+	-4 threads for rule matching.
+	This def cinf can be changed on the internal_options.conf file by changing the fields from the :
+analysisd.event_threads	Description	Number of event decoder threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+analysisd.syscheck_threads	Description	Number of Syscheck event decoder threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+analysisd.syscollector_threads	Description	Number of Syscollector event decoder threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+analysisd.rootcheck_threads	Description	Number of Rootcheck event decoder threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+analysisd.hostinfo_threads	Description	Number of hostinfo event decoder threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+analysisd.rule_matching_threads	Description	Number of rule matching threads.
+Default value	0
+Allowed value	0: Sets the number of threads according to the number of cpu cores.
+Any integer between 0 and 32.
+
+========		ossec-authd 
+	THe ossec-authd program can automatically add an agent to a Wazuh manager and provide the key to the agent. The agent-auth application is the client application used with ossec-authd
+
+ossec-authd creates an agent with an IP address of "any"instead of using a specific IP address.
+
+!
+By default, there is no authentication or authorization involved in this transaction, so it is recommended that this daemon only be run when a new agent is being added.
+
+-V	Version and license message.
+-h	This help message.
+-d	Debug mode. Use this parameter multiple times to increase the debug level.
+-t	Test configuration.
+-f	Run in foreground.
+-F <time>	Remove old agent with same name or IP if its keepalive has more than the specified number of seconds.
+-g <group>	Group to run as.
+Default	ossec
+-D <dir>	Directory to chroot into.
+Default	/var/ossec
+-p <port>	Manager port.
+Default	1515
+-P	Enable shared password authentication, at /var/ossec/etc/authd.pass or random.
+-c <ciphers>	SSL cipher list. The format of this parameter is described in SSL ciphers.
+Default	HIGH:!ADH:!EXP:!MD5:!RC4:!3DES:!CAMELLIA:@STRENGTH
+-v <path>	Full path to CA certificate used to verify clients.
+-s	Used with -v, enable source host verification.
+-x <path>	Full path to server certificate.
+Default	/var/ossec/etc/sslmanager.cert.
+-k <path>	Full path to server key.
+Default	/var/ossec/etc/sslmanager.key.
+-a	Auto negotiate the most secure common SSL/TLS method with the client.
+Default	TLS v1.2 only (if supported by the server).
+-L	Force insertion even though agent limit has been reached.
+
+==========		ossec-csyslogd
+	The ossec-csyslogd program forwards alerts via syslog.
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-V	Display the version and license information
+
+===========		ossec-dbd
+	The ossec-dbd program inserts the alert logs into a database . these alerts can be inserted into either postgresql or mysql.
+	-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-V	Display the version and license information
+
+===========		ossec-execd
+	The ossec-execd program runs active responses by initiating the configured scripts. It also handles the socket needed to perform remote upgrades in the agents.
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a specific group.
+-h	Display the help message.
+-t	Test configuration.
+-V	Display the version and license information
+
+========			ossec-logcollector 
+	monitors configured files and commands for new log messages.
+	is now multi-threaded, achieving an improvement in overall performance. Each of the threads will read the first log that is not already handled by other threads and when it finishes reading, it will try to read the next available log (file or command)so that all the threads are always occupied
+
+In addition, the intelocking problem that existed in the one-threaded version when it took a long time to read a log  while the rest were left unattended, is avoided. 
+
+	The advantages of the multithreaded logcollector are only available from version 3.6.0
+	and higher.
+
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a specific group.
+-h	Display the help message.
+-t	Test configuration.
+-V	Display the version and license information
+
+========			ossec-maild 
+	ossec-maild program sends alerts via email. It is started by ossec-control.
+
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a specific group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-V	Display the version and license information
+
+=========			ossec-monitord 
+	monitors agent connectivity. In addition , it rotates and compresses internal logs daily or when they reach a certain configurable size.
+
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a group.
+-h	Display the help message.
+-n	Disable agent monitoring.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-w <sec>	Time in seconds to wait before rotating logs and alerts.
+-V	Display the version and license information
+
+
+==========			ossec-remoted 
+		is the server side daemon that communicates with the agents . It runs as ossecr and is chrooted to /var/ossec by default.
+
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-D <dir>	Chroot to <dir>
+Default value	/var/ossec
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-g <group>	Run as a specific group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a specific user.
+Default value	ossecm
+-V	Display the version and license information
+-m	Avoid creating shared merged file (read only)
+
+
+===========			ossec-reportd 
+		creates reports from Wazuh alerts. It accepts alerts on stdin and outputs a report on stderr.
+
+!
+Since the ossec-reportd daemon output to stderr, some utilities like less will not work if the
+	output is not redirected. To do this, end the ossec-reportd with 2>&1 to redirect stderr to stdout. 
+	Following this redirect, more or less can be used with ease.
+
+-D <dir>	Chroot to <dir> .
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f <filter> <value>	Filter the results.
+Allowed values	group
+rule
+level
+location
+user
+srcip
+filename
+-g <group>	Group to run as (default: ossec).
+-h	Display the help message.
+-n <string>	Create a description for the report.
+-r <filter> <value>	Show related entries.
+-s	Show the alerts related to the summary.
+-t	Test configuration.
+-u <user>	User to run as (default: ossec).
+-V	Display the version and license information
+
+
+
+
+============			ossec-syscheckd 
+	checks configured files for changes to the checksums, permisssions and ownership. It is run using ossec-control.
+
+-c <config>	Run using <config> as the configuration file.
+Default value	/var/ossec/etc/ossec.conf
+-d	Run in debug mode. This option may be repeated to increase the verbosity of the debug messages.
+-f	Run in the foreground.
+-h	Display the help message.
+-t	Test configuration.
+-V	Display the version and license information
+
+
+==============			wazuh-clusterd 
+	manages the Wazuh cluster communications between the managers belonging to the cluster and synchromizes all files.
+
+-h	Display the help message.
+-d	Run in debug mode. Use twice to increase verbosity.
+-f	Run in the foreground.
+-r	Run as root. Use only for debugging purposes.
+-V	Print version.
+
+
+==============			wazuh-modulesd 
+	manages the Wazuh modules described below.
+	
+	Database wodle
+	Wazuh core uses list-based db to store info related to agent keys, and FIM/Rootcheck 
+	event data. This info is highly optimized to be handled by the core.
+
+	to provide well-sttructured data that can be accessed by the user or the Wazuh API ,
+	 new SQLite-based db have been introduced in the Wazuh manager. The DB sync Module
+	is a user-transparent component that collects th following info from the core:
+	
+	-Agent info : name, address, incryption key, last connection time, os, version 
+		and shared conf hash
+	-FIM data:creation, modification and deletion of regulat files and Win registry entries.
+	-Rootcheck detected defects: issue message, first detection date and last alert time .
+	-Static core settings: max peritted agents or SSL being enabled for Authd.
+
+	OpenSCAP wodle 
+	OSCAP module integrates a SCAP scanner into the wazuh agents providing security compliance under OpenSCAP policies as well as velnerability assessments, identification and classification of vulnerabilities.
+	
+	CIS-CAT wodle
+	allows you to run CIS policy scans visualizing the results of assessments in the Wazuh App.
+
+	Command wodle
+	allows running external commands asynchronously, one in each thread
+	
+	Syscollector wodle
+	performs periodic scans in the system to obtain info related to the installed hardware,os info , net info , installed packages, active ports, and running processes.
+
+	AWS S3 wodle
+	allows you to gather and parse logs from multiple AWS sevices , such as Guard Duty, Macie, VPC Flow , etc. 
+
+	Vulnerability detector wodle
+	this module detects applications that are known to be vulnerable (affected by a CVE)
+
+	Osquery wodle 
+	provides the user an os intrumentation tool that makes low-level os analytics and monitoring both efficient and intuitivae using SQL-based queries . 
+
+-d	Basic debug mode.
+-dd	Verbose debug mode.
+-f	Run in the foreground.
+-h	Display the help message.
+-t	Test configuration.
+
+
+
+===========			 wazuh-db
+
+	Wazuh core uses list-based db to store info related to agent keys, and FIM/Rootcheck event data.
+
+-d	Basic debug mode.
+-dd	Verbose debug mode.
+-f	Run in foreground.
+-h	Display the help message.
+-V	Version and license message.
+-t	Test configuration.
+
+----	Tables available for wazuh-db
+
+scan_info
+---------
+Field	Description	Example
+module	Module name	fim
+first_start	First scan begin date	1538558233
+first_end	First scan end date	1538556788
+start_scan	Last scan start date	1538558233
+end_scan	Last scan end date	1538558192
+fim_first_check	Start date of first scan	1538558233
+fim_second_check	Start date of two scans ago	1538556779
+fim_third_check	Start date of three scans ago	1538555325
+
+fim_entry
+---------
+Field	Description	Example
+file	File name	/root/file
+type	Type (file or registry)	file
+date	Event timestamp	1538556788
+changes	CPU name	0
+size	File size	28179
+perm	File permissions	100664
+uid	User ID	1000
+gid	Group ID	1000
+md5	File MD5	6d9bd718faff778bbeabada6f07f5c2f
+sha1	File SHA1	3ad067d8949ab0e20c220d7b1acb338190967acc
+uname	Unix name	cervi
+gname	Group name	cervi
+mtime	Modify time	1536059852
+inode	Inode number	14946484
+sha256	File SHA256	09aaf47929660c513332aa2349bc66ce7ae710
+
+
+metadata
+--------
+Data needed to upgrade the agent’s database
+
+Field	Description	Example
+key	Field name	version_major
+value	Field value	3
+Syscollector tables
+
+Table	Description
+sys_hwinfo	Stores information about the hardware of the system
+sys_netiface	Stores information about the existing network interfaces of the system
+sys_netaddr	Stores information about the IPv4 and IPv6 of the existing network interfaces
+sys_netproto	Stores information about routing configuration for each interface
+sys_osinfo	Stores information about the operating system
+sys_ports	Stores information about the opened ports of a system
+sys_processes	Stores information about the current processes running in the system
+sys_programs	Stores information about the packages installed in the system
+
+
+CIS-CAT table
+
+Results of a CIS-CAT scan of an agent
+
+Field	Description	Example
+id	Unique identifier	12372
+scan_id	Scan identifier	1701467600
+scan_time	Scan time	2018-02-08T11:47:28.066-08:00
+benchmark	Executed benchmark	CIS Ubuntu Linux 16.04 LTS Benchmark
+profile	Profile inside benchmark executed	xccdf_org.cisecurity.benchmarks_profile_Level_2_-_Server
+pass	Number of checks passed	98
+fail	Number of fails	85
+error	Number of errors	0
+notchecked	Number of not checked	36
+unknown	Number of unknown	1
+score	Final score	53%
+
+
+===========			ossec-integratord
+	is a daemon that allows Wazuh to connect to external APIs and alerting tools such as Slack, VirusTotal and PagerDuty.
+
+==========			ossec-integratord options
+-d	Basic debug mode.
+-dd	Verbose debug mode.
+-f	Run in foreground.
+-h	Display the help message.
+-V	Version and license message.
+-t	Test configuration.
+-u <user>	Run as ‘user’
+-g <group>	Run as ‘group’
+-c <config>	Read the ‘config’ file
+-D <dir>	Chroot to ‘dir’
+
+===========		Tools
+Tools	Descriptions	Supported installations
+ossec-control	Manages the status of Wazuh processes	manager, agent
+agent-auth	Adds agents to a Wazuh manager	agent
+agent_control	
+Allows queries of the manager to get information about
+
+any agent
+manager
+manage_agents	
+Provides an interface to handle authentication
+
+keys for agents
+manager, agent
+ossec-logtest	Allows testing and verification of rules against provided log records	manager
+ossec-makelists	Compiles cdb databases	manager
+rootcheck_control	
+Allows management of policy monitoring
+
+and system auditing database
+manager
+syscheck_control	
+Provides an interface for managing the integrity checking database
+
+Deprecated since version 3.7.
+manager
+syscheck_update	
+Updates the integrity check database
+
+Deprecated since version 3.7.
+manager
+clear_stats	Clears the events stats	manager
+ossec-regex	Validates a regex expression	manager
+update_ruleset	Update Decoders, Rules and Rootchecks	manager
+util.sh	Adds a file to be monitored by ossec-logcollector	manager agent
+verify-agent-conf	Verifies the Wazuh agent.conf configuration	manager
+agent_groups	Manages and assigns groups	manager
+agent_upgrade	List outgraded agent and upgrade them	manager
+cluster_control	Manages and retrieves cluster information	manager
+fim_migrate	Migrates older FIM databases to Wazuh-DB	m
+
+--------			agent-auth
+	is the client app used with ossec-authd to add A to a WM
+
+-A <A name> (hostname)
+-a (TLS V1.2)
+-c <ciphers> (HIGH:!ADH:!EXP:!MD5:!RC4:!3DES:!CAMELLIA:@STRENGTH)
+-D (/var/ossec) - dir where Wazuh is installed
+-d 	run in debug mode , to increase repeated it (-ddd)
+-g <group> - run as a group
+-G <gr> - set the group for centralized configuration.
+-i 	Let A IP addr be set by the manager connection.
+-I	agent IP set
+-k <path> 	A key
+-m <man_ip>	
+-P <pass> 	use specified pass instead of searching for it at authd.pass
+		If not provided in the file nor on the console 
+		the client will connict to the server without a pass
+-p <port> 	port ossec-authd is running on. (1515)
+-t 	test conf
+-V	version
+-v <path>	full path to the CA ccertificate used to verify the srv.
+-x <path> 		full path to the agent cert.
+
+----------			agent_control
+	allow to query the manager for info about A, or initiate syscheck/rootcheck scan on an agent 
+	the next time it checks in.
+
+	status [active|pending|disconnected|never connected]
+
+-h	Display the help message
+-l	List available agents whether they are active or not.
+-lc	List only the currently connected agents.
+-ln	List only the currently disconnected agents.
+-i <agent_id>	Extract information from an agent
+-R <agent_id>	Restart the Wazuh processes on the agent
+-r	
+Run the integrity/rootcheck checking on agents.
+
+This must be used in conjunction with options -a or -u.
+-a	Utilizes all agents
+-u <agent_id>	Perform the requested action on the specified agent.
+agent_control options for Active Response
+
+-b <IP>	Blocks the specified IP address.
+-f <ar>	Used with -b, specifies which response to run.
+-L	List available active responses.
+-m	Show the limit of agents that can be added.
+-s	Change the output to CSV format (comma delimited).
+-j	Change the output to JSON format.
+
+-----------			manage_agents
+	available in both a version for srv and A installations.
+	easy-to-use interface to handle auth keys for Wazuh agents.
+
+------------			ossec-control
+used to start,stop,configure,or check on the status of Wazuh processes. This script can enable or disable client-syslog, the authentication daemon, cluster daemons , database logging, agentless configurations, integration with slack and pagerduty, and debug mode.
+
+Recommend to use  systemctl| service for start^stop^restart the Wazuh servie. This will avoid inconsistencies between the service status and the processes status.
+
+--------------			ossec-logtest
+	tool for testing and verification of rules against provided log examples in a way that simulates the action of ossec-analysisd . Can assist with writing and debugging custom rules and troubleshooting false positives and negatives.
+
+-a	Analysis of input lines as though they are live events.
+-c <config>	Run using config as the configuration file.
+Default Value	/var/ossec/etc/ossec.conf
+-D <dir>	
+Specifies the chroot before it completes loading all rules,decoders,
+
+and lists and processing standard input.
+-d	
+Run as a Print debug output to the terminal. This option may be repeated
+
+to increase the verbosity of the debug messages.group.
+-h	Display the help message.
+-t	
+Test configuration. This will display file details on the rules to be loaded
+
+by ossec-analysisd, decoders, and lists as they are loaded and the order
+
+they were processed.
+-U <rule-id:alert-level:decoder-name>	
+This option will cause ossec-logtest to return a zero exit status if the test
+
+results for the provided log line match the criteria in the arguments.
+
+Only one log line should be supplied for this to be useful.
+-V	Display the version and license information for Wazuh and ossec-logtest.
+-v	Display the verbose results.
+
+U ossec-logtest code requires access to all ossec configuration files.
+
+-v is the key option to troubleshoot a rule or decoder problem.
+
+-----------------		ossec-makelists
+	to compile cdb db. This will scan ossec.conf for db files check the mtime, and recompile all out of date db.
+
+-c <config>	Run with configuration file of config.
+Default Value	/var/ossec/etc/ossec.conf
+-D <dir>	Directory to chroot into.
+Default value	/var/ossec
+-d	Run in debug mode, may be repeated to increase the verbosity of the debug messages.
+-F	Force the rebuild of all configured databases.
+-g <group>	Run as a group.
+-h	Display the help message.
+-t	Test configuration.
+-u <user>	Run as a user.
+-V	Display the version and license information.
+
+----------------		rootcheck_control
+
+	allows for the management of the policy monitoring and system auditing db that is stored on the srv side.
+
+	Anomalies detected by the rootcheck functionality can be listed, and categorized into resolved and outstanding issues.
+
+	can also display the last time that ossec-rootcheck was run
+
+-h	Display the help message.
+-l	List the available agents.
+-lc	List only the currently connected agents.
+-ln	List only the currently disconnected agents.
+-u <id> / -u all	Update the database for the identified or all agents.
+-i <agent_id>	Print the database for the agent.
+-r	Used with -i to print all the resolved issues.
+-q	Used with -i to print all the outstanding issues.
+-L	Used with -i print the last scan.
+-s	Change the output to CSV format.
+-j	Change the output to JSON format.
+
+-----------		syscheck_update
+	wipes the integrity check db. All info about files that were added to the integrity check db
+	will be deleted leaving an empty db which will be populated again the mext time the syscheck
+	daemon runs on the agents or the server.
+
+-h	Display the help message.
+-l	List the available agents.
+-a	Update the database for all agents.
+-u <id> / -u local	Update the database for the specified agent or the local database.
+
+------------		clear_stats
+	clears the events stats.
+
+-h	Display the help message.
+-a	Clear all the average stats.
+-d	Clear the daily averages.
+-w	Clear the weekly averages.
+
+------------		ossec-regex 
+	used to validate aregex expression.
+	pattern should be enclosed in single quotes to help prevent any unintended interactions with the shell.
+
+/var/ossec/bin/ossec-regex '<pattern>'
+
+It then reads strings from stdin and outputs matches to stdout
+
++OSRegex_Execute and +OS_Regex are displayed if a match is successful.
+
+-----------		update_ruleset
+	updates decoders , rules and rootchecks.
+
+-r	Restart Wazuh when needed.
+-R	Do not restart Wazuh.
+-b	Restore the last backup.
+-h	Display the help message.
+-f	Force Wazuh to update the ruleset.
+-o	Set Wazuh path.
+Default	/var/ossec
+-s	Select ruleset source path (instead of downloading it).
+-j	JSON output. Must be used in conjunction with the ‘-s’ option.
+-d	Run in debug mode.
+-n	Branch name (default: stable).
+
+------------		util.sh
+
+util.sh shell script can add a log file to be monitored by ossec-logcollector.
+	It can also add a full_command to check for changes to a website, or for changes to the nameserver of a domain.
+
+addfile <filename> [<format>]	
+Add a log file to be monitored by ossec-logtest
+
+A local file will be added to the ossec.conf
+addsite <domain>	
+Monitor a website for changes.
+
+A full_command will be added to the ossec.conf using lynx to dump the initial page.
+
+A rule can be written to monitor this output for changes.
+
+Requires lynx
+adddns <domain>	
+Monitor the nameserver of a domain for changes.
+
+A full_command will be added to the ossec.conf using the host command.
+
+!
+addsite may not be useful on pages with dynamic content.
+!
+addns requires the host command.
+
+----------		verify-agent-conf
+	verifies the Wazuh agent.conf configuration.
+searches in /var/ossec/etc/shared
+or
+verify-agent-conf [-f <agent.conf file>]
+
+-----------		agent_groups
+	list A assigned to a G, 
+	assigne A to G
+	manage A G.
+
+-h	Displays the help message
+-q	Quiet mode (outputs no confirmation)
+-d	Debug
+-l	Lists all groups
+-l -g group_id	Lists the agents in the group
+-c -g group_id	Lists the configuration files in group
+-a -g group_id [-q]	Creates a group
+-r -g group_id [-q]	Removes a group (affects to all agents assigned to it)
+-a -i agent_id -g group_id [-q]	Assigns group_id to the agent’s group list
+-a -f -i agent_id -g group_id [-q]	Replaces the agent’s groups to group_id
+-r -i agent_id [-q]	Remove an agent from all its groups
+-r -i agent_id -g group_id [-q]	Remove an agent from a specific group
+-s -i agent_id	Shows the groups of an agent
+-S -i agent_id	Shows the shared files sync status of an agent
+
+Examples
+-create G
+./agent_groups -a -g debian
+-Assign G 'debian' to agent 002
+./agent_groups -s -i 002
+
+-list all A in G 'debian'
+./agent_groups -l -g debian
+
+-list configuration files in group 'debian':
+./agent_groups -c -g debian
+
+-remove A 002 from all G except the default:
+./agent_groups -r -i 002
+
+-remove A 003 from a specific group
+./agent_groups -r -i 003 -g group2
+
+-remove the group 'debian' from every agent:
+./agent_groups -r -g debian
+
+-add an agent to more than one group:
+./agent_groups -a -i 001 -g group1
+./agent_groups -a -i 001 -g group2
+
+--------------		agent_upgrade
+	agent_upgrade program allows you to list outdated agents and upgrade them . 
+
+-h, –help	Display the help message.
+-l, –list_outdated	Generates a list with all outdated agents.
+-a AGENT_ID, –agent AGENT_ID	Agent ID to upgrade.
+-d, –debug	Debug mode.
+-F, –force	Allows reinstall same version and downgrade version.
+-s, –silent	Do not show output.
+-v VERSION, –version VERSION	Version to install.
+-r REPOSITORY, –repository REPOSITORY	Specify a repository URL.
+-f FILE, –file FILE	Custom WPK filename.
+-x EXECUTE, –execute EXECUTE	Executable filename in the WPK custom file. By default it will try to launch upgrade.sh.
+-t TIMEOUT, –timeout TIMEOUT	Timeout where the agent cannot restart while updating.
+-c CHUNK_SIZE, –chunk_size CHUNK_SIZE	Chunk size sending WPK file.
+
+	!
+	By default, the timeout will be the maximum allowed by the agent with the execd.max_restart_lock
+	option in internal_options.conf.
+	
+Examples:
+-list outdated agents:
+./agent_upgrade -l
+
+-upgrade agent:
+./agent_upgrade -a 002
+
+-Downgrade agent using a custom repository:
+./agent_upgrade -a 002 -dF -v v3.0.0 -r http://mycompany.wpkrepo.com/ -t 500
+
+-Install custom WPK file:
+./agent_upgrade -a 002 -d -f /root/upgrade_openscap_debian.pwk -x install.sh
+
+!
+When the agent finishes updating, it is automatically restarted to apply the new confifuration.
+
+---------		cluster_control
+	allow to manage the cluster from any manager.
+	wazuh-clusterd must be running in order to use this tool.
+
+Options:
+-h, --help	Display the help message.
+-i, --health [more] [-fs]	Display the cluster’s healthcheck.
+-l, --list-nodes [-fn]	Display connected nodes in the cluster.
+-d, --debug	Show debug messages.
+-a, --list-agents [-fs] [-fn]	Display agents in the cluster.
+-fn, --filter-node [NODE_NAME]	Display information of specified node(s) only
+-fs, --filter-agent-status [STATUS]	Display agents with the specified status(es) only
+
+
+Examples of use
+---	Get cluster healthcheck
+-summarized version
+./bin/cluste_control -i
+
+-extended version
+bin/cluster_control -i more
+
+-Getting healthcheck of multiple modes
+bin/cluster_control -i more -fn node02 node01
+
+---	Get connected nodes 
+-Get all connected nodes 
+bin/cluster_control -l
+
+-Filter connected nodes by name
+
+---		Get agents in cluster
+-Get all agents 
+bin/cluster_control -a
+
+-Get all agents reporting to a node
+bin/cluster_control -a -fn node02
+
+-Get all active disconnected reporting to a node
+bin/cluster_control -a -fn node02 -fs Disconnected 
+
+--------------			fim_migrate 
+	allow to migrate FIM db older than W v3.7.0 to the new format included in Wazuh--DB. This tool
+	must be executed after the upgrading process has been completed .
+
+---	Usage.
+This tool is not included in the Wazuh installation, but you can download it from the Wazuh repository on GitHub:
+ curl -so fim_migrate https://raw.githubusercontent.com/wazuh/wazuh/3.7/tools/migration/fim_migrate.py
+
+./fim_migrate
+!
+After completing the migration process, the old FIM db won't be removed automatically.
+remove the /var/ossec/queue/syscheck folder, manualy
+
+Options:
+-h	Display the help message.
+-p <path>	Change the default installation path (/var/ossec).
+-f	Force insertion. By default, the tool checks if the file or registry is already added and skips the insertion. Using this option, the tool adds and overwrites the entry.
+-q	Quiet mode.
+-d	Debug mode.
+
+Example of use:
+./fim_migrate
+
+-----------			Unattended Installation
+	saves time deplying agents , allowing the user to predefine several installation variables instead of waiting for them to be prompted. This can be made modifying the preloaded-vars.conf file and incommenting the configuration lines that you want to automate during the installation process.
+
+---	Global
+USER_LANGUAGE	Defines the language to be used.
+Allowed values	“en”, “br”, “cn”, “de”, “el”, “en”, “es”, “fr”, “hu”, “it”, “jp”, “nl”, “pl”, “ru”, “sr”, “tr”
+USER_NO_STOP	If it is set to anything, the confirmation messages are not going to be asked for.
+USER_INSTALL_TYPE	Defines the role for the Wazuh instance that is being installed.
+Allowed values	“local”, “agent”, “server”
+USER_DIR	Defines the location to install Wazuh.
+Allowed values	Any path
+USER_DELETE_DIR	If it is set to “y”, the directory to install Wazuh will be removed if exists.
+Allowed values	“y”, “n”
+USER_ENABLE_ACTIVE_RESPONSE	If it is set to “n”, active response will be disabled.
+Allowed values	“y”, “n”
+USER_ENABLE_SYSCHECK	If it is set to “n”, syscheck will be disabled.
+Allowed values	“y”, “n”
+USER_ENABLE_ROOTCHECK	If it is set to “n”, rootcheck will be disabled.
+Allowed values	“y”, “n”
+USER_ENABLE_OPENSCAP	If it is set to “n”, OpenSCAP will be disabled.
+Allowed values	“y”, “n”
+USER_ENABLE_AUTHD	If it is set to “y”, Authd will be enabled.
+Allowed values	“y”, “n”
+USER_GENERATE_AUTHD_CERT	If it is set to “y”, the Authd certificate will be auto generated.
+Allowed values	“y”, “n”
+USER_UPDATE	If it is set to anything, the update installation will be done.
+USER_BINARYINSTALL	If it is set to anything, the installation is not going to compile th
+
+---	Agent
+USER_AGENT_SERVER_IP	Specifies the IP address of the Wazuh server.
+USER_AGENT_SERVER_NAME	Specifies the hostname of the Wazuh server.
+USER_AGENT_CONFIG_PROFILE	Specifies the agent’s config profile name. This is used to create a configuration profiles for this particular profile name.
+
+Example:
+USER_LANGUAGE="en"
+USER_NO_STOP="Y"
+USER_INSTALL_TYPE="agent"
+USER_DIR="/var/ossec"
+USER_ENABLE_SYSCHECK="y"
+USER_ENABLE_ROOTCHECK="y"
+USER_ENABLE_OPENSCAP="y"
+USER_ENABLE_ACTIVE_RESPONSE="y"
+
+---		Manager/local
+USER_ENABLE_EMAIL	Enables or disables alerts by e-mail.
+Allowed values	“y”, “n”
+USER_AUTO_START	Enables or disables the auto-start of Wazuh.
+USER_EMAIL_ADDRESS	Defines the destination e-mail for the alerts.
+Allowed values	A valid e-mail address.
+USER_EMAIL_SMTP	Defines the SMTP server to send the e-mails.
+Allowed values	A valid SMTP server.
+USER_ENABLE_SYSLOG	Enables or disables remote syslog.
+Allowed values	“y”, “n”
+USER_WHITE_LIST	List of IPs or networks that are going to be set to never be blocked.
+USER_CA_STORE	Assign the path to a X509 certificate or to a folder containing certificates to verify incoming WPK packages for remote upgrades.
+
+Example:
+USER_LANGUAGE="en"
+USER_NO_STOP="y"
+USER_INSTALL_TYPE="server"
+USER_DIR="/var/ossec"
+USER_ENABLE_EMAIL="n"
+USER_ENABLE_SYSCHECK="y"
+USER_ENABLE_ROOTCHECK="y"
+USER_ENABLE_OPENSCAP="y"
+USER_WHITE_LIST="n"
+USER_ENABLE_SYSLOG="y"
+
+---		API
+Parameters for install_api.sh:
+REINSTALL	Reinstall Wazuh.
+Allowed values	“y”, “n”
+REMOVE	Remove current installation.
+Allowed values	“y”, “n”
+DIRECTORY	Installation directory.
+Allowed values	Any path
+
+Parameters for configure_api.sh
+PORT	The port used to connect to the Wazuh API.
+Allowed values	Any valid port.
+HTTPS	Enable HTTPS.
+Allowed values	“y”, “n”
+AUTHD	Enable Authd authentication.
+Allowed values	“y”, “n”
+PROXY	Change proxy.
+Allowed values	“y”, “n”
+
+Parameters for certificate generation:
+COUNTRY	Certificate country.
+STATE	Certificate state.
+LOCALITY	Certificate locality.
+ORG_NAME	Organization name.
+ORG_UNIT	Organization unit name.
+COMMON_NAME	Common Name.
+PASSWORD	Certificate password.
+
+
+Parameters for basic auth:
+USER	API user.
+PASS	API password.
+
+
+!
+To automate deployments in Windows you can use the parameters of its installer.
+
+=========			Statistics files 
+	are useful to troubleshoot some problems you may encouter like not receiving enough alerts, agents not sending any events to the manager , a flooded agent's buffer, etc.
+	You can also make use of these statistics to have abetter perspective of your environment and how's everything working.
+
+Wazuh provides three statistical files, listed below
+ossec-agentd state file 
+ossec-remoted state file 
+ossec-analysisd state file
+
+---	ossec-agentd state file
+/var/ossec/var/run/ossec-agentd.state 
+info about the agent like its current status or the num of generated events, among others. 
+By default this file is updated every 5 sec but this interval can be change with the agent.state_interval
+variable in the internal_options.conf file.
+
+!
+The ossec-agentd.state statistical file is only available in agents.
+
+status='connected'
+last_keepalive='2018-08-21 12:11:21'
+last_ack='date'
+msg_count='5614'
+msg_sent='5801'
+
+
+
+---			ossec-remoted state file
+/var/osec/var/run/ossec-remoted.state
+
+provides info aboutthe ossec-remoted daemon like the queue size , discarded messages or the number of TCP sessions among others.(5sec)
+remoted.state_interval variable in the internal_options.conf file.
+
+!
+Available in managers.
+queue_size='0'
+total_queue_size='131072'
+tcp_sessions='0'
+evt_count='7383'
+ctrl_msg_count='270'
+discarded_count='0'
+msg_sent='1267'
+
+---			ossec-analysisd state file 
+/var/ossec/var/run/ossec-analysisd.state
+help to analyse situations where you need to troubleshoot problems related to getting less events or alerts as expected.
+
+internal_options.conf file:
+analysisd.state_interval 
+
+total_events_decoded='5'
+
+# Syscheck events decoded
+syscheck_events_decoded='0'
+syscheck_edps='0'
+
+# Syscollector events decoded
+syscollector_events_decoded='0'
+syscollector_edps='0'
+
+# Rootcheck events decoded
+rootcheck_events_decoded='0'
+rootcheck_edps='0'
+
+# Hostinfo events decoded
+hostinfo_events_decoded='0'
+hostinfo_edps='0'
+
+# Other events decoded
+other_events_decoded='5'
+other_events_edps='1'
+
+# Events processed (Rule matching)
+events_processed='5'
+events_edps='1'
+
+# Events received
+events_received='5'
+
+# Events dropped
+events_dropped='0'
+
+# Alerts written to disk
+alerts_written='0'
+
+# Firewall alerts written to disk
+firewall_written='0'
+
+# FTS alerts written to disk
+fts_written='0'
+
+# Syscheck queue
+syscheck_queue_usage='0.00'
+
+# Syscheck queue size
+syscheck_queue_size='16384'
+
+# Syscollector queue
+syscollector_queue_usage='0.00'
+
+# Syscollector queue size
+syscollector_queue_size='16384'
+
+# Rootcheck queue
+rootcheck_queue_usage='0.00'
+
+# Rootcheck queue size
+rootcheck_queue_size='16384'
+
+# Hostinfo queue
+hostinfo_queue_usage='0.00'
+
+# Hostinfo queue size
+hostinfo_queue_size='16384'
+
+# Event queue
+event_queue_usage='0.00'
+
+# Event queue size
+event_queue_size='16384'
+
+# Rule matching queue
+rule_matching_queue_usage='0.00'
+
+# Rule matching queue size
+rule_matching_queue_size='16384'
+
+# Alerts log queue
+alerts_queue_usage='0.00'
+
+# Alerts log queue size
+alerts_queue_size='16384'
+
+# Firewall log queue
+firewall_queue_usage='0.00'
+
+# Firewall log queue size
+firewall_queue_size='16384'
+
+# Statistical log queue
+statistical_queue_usage='0.00'
+
+# Statistical log queue size
+statistical_queue_size='16384'
+
+# Archives log queue
+archives_queue_usage='0.00'
+
+# Archives log queue size
+archives_queue_size='16384'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

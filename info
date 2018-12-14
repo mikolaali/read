@@ -1,0 +1,73 @@
+sudo installer -pkg /path/to/package.pkg -target /
+
+sw_vers -buildVersion
+system_profiler SPSoftwareDataType
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+-------
+/usr/local
+ls -lah
+info about installed apps
+brew install zsh
+lnav
+tig
+ranger
+realpath
+ncdu
+---------	OPENVPN		-----------
+sudo brew services start openvpn
+
+---------	LaunchAgents	------------
+FILES
+     ~/Library/LaunchAgents         Per-user agents provided by the user.
+     /Library/LaunchAgents          Per-user agents provided by the administrator.
+     /Library/LaunchDaemons         System-wide daemons provided by the administrator.
+     /System/Library/LaunchAgents   Per-user agents provided by Apple.
+     /System/Library/LaunchDaemons  System-wide daemons provided by Apple.
+
+#выполняем действия от root
+sudo -s
+#перемещаем файл сценария
+mv ~/Desktop/my.fancontrol.plist /Library/LaunchDaemons/
+#правим права доступа
+chown root:wheel /Library/LaunchDaemons/my.fancontrol.plist
+#правим атрибуты
+chmod 755 /Library/LaunchDaemons/my.fancontrol.plist
+
+#launchctl load /Library/LaunchDaemons/[имя.вашего.файла].plist
+#launchctl unload /Library/LaunchDaemons/[имя.вашего.файла].plis
+
+--------- SYSCTL ----------
+sudo -s
+cat > /Library/LaunchDaemons/sysctl.plist << EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+ <key>Label</key>
+ <string>sysctl</string>
+ <key>ProgramArguments</key>
+ <array>
+ <string>/usr/sbin/sysctl</string>
+ <string>-w</string>
+ <string>kern.sysv.shmmax=1610612736</string>
+ <string>kern.sysv.shmall=393216</string>
+ <string>kern.sysv.shmmin=1</string>
+ <string>kern.sysv.shmmni=32</string>
+ <string>kern.sysv.shmseg=8</string>
+ <string>kern.maxprocperuid=512</string>
+ <string>kern.maxproc=2048</string>
+ </array>
+ <key>RunAtLoad</key>
+ <true/>
+</dict>
+</plist>
+EOF
+launchctl load /Library/LaunchDaemons/sysctl.plist
+
+OR
+
+/private/etc/sysctl.conf
+
