@@ -1,0 +1,681 @@
+n this Section:
+1. Ansible inventories
+2. Ansible modules
+3. YAML
+4. Ansible playbooks, breakdown of sections
+5. Ansible playbooks, variables
+6. Ansible playbooks, facts 
+7. Templating with Jinja2
+8. Ansible playbooks, creating and executing
+
+--- 1. Ansible inventories
+- inventory host varables
+- simplification of the inventory file with ranges
+- group vars
+- inventory children groups
+
+-----    Type of group
+ungroup
+all
+- This two group always present
+
+-----    CMD
+ansible-inventory --list
+ansible-inventory --graph
+
+-------7 Ad-hoc cmds
+ansible all -m ping
+        setup
+ansible all -m shell -a "uptime"
+ansible all -m command -a "ls /var"  #not through shell , don't see environment vars, no redirect output
+
+-copy
+ansible all -m copy -a "src=./asd.txt dest=/root mode=777" -b (become)
+ansible all -m shell -a "ls /root"
+ansible all -m file -a "path=/root/asd.txt state=absent" -b
+
+-get_url
+ansible all -m get_url -a "url=http://collectors.sumologic.com/rest/download/linux/64 dest=/root" -b
+
+-yum
+ansible all -m yum -a "name=stress state=installed" -b
+ansible all -m yum -a "name=stress state=removed" -b
+
+-curl
+ansible all -m uri -a "url=http://www.adv-it.net"
+# Can server connect to url
+ansible all -m uri -a "url=http://www.adv-it.net return_content=yes"
+# check with showing returned content
+
+-yum
+ansible all -m yum -a "name=httpd state=latest" -b
+# install apache2 on all srvs
+
+-service
+ansible all -m service -a "name=httpd state=started enabled=yes"
+
+ansible all -m yum -a "name=httpd state=removed"
+
+-DEBUG
+-v
+-vv
+-vvv
+-vvvv
+
+-DOC
+ansible-doc -l | grep spec_module
+ansible-doc module_name
+
+===========8 format YAML
+---
+- fruits:
+   - apple
+   - orange
+   - mango
+- vegetables:
+   - carrots
+   - cucmbers
+
+- vasya:
+   nick: vasek
+   position: developer
+   skills:
+     - python
+     - perl
+     - php
+- petya:
+   nick: pet
+   position: manager
+   skills:
+    - manage
+    - make_noise
+
+- kolya: { nick: kolyan, position: administrator, skils: love }
+- kolya: { nick: kolyan, position: administrator, skils: ['love', 'brave'] }
+- petya:
+   nick: "pettya:krutoy"
+
+  fruits: ['apple', 'orange', 'mango']
+ 
+==========9 Variables in group_vars
+Need to create yaml file with group name.
+---
+var1 : value1
+var2 : value2
+
+all this vars will be reachable , and must del from hosts inventory file
+
+
+==========10 First playbook
+
+-Simplest playbook
+---
+- name: Test Connection to my servers
+  hosts: all
+  become: yes
+
+  tasks:
+   - name: Pimg my servers
+     ping:    # no arguments
+
+-Playbook2
+
+---
+- name: Install default apache web server
+  hosts: all
+  become: yes
+  
+  tasks:
+   - name: Install apache
+     yum: name=httpd state=installed
+
+    - name: Start apache and enable it
+      service: name=httpd state=started enabled=yes
+
+-Pb3
+
+---
+- name: Install Apache and Upload my Web Page
+  hosts: all
+  become: yes
+
+  varrs:
+   source_file: ./MyWebSite/index.html
+   destin_file: /var/www/html
+
+
+   tasks:
+   - name: Install Apache Web Server
+     yum: name=httpd state=latest
+
+    - name: Copy MyHomePage to Servers
+      copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      notify: restart apache
+
+     - name: Start WebServer and make it enable on boot
+       service: name=httpd state=started enabled=yes
+
+  handlers:
+   - name: restart apache
+     service: name=httpd state=restarted
+
+===========11 Variables - Debug, Set_fact, Register.
+
+-pb4
+---
+- name: fof var lesson
+  hosts: all
+  become: yes
+
+  vars:
+   message1: privet
+   message2: world
+   secret: lasjkakfj;ldfj
+
+  tasks:
+  - name: Print secret variable
+    debug:
+     var: secret
+
+  - debug: 
+     msg: "sekretnoe slovo: {{ secret }}"
+
+  - debug:
+     msg: "vladelec etogo servera --> {{ owner }}"
+
+  - set_fact: full_message="{{ message1 }} {{ message2 }} from {{ owner }}"
+  
+  - debug: 
+     var: ful_message
+
+  - debug:
+     var: ansible_distribution
+
+  - shell: uptime
+    register: results
+
+  - debug:
+     var: results
+
+  - debug:
+     var: results.stdout
+
+=========12 Blocks and if-else -   Block-When
+--- 
+- name: Install Apache nad Upload my Home Page
+  hosts: all 
+  become: yes
+
+  vars:
+   source_file: ./MyWebSite/index.html
+   destin_file: /var/www/html
+
+  tasks:
+
+  - name: Check and print Linux version
+    debug: 
+      var: ansible_os_family
+  - block:   #==== Block for RedHat
+
+    - name: Install Apache Web Server for RedHat
+      yum: name=httpd state=latest
+
+    - name: Copy HomePage file to Web Server
+      copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      notify: restart apache redhat
+  
+    - name: Start Web Server service for RedHat
+      sevice: name=httpd state=started enabled=yes
+
+    when: ansible_os_family == "RedHat"
+
+  - block:  #====== Block for Ubuntu
+
+    - name: Install Apache Web Server for Debian
+      apt: name=apache2 state=latest
+
+    - name: Copy HomePage file to Web Server
+      copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      notify: restart apache debian
+   
+    - name: Start Web Server service for Debian
+      service: name=apache2 state=started enabled=yes
+
+    when: ansible_os_family == "Debian"
+
+  handlers:
+  - name: restart apache redhat
+    service: name=httpd state=restarted
+
+  - name: restart apache debian
+    service: name=apache2 state=restarted
+
+
+==========13  циклы - Loop-Items
+
+
+-playbookloop.yml
+---
+- name: Loops Playbook
+  hosts: linux3
+  become: yes
+
+  tasks:
+  - name: Say hello to all 
+    debug: msg="hello {{ item }}"
+    loop:
+     - "Casya"
+     - "Petya"
+     - "Masha"
+     - "Olya"
+
+  - name: Loop Until example
+    shell: echo -n Z >> myfile.txt &&  cat myfile.txt
+    register: output
+    delay: 2  # in sec
+    retries: 10   # default 3
+    until: output.stdout.find("ZZZZ") == false
+
+  - name: Print Output.Final
+    debug: var=output.stdout
+
+  - name: Install many packaged 
+    yum: name={{ item }} state=installed
+    with_items:
+    - python
+    - tree
+    - mysql-client
+
+-playbook6.yml
+--- 
+- name: INstall Apache and Upload my Home Page 
+  hosts: all
+  become: yes
+
+  vars: 
+   source_folder: ./MyWebSite/index.html
+   destin_folder: /var/www/html
+
+  tasks:
+  - name: Check and Print LINUX Version
+    debug: var=ansible_os_family
+
+  - block:
+    - name: Install Apache Web Server for RedHat
+      yum: name=httpd state=latest
+
+    - name: Start Web Server sevice for RedHat
+      service: name=httpd state=started enabled=yes
+
+    when: ansible_os_family == "RedHat"
+
+  - block:    # block for UBUNTU
+    - name: Install Apache Web Server for Debian
+      apt: name=apache2 state=latest
+
+    - name: Start Web Server service for Debian
+      sevice: name=apache2 state=started enabled=yes
+
+    when: ansible_os_family == "Debian"
+
+  - name: Copy HomePage file to Web Sever
+    copy: src={{ source_folder }}/{{ item }}  dest={{ dest_folder }} mode=0555
+    with_fileglob: "{{ source_folder }}/*.*"
+#    loop:
+#      - "index.html"
+#      - "bahamas.png"
+#      - "bulgria.png"
+#      - "jordan.png"
+#      - "newzeland.png"
+    notify: 
+     - restart apache redhat
+     - restart apache debian
+
+  handlers:
+   - name: restart apache redhat
+     service: name=httpd state=restarted
+     when: ansible_os_family == "RedHat"
+
+   - name: restart apache debian
+     service: name=apache2 state=restarted
+     when: ansible_os_family == "Debian"
+
+=======14 Jinja Template
+ansible_defautl_ipv4.address
+
+
+========15 Ansible Roles
+1. mkdir roles
+2. ansible-galaxy init common --ofline
+3. test
+├── README.md
+├── defaults
+│   └── main.yml
+├── files
+├── handlers
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── tasks
+│   └── main.yml
+├── templates
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars
+    └── main.yml
+
+We need to distribute the content of the playbook you wish to make common, and to have ROLE
+
+4. After role created , needed to make playbook with role included:
+--- 
+- name: Install Apache and Upload my Home Page
+  hosts: all
+  become: yes
+
+  roles:
+   - { role: deploy_apache_web, when: ansible_system == 'Linux' }
+
+==========16 внешние переменные  --extra-vars
+hosts
+[PROD]
+linux1 ansible_host=172.31.3.113 owner=Petya
+
+[STAGING]
+linux3 ansible_host=172.31.19.251 owner=Vasya
+
+[ALL_LINUX:children]
+PROD
+STAGING
+
+- playbook6.yml
+---
+- name: install apache and upload my home page
+  hosts: "{{ my_host }}"
+  become: yes
+
+  roles: 
+   - { role: deploy_apache_web, when: ansible_system == 'Linux' }
+
+2. Передаем переменные --extra-var --extra-vars -e
+ansible-playbook playbook6.yml --extra-var "MYHOST=STAGING"
+
+Extra vars has highest precedense
+
+========17 Use import include
+---
+- name: My pb
+  hosts: all
+  become: yes
+
+  vars:
+   mytext: "Privet ot "
+
+  tasks:
+   - name: Ping test
+     ping:
+
+   - name: Create folder
+     file: 
+      path: /home/secret/folder1
+      state: deirectory
+      mode: 0755
+
+    - name: Create folder2
+      file: 
+       path: /home/secret/folder2
+       state: directory
+       mode: 0755
+
+     - name: Create file1
+       copy:
+        dest: /home/secret/file.txt
+        content: |
+          text line1
+          text line2 
+          text {{ mytext }}
+
+
+- name: create folders
+  include: create_folders.yml
+
+- name: create files
+  include: create_files.yml
+
+
+imclude differs from import
+import:
+	paste included file immidiatly ,and vars too
+
+include:
+  начинает запускать таски и как только доходит до include только тогда вставляет.  Т.е можно использовать вывод предыдущих тасков.
+
+Можно перекидывать переменные  в include
+
+Ex
+  tasks:
+   - include: create_files.yml mytext="hello from Vancouver BC"
+
+ansible-playbook pb7.yml
+
+=========18 Запуск на определенном хосте
+---
+- name: asd
+  hosts: all 
+  become: yes
+
+  vars:
+   mytext: "privet"
+
+  tasks:
+   - name: Ping 
+     ping:
+
+
+   - name: create file
+     copy:
+      dest: /home/file.txt
+      content: | 
+       first line
+       second line
+       third line
+      delegate_to: linux3
+
+   - name: create file2
+     copy:
+      dest: /home/file
+      content: |
+       asd
+       dsa {{ mytext }}
+
+- name: test
+  shell: echo This server {{ inventory_hostname }} was deregistered from our load balancer, node name is {{ ansible_nodename }} >> /home/log.txt
+  delegate_to: 127.0.0.1
+
+--------  wait for case
+
+- name: reboot my servers
+  shell: sleep 3 && reboot now
+  async: 1   # максимальный таймаут
+  poll: 0 # закинуть команду и отключиться , т.е. не поддерживать сессию
+ 
+- name: wait will my server will come up online
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    state: started
+    delay: 5
+    timeout: 40
+  delegate_to: 127.0.0.1
+
+-----------------
+
+- name: update my DB
+  shell: UPDATING DB...
+  run_once: true  # запустится один раз только на одном сервере , по умолчанию первый из инвентори файла.
+
+
+=============19 Перезват и контроль ошибок.  Error Handling.
+t1 - OK
+t2 - Failed  # Все последующие таски не запускаются
+t3 - Not Executed  . 
+  
+--- playbook_error.yml
+---
+- name: ans lesson 19
+  hosts: all
+  any_errors_fatal: true   # Любая ошибка фатальна - останов всего плейбука.
+  become: yes
+
+  tasks:
+  - name: t1 
+    yum: name=treee state=latest
+    ignore_errors: yes    
+
+  - name: t2
+    shell: echo Hello World!
+    register: results   # results.stdout   
+    failed_when: results.rc != 0
+   # failed_when: results.rc == 0
+   # failed_when: "'World' in results.stdout"  # когда слово World есть в  выводе
+
+  - name: debug
+    debug: 
+      var: results 
+
+  - name: t3
+    shell: echo privet mir
+
+===============20  Ansible-Vault  - хранение секретов.
+секретный файл
+ansible-vault create mysecret.txt
+pass:  enter_passphrase
+
+ansible-vault view mysecret.txt  # analogiyu for cat
+ansible-vault edit mysecret.txt  # analogyu for vi
+
+ansible-vault rekey mysecret.txt  # change password
+
+---
+- name: ansible lesson 20 Vault
+  hosts: all
+  become: yes
+
+  vars: 
+   admin_password: PPASSw0rd1234@
+
+  tasks:
+   - name: install package Tree
+     yum: name=tree state=latest
+
+   - name: create config file
+     copy:
+      dest: "/home/ex2-user/myconfig.conf"
+      content: |
+        port = 9092
+        log = 7days
+        home = /opt/kafka/bin
+        user admin
+        password = {{ admin_password }}
+
+
+# encrypt
+ansible-vault encrypt pb_vault.yml # encrypt file
+# decrypt
+ansible-vault decrypt pb_vault.yml  # decrypt file
+
+# execution
+ansible-playbook pb_vault.yml --ask-vault-pass
+
+# pass from file
+ansible-playbook pb_vault.yml --vault-password-file mypass.txt
+
+
+### encrypt only password
+ansible-vault encrypt_string 
+Passw0rd1234@
+
+
+### ecrypt only password
+ansible-vault encrypt_string --stdin-name "Mypassword"
+
+ansible-playbook pb_vault --ask-vault-pass
+
+## analogyu
+echo -n "Password" " ansible-vault encrypt_string
+
+======== 21 - Dynamic Inventory AWS ec2.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
