@@ -603,79 +603,105 @@ ansible-playbook pb_vault --ask-vault-pass
 ## analogyu
 echo -n "Password" " ansible-vault encrypt_string
 
-======== 21 - Dynamic Inventory AWS ec2.py
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+============= lineinfile
+- name: uncommemt a line
+  lininfile: dest=/etc/lighttpd/lighttpd.conf
+             regexp='^ include "mod_fastcgi.conf"'
+             insertafter='^# include "mod_fastcgi.conf"'
+             line=' include "mod_fastcgi.conf"'
+             state=present
+
+- name: create a complete empty file
+  command: /usr/bin/touch /home/vagrant/tmp.txt
+
+- name: create a new file with lininfile
+  lineinfile: dest=/home/vagrant/tcpm.txt
+              regexp='^' line=''
+              state=present
+              create=True
+
+- name: add a string to new file
+  lineinfile: dest=/fome/vagrant/tcp.txt
+              regexp='^'
+              line:'This works'
+              state=present
+
+- name: add a multiline string to the file and delete the string 
+  lineinfile: dest=/home/vagrant/tmp.txt
+              regexp='^'
+              line:'#This is a 1st comment\n#the 2nd string\n#3d string\n#4th string\n#5th string\n'
+              state=present
+
+- name: add a single line , in this case the same as the command
+  lineinfile: dest=/home/vagrant/tmp.txt
+              regexp='^This'
+              insertafter='^#This'
+              line='This is a 1st comment'
+              state=present
+
+- name: remove the line '#This is a 1st comment'
+  lineinfile: dest=/home/vagrant/tmp.txt
+              regexp='^#This is a 1st comment'
+              state=absent
+
+- name: change a str
+  lineinfile:
+   dest: /home/vagrant/tmp.txt
+   regexp: '^This'
+   insertbefore: BOF
+   line: 'Tis is no longer a comment'
+
+- name: add a new string before the match
+  lineinfile: 
+    dest: /home/vagrant/tmp.txt
+    regexp: '^The 3d comment'
+    insertbefore: '^#The 3d comment'
+    line: 'Another The 3d comment'
+
+- name: add a new string at thee end of the file
+  lineinfile: 
+   dest: /home/vagrant/tmp.txt
+   regexp=''
+   insertafter=EOF
+   line: 'The latest entry'
+
+========= blockinfile:
+
+- name: insert/update "Match User" configuration block in /etc/ssh/sshd_config
+  blockinfile:
+   path: /etc/ssh/sshd_config
+   block: |
+    Match User ansible-agent
+    PasswordAuthentication no
+
+- name:insert/update conf using a local file and validate it
+  blockinfile:
+   block: "{{ lookup('file', './local/ssh_config') }}"
+   dest: "/etc/ssh/ssh_config"
+   backup: yes 
+   validate: "/usr/sbin/sshd -T -f %s"
+
+- name: insert/update HTML surrounded by custom markers after <body> line
+  blockinfile:
+   path: /var/www/html/index.html
+   marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+   insertagter: "<body>"
+   content: | 
+    <h1> welcome to {{ ansible_hostname }} </h1>
+    <p>Last updated on {{ ansible_date_time.iso8601 }}</p>
+
+
+
+ - name: insert/update conf using a local file and validate it
+     blockinfile:
+       path: /root/a
+       block: "{{ lookup('file', './b') }}"
+       insertafter: EOF
+       backup: no
+       marker: ""
 
 

@@ -1,0 +1,481 @@
+===============		Templates
+A template is a JSON object that has a set of keys configuring various components of Packer. The available keys within a template are listed below. Along with each key, it is noted whether it is required or not.
+
+builders (required) is an array of one or more objects that defines the builders that will be used to create machine images for this template, and configures each of those builders.
+
+description (optional) is a string providing a description of what the template does. This output is used only in the inspect command.
+
+min_packer_version (optional) is a string that has a minimum Packer version that is required to parse the template. This can be used to ensure that proper versions of Packer are used with the template. A max version can't be specified because Packer retains backwards compatibility with packer fix.
+
+post-processors (optional) is an array of one or more objects that defines the various post-processing steps to take with the built images. If not specified, then no post-processing will be done.
+
+provisioners (optional) is an array of one or more objects that defines the provisioners that will be used to install and configure software for the machines created by each of the builders. If it is not specified, then no provisioners will be run. 
+
+
+variables (optional) is an object of one or more key/value strings that defines user variables contained in the template. If it is not specified, then no variables are defined. For more information on how to define and use user variables, read the sub-section on user variables in templates.
+
+Comments
+-----------
+JSON doesn't support comments and Packer reports unknown keys as validation errors. If you'd like to comment your template, you can prefix a root level key with an underscore. Example:
+
+{
+  "_comment": "This is a comment",
+  "builders": [
+    {}
+  ]
+}
+
+Important: Only root level keys can be underscore prefixed. Keys within builders, provisioners, etc. will still result in validation errors.
+
+========	Builders
+Within a template, a section of builder definitions looks like this:
+
+{
+  "builders": [
+    // ... one or more builder definitions here
+  ]
+}
+» Builder Definition
+A single builder definition maps to exactly one build. A builder definition is a JSON object that requires at least a type key. The type is the name of the builder that will be used to create a machine image for the build.
+
+In addition to the type, other keys configure the builder itself. For example, the AWS builder requires an access_key, secret_key, and some other settings. These are placed directly within the builder definition.
+
+An example builder definition is shown below, in this case configuring the AWS builder:
+
+{
+  "type": "amazon-ebs",
+  "access_key": "...",
+  "secret_key": "..."
+}
+
+Named Builds
+Each build in Packer has a name. By default, the name is just the name of the builder being used. In general, this is good enough. Names only serve as an indicator in the output of what is happening. If you want, however, you can specify a custom name using the name key within the builder definition.
+
+This is particularly useful if you have multiple builds defined that use the same underlying builder. In this case, you must specify a name for at least one of them since the names must be unique.
+
+» Communicators
+Every build is associated with a single communicator. Communicators are used to establish a connection for provisioning a remote machine (such as an AWS instance or local virtual machine).
+
+All the examples for the various builders show some communicator (usually SSH), but the communicators are highly customizable 
+
+
+Using a Communicator
+By default, the SSH communicator is usually used. Additional configuration may not even be necessary, since some builders such as Amazon automatically configure everything.
+
+However, to specify a communicator, you set the communicator key within a build. Multiple builds can have different communicators. Example:
+
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "communicator": "ssh"
+    }
+  ]
+}
+
+
+
+SSH Communicator
+The SSH communicator connects to the host via SSH. If you have an SSH agent configured on the host running Packer, and SSH agent authentication is enabled in the communicator config, Packer will automatically forward the SSH agent to the remote host.
+
+The SSH communicator has the following options:
+
+ssh_agent_auth (boolean) - If true, the local SSH agent will be used to authenticate connections to the remote host. Defaults to false.
+
+ssh_bastion_agent_auth (boolean) - If true, the local SSH agent will be used to authenticate with the bastion host. Defaults to false.
+
+ssh_bastion_host (string) - A bastion host to use for the actual SSH connection.
+
+ssh_bastion_password (string) - The password to use to authenticate with the bastion host.
+
+ssh_bastion_port (number) - The port of the bastion host. Defaults to 22.
+
+ssh_bastion_private_key_file (string) - Path to a PEM encoded private key file to use to authenticate with the bastion host. The ~ can be used in path and will be expanded to the home directory of current user.
+
+ssh_bastion_username (string) - The username to connect to the bastion host.
+
+ssh_clear_authorized_keys (boolean) - If true, Packer will attempt to remove its temporary key from ~/.ssh/authorized_keys and /root/.ssh/authorized_keys. This is a mostly cosmetic option, since Packer will delete the temporary private key from the host system regardless of whether this is set to true (unless the user has set the -debug flag). Defaults to "false"; currently only works on guests with sed installed.
+
+ssh_disable_agent_forwarding (boolean) - If true, SSH agent forwarding will be disabled. Defaults to false.
+
+ssh_file_transfer_method (scp or sftp) - How to transfer files, Secure copy (default) or SSH File Transfer Protocol.
+
+ssh_handshake_attempts (number) - The number of handshakes to attempt with SSH once it can connect. This defaults to 10.
+
+ssh_host (string) - The address to SSH to. This usually is automatically configured by the builder.
+
+ssh_keep_alive_interval (string) - How often to send "keep alive" messages to the server. Set to a negative value (-1s) to disable. Example value: 10s. Defaults to 5s.
+
+ssh_password (string) - A plaintext password to use to authenticate with SSH.
+
+ssh_port (number) - The port to connect to SSH. This defaults to 22.
+
+ssh_private_key_file (string) - Path to a PEM encoded private key file to use to authenticate with SSH. The ~ can be used in path and will be expanded to the home directory of current user.
+
+ssh_proxy_host (string) - A SOCKS proxy host to use for SSH connection
+
+ssh_proxy_password (string) - The password to use to authenticate with the proxy server. Optional.
+
+ssh_proxy_port (number) - A port of the SOCKS proxy. Defaults to 1080.
+
+ssh_proxy_username (string) - The username to authenticate with the proxy server. Optional.
+
+ssh_pty (boolean) - If true, a PTY will be requested for the SSH connection. This defaults to false.
+
+ssh_read_write_timeout (string) - The amount of time to wait for a remote command to end. This might be useful if, for example, packer hangs on a connection after a reboot. Example: 5m. Disabled by default.
+
+ssh_timeout (string) - The time to wait for SSH to become available. Packer uses this to determine when the machine has booted so this is usually quite long. Example value: 10m.
+
+ssh_username (string) - The username to connect to SSH with. Required if using SSH.
+
+
+
+
+
+
+Template Engine
+Functions
+Functions perform operations on and within strings, for example the {{timestamp}} function can be used in any string to generate the current timestamp. This is useful for configurations that require unique keys, such as AMI names. By setting the AMI name to something like My Packer AMI {{timestamp}}, the AMI name will be unique down to the second. If you need greater than one second granularity, you should use {{uuid}}, for example when you have multiple builders in the same template.
+
+Here is a full list of the available functions for reference.
+
+build_name - The name of the build being run.
+build_type - The type of the builder being used currently.
+env - Returns environment variables. See example in using home variable
+isotime [FORMAT] - UTC time, which can be formatted. See more examples below in the isotime format reference.
+lower - Lowercases the string.
+pwd - The working directory while executing Packer.
+sed - Use a golang implementation of sed to parse an input string.
+split - Split an input string using separator and return the requested substring.
+template_dir - The directory to the template for the build.
+timestamp - The current Unix timestamp in UTC.
+uuid - Returns a random UUID.
+upper - Uppercases the string.
+user - Specifies a user variable.
+packer_version - Returns Packer version.
+» Specific to Amazon builders:
+
+clean_ami_name - AMI names can only contain certain characters. This function will replace illegal characters with a '-" character. Example usage since ":" is not a legal AMI name is: {{isotime | clean_ami_name}}.
+» Specific to Google Compute builders:
+
+clean_image_name - GCE image names can only contain certain characters and the maximum length is 63. This function will convert upper cases to lower cases and replace illegal characters with a "-" character. Example:
+
+"mybuild-{{isotime | clean_image_name}}" will become mybuild-2017-10-18t02-06-30z.
+
+
+This engine does not guarantee that the final image name will match the regex; it will not truncate your name if it exceeds 63 characters, and it will not validate that the beginning and end of the engine's output are valid. For example, "image_name": {{isotime | clean_image_name}}" will cause your build to fail because the image name will start with a number, which is why in the above example we prepend the isotime with "mybuild".
+
+Specific to Azure builders:
+
+clean_image_name - Azure managed image names can only contain certain characters and the maximum length is 80. This function will replace illegal characters with a "-" character. Example:
+
+"mybuild-{{isotime | clean_image_name}}" will become mybuild-2017-10-18t02-06-30z.
+
+Note: Valid Azure image names must match the regex ^[^_\\W][\\w-._)]{0,79}$
+
+This engine does not guarantee that the final image name will match the regex; it will not truncate your name if it exceeds 80 characters, and it will not validate that the beginning and end of the engine's output are valid. It will truncate invalid characters from the end of the name when converting illegal characters. For example, "managed_image_name: "My-Name::" will be converted to "managed_image_name: "My-Name"
+
+
+
+
+Template variables
+Template variables are special variables automatically set by Packer at build time. Some builders, provisioners and other components have template variables that are available only for that component. Template variables are recognizable because they're prefixed by a period, such as {{ .Name }}. For example, when using the shell builder template variables are available to customize the execute_command parameter used to determine how Packer will run the shell command.
+
+
+
+
+Template variables are special variables automatically set by Packer at build time. Some builders, provisioners and other components have template variables that are available only for that component. Template variables are recognizable because they're prefixed by a period, such as {{ .Name }}. For example, when using the shell builder template variables are available to customize the execute_command parameter used to determine how Packer will run the shell command.
+
+{
+    "provisioners": [
+        {
+            "type": "shell",
+            "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+                "scripts/bootstrap.sh"
+            ]
+        }
+    ]
+}
+The {{ .Vars }} and {{ .Path }} template variables will be replaced with the list of the environment variables and the path to the script to be executed respectively.
+
+
+
+
+split Function Format Reference
+The function split takes an input string, a seperator string, and a numeric component value and returns the requested substring.
+
+Here are some examples using the above options:
+
+build_name = foo-bar-provider
+
+{{split build_name "-" 0}} = foo
+{{split "fixed-string" "-" 1}} = string
+Please note that double quote characters need escaping inside of templates (in this case, on the fixed-string value):
+
+{
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "compression_level": 9,
+        "keep_input_artifact": false,
+        "vagrantfile_template": "tpl/{{split build_name \"-\" 1}.rb",
+        "output": "output/{{build_name}}.box",
+        "only": [
+            "org-name-provider"
+        ]
+      }
+    ]
+  ]
+}
+
+
+
+
+Post-Processor Definition
+Within the post-processors array in a template, there are three ways to define a post-processor. There are simple definitions, detailed definitions, and sequence definitions. Another way to think about this is that the "simple" and "detailed" definitions are shortcuts for the "sequence" definition.
+
+A simple definition is just a string; the name of the post-processor. An example is shown below. Simple definitions are used when no additional configuration is needed for the post-processor.
+
+{
+  "post-processors": ["compress"]
+}
+A detailed definition is a JSON object. It is very similar to a builder or provisioner definition. It contains a type field to denote the type of the post-processor, but may also contain additional configuration for the post-processor. A detailed definition is used when additional configuration is needed beyond simply the type for the post-processor. An example is shown below.
+
+{
+  "post-processors": [
+    {
+      "type": "compress",
+      "format": "tar.gz"
+    }
+  ]
+}
+A sequence definition is a JSON array comprised of other simple or detailed definitions. The post-processors defined in the array are run in order, with the artifact of each feeding into the next, and any intermediary artifacts being discarded. A sequence definition may not contain another sequence definition. Sequence definitions are used to chain together multiple post-processors. An example is shown below, where the artifact of a build is compressed then uploaded, but the compressed result is not kept.
+
+It is very important that any post processors that need to be run in order, be sequenced!
+
+{
+  "post-processors": [
+    [
+      "compress",
+      { "type": "upload", "endpoint": "http://example.com" }
+    ]
+  ]
+}
+As you may be able to imagine, the simple and detailed definitions are simply shortcuts for a sequence definition of only one element.
+
+» Input Artifacts
+When using post-processors, the input artifact (coming from a builder or another post-processor) is discarded by default after the post-processor runs. This is because generally, you don't want the intermediary artifacts on the way to the final artifact created.
+
+In some cases, however, you may want to keep the intermediary artifacts. You can tell Packer to keep these artifacts by setting the keep_input_artifact configuration to true. An example is shown below:
+
+{
+  "post-processors": [
+    {
+      "type": "compress",
+      "keep_input_artifact": true
+    }
+  ]
+}
+This setting will only keep the input artifact to that specific post-processor. If you're specifying a sequence of post-processors, then all intermediaries are discarded by default except for the input artifacts to post-processors that explicitly state to keep the input artifact.
+
+Note: The intuitive reader may be wondering what happens if multiple post-processors are specified (not in a sequence). Does Packer require the configuration to keep the input artifact on all the post-processors? The answer is no, of course not. Packer is smart enough to figure out that at least one post-processor requested that the input be kept, so it will keep it around.
+» Run on Specific Builds
+You can use the only or except configurations to run a post-processor only with specific builds. These two configurations do what you expect: only will only run the post-processor on the specified builds and except will run the post-processor on anything other than the specified builds.
+
+An example of only being used is shown below, but the usage of except is effectively the same. only and except can only be specified on "detailed" configurations. If you have a sequence of post-processors to run, only and except will only affect that single post-processor in the sequence.
+
+{
+  "type": "vagrant",
+  "only": ["virtualbox-iso"]
+}
+The values within only or except are build names, not builder types. If you recall, build names by default are just their builder type, but if you specify a custom name parameter, then you should use that as the value instead of the type.
+
+
+
+===================		Provisioner Definition
+A provisioner definition is a JSON object that must contain at least the type key. This key specifies the name of the provisioner to use. Additional keys within the object are used to configure the provisioner, with the exception of a handful of special keys, covered later.
+
+As an example, the "shell" provisioner requires a key such as script which specifies a path to a shell script to execute within the machines being created.
+
+An example provisioner definition is shown below, configuring the shell provisioner to run a local script within the machines:
+
+{
+  "type": "shell",
+  "script": "script.sh"
+}
+» Run on Specific Builds
+You can use the only or except configurations to run a provisioner only with specific builds. These two configurations do what you expect: only will only run the provisioner on the specified builds and except will run the provisioner on anything other than the specified builds.
+
+An example of only being used is shown below, but the usage of except is effectively the same:
+
+{
+  "type": "shell",
+  "script": "script.sh",
+  "only": ["virtualbox-iso"]
+}
+
+
+
+Pausing Before Running
+With certain provisioners it is sometimes desirable to pause for some period of time before running it. Specifically, in cases where a provisioner reboots the machine, you may want to wait for some period of time before starting the next provisioner.
+
+Every provisioner definition in a Packer template can take a special configuration pause_before that is the amount of time to pause before running that provisioner. By default, there is no pause. An example is shown below:
+
+{
+  "type": "shell",
+  "script": "script.sh",
+  "pause_before": "10s"
+}
+For the above provisioner, Packer will wait 10 seconds before uploading and executing the shell script.
+
+
+==================		Template User Variables
+
+In order to set a user variable, you must define it either within the variables section within your template, or using the command-line -var or -var-file flags.
+
+Even if you want a user variable to default to an empty string, it is best to explicitly define it. This explicitness helps reduce the time it takes for newcomers to understand what can be modified using variables in your template.
+
+The variables section is a key/value mapping of the user variable name to a default value. A default value can be the empty string. An example is shown below:
+
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    // ...
+  }]
+}
+In the above example, the template defines two user variables: aws_access_key and aws_secret_key. They default to empty values. Later, the variables are used within the builder we defined in order to configure the actual keys for the Amazon builder.
+
+If the default value is null, then the user variable will be required. This means that the user must specify a value for this variable or template validation will fail.
+
+User variables are used by calling the {{user}} function in the form of {{user `variable`}}. This function can be used in any value but type within the template: in builders, provisioners, anywhere outside the variables section. User variables are available globally within the rest of the template.
+
+
+
+Environment Variables
+Environment variables can be used within your template using user variables. The env function is available only within the default value of a user variable, allowing you to default a user variable to an environment variable. An example is shown below:
+
+
+{
+  "variables": {
+    "my_secret": "{{env `MY_SECRET`}}",
+  }
+}
+This will default "my_secret" to be the value of the "MY_SECRET" environment variable (or an empty string if it does not exist).
+
+
+=============		Consul keys
+Consul keys can be used within your template using the consul_key function. This function is available only within the default value of a user variable, for reasons similar to environment variables above.
+
+{
+    "variables": {
+        "soft_versions": "{{ consul_key `my_image/softs_versions/next` }}"
+    }
+}
+This will default soft_versions to the value of the key my_image/softs_versions/next in consul.
+
+The configuration for consul (address, tokens, ...) must be specified as environment variables, as specified in the Documentation.
+
+Setting Variables
+Now that we covered how to define and use user variables within a template, the next important point is how to actually set these variables. Packer exposes two methods for setting user variables: from the command line or from a file.
+
+» From the Command Line
+
+To set user variables from the command line, the -var flag is used as a parameter to packer build (and some other commands). Continuing our example above, we could build our template using the command below. The command is split across multiple lines for readability, but can of course be a single line.
+
+$ packer build \
+    -var 'aws_access_key=foo' \
+    -var 'aws_secret_key=bar' \
+    template.json
+As you can see, the -var flag can be specified multiple times in order to set multiple variables. Also, variables set later on the command-line override any earlier set variable of the same name.
+
+warning If you are calling Packer from cmd.exe, you should double-quote your variables rather than single-quoting them. For example:
+
+packer build -var "aws_secret_key=foo" template.json
+
+» From a File
+
+Variables can also be set from an external JSON file. The -var-file flag reads a file containing a key/value mapping of variables to values and sets those variables. An example JSON file may look like this:
+
+{
+  "aws_access_key": "foo",
+  "aws_secret_key": "bar"
+}
+It is a single JSON object where the keys are variables and the values are the variable values. Assuming this file is in variables.json, we can build our template using the following command:
+
+On Linux :
+$ packer build -var-file=variables.json template.json
+On Windows :
+packer build -var-file variables.json template.json
+The -var-file flag can be specified multiple times and variables from multiple files will be read and applied. As you'd expect, variables read from files specified later override a variable set earlier.
+
+Combining the -var and -var-file flags together also works how you'd expect. Variables set later in the command override variables set earlier. So, for example, in the following command with the above variables.json file:
+
+$ packer build \
+    -var 'aws_access_key=bar' \
+    -var-file=variables.json \
+    -var 'aws_secret_key=baz' \
+    template.json
+
+Results in the following variables:
+
+Variable	Value
+aws_access_key	foo
+aws_secret_key	baz
+
+
+
+Sensitive Variables
+If you use the environment to set a variable that is sensitive, you probably don't want that variable printed to the Packer logs. You can make sure that sensitive variables won't get printed to the logs by adding them to the "sensitive-variables" list within the Packer template:
+
+{
+  "variables": {
+    "my_secret": "{{env `MY_SECRET`}}",
+    "not_a_secret": "plaintext",
+    "foo": "bar"
+  },
+
+  "sensitive-variables": ["my_secret", "foo"],
+  ...
+}
+The above snippet of code will function exactly the same as if you did not set "sensitive-variables", except that the Packer UI and logs will replace all instances of "bar" and of whatever the value of "my_secret" is with <sensitive>. This allows you to be confident that you are not printing secrets in plaintext to our logs by accident.
+
+
+
+Making a provisioner step conditional on the value of a variable
+There is no specific syntax in Packer templates for making a provisioner step conditional, depending on the value of a variable. However, you may be able to do this by referencing the variable within a command that you execute. For example, here is how to make a shell-local provisioner only run if the do_nexpose_scan variable is non-empty.
+
+{
+  "type": "shell-local",
+  "command": "if [ ! -z \"{{user `do_nexpose_scan`}}\" ]; then python -u trigger_nexpose_scan.py; fi"
+}
+» Using HOME Variable
+In order to use $HOME variable, you can create a home variable in Packer:
+
+{
+  "variables": {
+    "home": "{{env `HOME`}}"
+  }
+}
+And this will be available to be used in the rest of the template, i.e.:
+
+{
+  "builders": [
+    {
+      "type":"google",
+      "account_file": "{{ user `home` }}/.secrets/gcp-{{ user `env` }}.json"
+    }
+  ]
+}
+
+
+
+

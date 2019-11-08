@@ -5672,6 +5672,59 @@ archives_queue_size='16384'
 
 
 
+=============== Monitoring security policies
+Wazuh uses three components to perform this task: Rootcheck, OpenSCAP and CIS-CAT.
+
+Alerts related to policy monitoring:
+
+512: Windows Audit
+514: Windows Application
+516: Unix Audit
+
+================OpenSCAP
+Overwriting the timeout
+
+It is possible to overwrite the timeout for a specific evaluation:
+
+<wodle name="open-scap">
+
+    <timeout>1800</timeout>
+
+    <content type="xccdf" path="ssg-centos-7-ds.xml">
+        <timeout>120</timeout>
+    </content>
+
+    <content type="xccdf" path="ssg-centos-6-ds.xml"/>
+
+</wodle>
+Using profiles
+
+We can limit the evaluation to only specific profiles of a policy:
+
+<wodle name="open-scap">
+
+    <content type="xccdf" path="ssg-centos-7-ds.xml">
+        <profile>xccdf_org.ssgproject.content_profile_standard</profile>
+        <profile>xccdf_org.ssgproject.content_profile_pci-dss</profile>
+    </content>
+
+    <content type="xccdf" path="ssg-centos-6-ds.xml"/>
+
+</wodle>
+
+-----Using CPE dictionary
+
+You can also optionally specify the CPE dictionary file, which is used to determine which checks are relevant to specific platforms.
+
+<wodle name="open-scap">
+
+    <content type="xccdf" path=policy="ssg-centos-7-ds.xml">
+        <cpe>file.xml</cpe>
+    </content>
+
+    <content type="xccdf" path="ssg-centos-6-ds.xml" />
+
+</wodle>
 
 
 
